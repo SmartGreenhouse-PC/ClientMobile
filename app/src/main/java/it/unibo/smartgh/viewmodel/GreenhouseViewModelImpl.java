@@ -10,8 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.unibo.smartgh.data.homepage.GreenhouseRepository;
-import it.unibo.smartgh.data.homepage.GreenhouseRepositoryImpl;
+import it.unibo.smartgh.data.greenhouse.GreenhouseRepository;
+import it.unibo.smartgh.data.greenhouse.GreenhouseRepositoryImpl;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;

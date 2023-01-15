@@ -1,11 +1,10 @@
-package it.unibo.smartgh.data.homepage;
+package it.unibo.smartgh.data.greenhouse;
 
 import android.util.Log;
 
 import com.google.gson.Gson;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
