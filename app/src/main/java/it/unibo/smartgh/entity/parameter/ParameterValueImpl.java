@@ -1,7 +1,5 @@
 package it.unibo.smartgh.entity.parameter;
 
-import androidx.annotation.NonNull;
-
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,7 +12,6 @@ public class ParameterValueImpl implements ParameterValue {
     private Date date;
     private Double value;
     private String status;
-    private String unit;
 
     /**
      * Empty constructor of plant value
@@ -75,16 +72,6 @@ public class ParameterValueImpl implements ParameterValue {
     }
 
     @Override
-    public String getUnit() {
-        return unit;
-    }
-
-    @Override
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -97,7 +84,6 @@ public class ParameterValueImpl implements ParameterValue {
         return Objects.hash(greenhouseId, date, value);
     }
 
-    @NonNull
     @Override
     public String toString() {
         return "PlantValue{" +
