@@ -47,7 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:text="Current value"
-            android:textAlignment="left"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textStyle="bold" />
 
@@ -57,7 +56,6 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="Optimal Range"
-            android:textAlignment="left"
             android:layout_gravity="left" />
 
         <LinearLayout
