@@ -2,15 +2,15 @@ package it.unibo.smartgh.data.homepage;
 
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
-import it.unibo.smartgh.viewmodel.HomepageViewModel;
+import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
 
 public class GreenhouseRepository {
 
     private static final String GREENHOUSE_ID = "";
     private final GreenhouseRemoteDataSource greenhouseRemoteDataSource;
-    private final HomepageViewModel viewModel;
+    private final GreenhouseViewModel viewModel;
 
-    public GreenhouseRepository(HomepageViewModel viewModel) {
+    public GreenhouseRepository(GreenhouseViewModel viewModel) {
         this.viewModel = viewModel;
         this.greenhouseRemoteDataSource = new GreenhouseRemoteDataSourceImpl(this, GREENHOUSE_ID);
     }
