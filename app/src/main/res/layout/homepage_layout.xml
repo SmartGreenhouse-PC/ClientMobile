@@ -4,9 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginTop="10dp"
+    android:layout_margin="10dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -14,27 +12,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageButton
             android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:id="@+id/plant_image"
+            android:layout_height="150dp"
+            android:id="@+id/plantImage"
             android:layout_margin="10dp"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"
-            android:contentDescription="@string/l_immagine_della_pianta_coltivata">
-        </ImageView>
+            tools:srcCompat="@tools:sample/backgrounds/scenic">
+
+        </androidx.appcompat.widget.AppCompatImageButton>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:divider="@drawable/divider"
-            app:showDividers="middle"
+            android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:text="@string/pianta_coltivata"/>
 
@@ -48,19 +43,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:text="@string/stato_serra"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/greenhouse_status"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 tools:text="@tools:sample/lorem"/>
 
@@ -72,15 +60,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:id="@+id/manual_control_button"
         android:text="@string/imposta_controllo_manuale"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/housework_recycler_view"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/homepage_parameter"/>
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginBottom="80dp"-->
+<!--        android:id="@+id/housework_recycler_view"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+<!--        app:spanCount="2"-->
+<!--        tools:listitem="@layout/homepage_parameter"/>-->
 
 </androidx.appcompat.widget.LinearLayoutCompat>
