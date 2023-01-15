@@ -1,4 +1,4 @@
-package it.unibo.smartgh.data.homepage;
+package it.unibo.smartgh.data.greenhouse;
 
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;

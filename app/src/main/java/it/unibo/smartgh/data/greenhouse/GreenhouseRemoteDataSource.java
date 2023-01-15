@@ -1,4 +1,4 @@
-package it.unibo.smartgh.data.homepage;
+package it.unibo.smartgh.data.greenhouse;
 
 public interface GreenhouseRemoteDataSource {
 
