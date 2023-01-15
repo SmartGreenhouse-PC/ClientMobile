@@ -4,6 +4,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Optional;
 
+import it.unibo.smartgh.R;
+
 /**
  * The enum that represents the possible types of Parameter.
  */
@@ -12,29 +14,31 @@ public enum ParameterType {
     /**
      * The brightness parameter.
      */
-    BRIGHTNESS("Luminosità", "brightness"),
+    BRIGHTNESS("Luminosità", "brightness", R.drawable.ic_brightness),
 
     /**
      * The soil moisture parameter.
      */
-    SOIL_MOISTURE("Umidità del suolo", "soilMoisture"),
+    SOIL_MOISTURE("Umidità del suolo", "soilMoisture", R.drawable.ic_soil_moisture),
 
     /**
      * The humidity parameter.
      */
-    HUMIDITY("Umidità dell'aria", "humidity"),
+    HUMIDITY("Umidità dell'aria", "humidity", R.drawable.ic_humidity),
 
     /**
      * The temperature parameter.
      */
-    TEMPERATURE("Temperatura", "temperature");
+    TEMPERATURE("Temperatura", "temperature", R.drawable.ic_temperature);
 
     private final String title;
     private final String name;
+    private final int imageId;
 
-    ParameterType(String title, String name) {
+    ParameterType(String title, String name, int imageId) {
         this.title = new String(title.getBytes(), StandardCharsets.UTF_8);
         this.name = name;
+        this.imageId = imageId;
     }
 
     /**
@@ -57,8 +61,8 @@ public enum ParameterType {
      * Gets the parameter's image path.
      * @return the image path
      */
-    public String getImagePath() {
-        return "/images/" + this.name + ".png";
+    public int getImagePath() {
+        return imageId;
     }
 
     /**
