@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.utility.ActivityUtilities;
+import it.unibo.smartgh.view.homepage.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
