@@ -62,13 +62,13 @@
         android:layout_margin="20dp"
         android:text="@string/imposta_controllo_manuale"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="80dp"
-        android:id="@+id/housework_recycler_view"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/homepage_parameter"/>
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginBottom="80dp"-->
+<!--        android:id="@+id/housework_recycler_view"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+<!--        app:spanCount="2"-->
+<!--        tools:listitem="@layout/homepage_parameter"/>-->
 
 </androidx.appcompat.widget.LinearLayoutCompat>
