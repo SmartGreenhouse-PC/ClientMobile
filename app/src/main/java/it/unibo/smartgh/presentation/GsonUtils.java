@@ -2,10 +2,11 @@ package it.unibo.smartgh.presentation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.unibo.smartgh.model.GreenhouseImpl;
-import it.unibo.smartgh.model.OperationImpl;
-import it.unibo.smartgh.model.ParameterValueImpl;
-import it.unibo.smartgh.model.PlantImpl;
+
+import it.unibo.smartgh.entity.greenhouse.GreenhouseImpl;
+import it.unibo.smartgh.entity.operation.OperationImpl;
+import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
+import it.unibo.smartgh.entity.plant.PlantImpl;
 import it.unibo.smartgh.presentation.deserializer.GreenhouseDeserializer;
 import it.unibo.smartgh.presentation.deserializer.OperationDeserializer;
 import it.unibo.smartgh.presentation.deserializer.ParameterValueDeserializer;
