@@ -89,7 +89,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                     this.greenhouse.setId(this.id);
                     this.plant = greenhouse.getPlant();
                     this.unit = plant.getUnitMap();
-                    this.repository.updatePlantInformation(plant.getName(), plant.getDescription(), plant.getImg());
+                    this.repository.updatePlantInformation(this.plant);
                     this.repository.updateParameterOptimalValues(ParameterType.BRIGHTNESS, plant.getMinBrightness(),
                             plant.getMaxBrightness(), this.unit.get(ParameterType.BRIGHTNESS.getName()));
                     this.repository.updateParameterOptimalValues(ParameterType.SOIL_MOISTURE, plant.getMinSoilMoisture(),
