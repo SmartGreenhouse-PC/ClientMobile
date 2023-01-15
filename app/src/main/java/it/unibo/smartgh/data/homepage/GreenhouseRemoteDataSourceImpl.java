@@ -1,5 +1,7 @@
 package it.unibo.smartgh.data.homepage;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 import java.util.Arrays;
@@ -22,6 +24,7 @@ import it.unibo.smartgh.presentation.GsonUtils;
 
 public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSource {
 
+    private static final String TAG = GreenhouseRemoteDataSourceImpl.class.getSimpleName();
     private static final int PORT = 8890;
     private final static int SOCKET_PORT = 1234;
     private static final String HOST = "192.168.0.108";
@@ -61,12 +64,16 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
         server.webSocket(SOCKET_PORT, SOCKET_HOST, "/",
                 wsC -> {
                 WebSocket ctx = wsC.result();
-                    ctx.textMessageHandler(msg -> {
-                    JsonObject json = new JsonObject(msg);
-                    if (json.getValue("greenhouseId").equals(this.id)) {
-                        Optional<ParameterType> parameter = ParameterType.parameterOf(json.getString("parameterName"));
-                        parameter.ifPresent(parameterType -> this.repository.updateParameterValue(parameterType,
-                                new ParameterValueImpl(this.id, new Date(), json.getDouble("value"))));
+                Log.i(TAG, "Connected to socket");
+                ctx.textMessageHandler(msg -> {
+                JsonObject json = new JsonObject(msg);
+                Log.i(TAG, msg);
+                if (json.getValue("greenhouseId").equals(this.id)) {
+                    Optional<ParameterType> parameter = ParameterType.parameterOf(json.getString("parameterName"));
+                    parameter.ifPresent(parameterType -> {
+                        final ParameterValue parameterValue = gson.fromJson(msg, ParameterValueImpl.class);
+                        this.repository.updateParameterValue(parameterType, parameterValue);
+                    });
             }});
         });
     }
@@ -121,6 +128,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                                                     break;
                                                 }
                                             }
+                                            value.setStatus(inRange ? "normal" : "alarm");
                                             this.repository.updateParameterValue(p, value);
                                         })));
     }

@@ -11,6 +11,7 @@ public class ParameterValueImpl implements ParameterValue {
     private String greenhouseId;
     private Date date;
     private Double value;
+    private String status;
 
     /**
      * Empty constructor of plant value
@@ -61,6 +62,16 @@ public class ParameterValueImpl implements ParameterValue {
     }
 
     @Override
+    public String getStatus() {
+        return status;
+    }
+
+    @Override
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -79,6 +90,7 @@ public class ParameterValueImpl implements ParameterValue {
                 "greenhouseId='" + greenhouseId + '\'' +
                 ", date=" + date +
                 ", value=" + value +
+                ", status=" + status +
                 '}';
     }
 }

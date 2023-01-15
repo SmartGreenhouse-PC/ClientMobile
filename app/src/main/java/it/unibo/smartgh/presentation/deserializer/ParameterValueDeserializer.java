@@ -24,6 +24,7 @@ public class ParameterValueDeserializer  extends GeneralDeserializer implements 
                 throw new JsonParseException("Not a valid date format (dd/MM/yyyy - HH:mm:ss)");
             }
             plantValue.setValue(this.getPropertyAs(object, "value", Double.class, context));
+            plantValue.setStatus(this.getPropertyAsString(object, "status"));
         }else{
             throw new JsonParseException("Not a valid plant value: " + plantValue);
         }
