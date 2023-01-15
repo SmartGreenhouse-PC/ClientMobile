@@ -1,7 +1,5 @@
 package it.unibo.smartgh.data.homepage;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 
 import java.util.Arrays;
@@ -10,7 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.WebSocket;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
@@ -26,7 +25,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     private static final int PORT = 8890;
     private final static int SOCKET_PORT = 1234;
     private static final String HOST = "192.168.0.108";
-    private final static String SOCKET_HOST = "localhost";
+    private final static String SOCKET_HOST = "192.168.0.108";
     private final static String BASE_PATH = "/clientCommunication";
     private static final String GREENHOUSE_PATH = BASE_PATH + "/greenhouse";
     private static final String PARAMETER_PATH = BASE_PATH + "/parameter";
@@ -37,7 +36,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     private GreenhouseImpl greenhouse;
     private Plant plant;
     private Map<String, String> unit;
-    private HttpServer server;
+    private HttpClient server;
 
     public GreenhouseRemoteDataSourceImpl(GreenhouseRepository repository, String id) {
         this.vertx =  Vertx.vertx();
@@ -48,7 +47,6 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
 
     @Override
     public void initializeData() {
-        Log.e("DS", "initializeData");
         this.updateView();
         this.setSocket();
     }
@@ -59,33 +57,27 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     }
 
     private void setSocket() {
-        Log.e("DS", "setSocket");
-        server = vertx.createHttpServer();
-        server.webSocketHandler(ctx -> ctx.textMessageHandler(msg -> {
-            JsonObject json = new JsonObject(msg);
-            if (json.getValue("greenhouseId").equals(this.id)) {
-                Log.e("GreenhouseRemoteDataSourceImpl", "Received " + msg);
-                Optional<ParameterType> parameter = ParameterType.parameterOf(json.getString("parameterName"));
-                parameter.ifPresent(parameterType -> this.repository.updateParameterValue(parameterType,
-                        new ParameterValueImpl(this.id, new Date(), json.getDouble("value"))));
-            }
-        })).listen(SOCKET_PORT, SOCKET_HOST)
-                .onSuccess(res -> Log.e("DS", "Connected"))
-                .onFailure(e -> {
-                    Log.e("DS", "FAILURE " + e.getMessage());
-            e.printStackTrace();
+        server = vertx.createHttpClient();
+        server.webSocket(SOCKET_PORT, SOCKET_HOST, "/",
+                wsC -> {
+                WebSocket ctx = wsC.result();
+                    ctx.textMessageHandler(msg -> {
+                    JsonObject json = new JsonObject(msg);
+                    if (json.getValue("greenhouseId").equals(this.id)) {
+                        Optional<ParameterType> parameter = ParameterType.parameterOf(json.getString("parameterName"));
+                        parameter.ifPresent(parameterType -> this.repository.updateParameterValue(parameterType,
+                                new ParameterValueImpl(this.id, new Date(), json.getDouble("value"))));
+            }});
         });
     }
 
     private void updateView() {
-        Log.e("DS", "updateView");
         WebClient client = WebClient.create(vertx);
         client.get(PORT, HOST, GREENHOUSE_PATH)
                 .addQueryParam("id", id)
                 .as(BodyCodec.string())
                 .send()
                 .onSuccess(res -> {
-                    Log.e("GR", "res: " + res.body());
                     this.greenhouse = gson.fromJson(res.body(), GreenhouseImpl.class);
                     this.greenhouse.setId(this.id);
                     this.plant = greenhouse.getPlant();
