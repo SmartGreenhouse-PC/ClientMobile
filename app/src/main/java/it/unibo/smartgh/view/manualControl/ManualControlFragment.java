@@ -8,8 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,14 +52,24 @@ public class ManualControlFragment extends Fragment {
         if(activity != null){
             //todo setup toolbar
             setRecyclerView();
+            final OperationViewModel operationViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(OperationViewModelImpl.class);
+            this.operationAdapter.setOperationViewModel(operationViewModel);
             SwitchCompat manualControlSwitch = view.findViewById(R.id.manualControlChoice);
-            manualControlSwitch.setOnCheckedChangeListener((button, b) ->{
-                this.operationAdapter.updateModality(b);
+            manualControlSwitch.setOnCheckedChangeListener((button, isChecked) ->{
+                if(isChecked){
+                    operationViewModel.getLastParameterOperation(ParameterType.BRIGHTNESS.getName());
+                    operationViewModel.getLastParameterOperation(ParameterType.TEMPERATURE.getName());
+                    operationViewModel.getLastParameterOperation(ParameterType.HUMIDITY.getName());
+                    operationViewModel.getLastParameterOperation(ParameterType.SOIL_MOISTURE.getName());
+                }
+                this.operationAdapter.updateModality(isChecked);
                 //todo passaggio a modalità diversa
             });
             final GreenhouseViewModel greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
-            final OperationViewModel operationViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(OperationViewModelImpl.class);
             //operationViewModel.sendNewOperation("temperature", "TEMPERATURE increase");
+            operationViewModel.getAllLastOperationsParameter().observe((LifecycleOwner) activity, map -> {
+               operationAdapter.setLastOperation(map);
+            });
             greenhouseViewModel.getPlantLiveData().observe((LifecycleOwner) activity, plant -> operationAdapter.setPlant(plant));
             greenhouseViewModel.getParameterValueLiveData().observe((LifecycleOwner) activity, map ->{
                 System.out.println("New data arrived.");

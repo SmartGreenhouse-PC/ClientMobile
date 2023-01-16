@@ -1,7 +1,6 @@
 package it.unibo.smartgh.data.operation;
 
 
-import io.vertx.core.Future;
 import it.unibo.smartgh.entity.operation.Operation;
 
 public interface OperationRemoteDataSource {
@@ -15,7 +14,6 @@ public interface OperationRemoteDataSource {
      * Get the last operation performed on a parameter.
      * @param parameter on which the last operation is performed
      * @param id greenhouse id
-     * @return the operation
      */
-    Future<Operation> getLastParameterOperation(String parameter, String id);
+    void getLastParameterOperation(String parameter, String id);
 }

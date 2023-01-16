@@ -1,7 +1,7 @@
 package it.unibo.smartgh.data.operation;
 
-import io.vertx.core.Future;
 import it.unibo.smartgh.entity.operation.Operation;
+import it.unibo.smartgh.entity.parameter.ParameterType;
 
 public interface OperationRepository {
     /**
@@ -16,5 +16,7 @@ public interface OperationRepository {
      * @param parameter on which the last operation is performed
      * @return the operation
      */
-    Future<Operation> getLastParameterOperation(String parameter);
+    void getLastParameterOperation(String parameter);
+
+    void updateParameterOperation(ParameterType parameter, Operation operation);
 }

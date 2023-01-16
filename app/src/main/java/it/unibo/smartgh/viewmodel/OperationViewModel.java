@@ -1,7 +1,11 @@
 package it.unibo.smartgh.viewmodel;
 
-import io.vertx.core.Future;
+import androidx.lifecycle.LiveData;
+
+import java.util.Map;
+
 import it.unibo.smartgh.entity.operation.Operation;
+import it.unibo.smartgh.entity.parameter.ParameterType;
 
 public interface OperationViewModel {
     /**
@@ -14,7 +18,10 @@ public interface OperationViewModel {
     /**
      * Get the last operation performed on a parameter.
      * @param parameter on which the last operation is performed
-     *                  TODO change return
      */
     void getLastParameterOperation(String parameter);
+
+    LiveData<Map<ParameterType, Operation>> getAllLastOperationsParameter();
+
+    void updateParameterOperation(ParameterType parameter, Operation operation);
 }
