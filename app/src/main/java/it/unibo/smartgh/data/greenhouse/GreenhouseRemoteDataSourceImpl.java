@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
@@ -87,16 +88,16 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                     this.greenhouse = gson.fromJson(res.body(), GreenhouseImpl.class);
                     this.greenhouse.setId(this.id);
                     this.plant = greenhouse.getPlant();
-                    this.unit = plant.getUnitMap();
                     this.repository.updatePlantInformation(this.plant);
-                    this.repository.updateParameterOptimalValues(ParameterType.BRIGHTNESS, plant.getMinBrightness(),
-                            plant.getMaxBrightness(), this.unit.get(ParameterType.BRIGHTNESS.getName()));
-                    this.repository.updateParameterOptimalValues(ParameterType.SOIL_MOISTURE, plant.getMinSoilMoisture(),
-                            plant.getMaxSoilMoisture(), this.unit.get(ParameterType.SOIL_MOISTURE.getName()));
-                    this.repository.updateParameterOptimalValues(ParameterType.HUMIDITY, plant.getMinHumidity(), plant.getMaxHumidity(),
-                            this.unit.get(ParameterType.HUMIDITY.getName()));
-                    this.repository.updateParameterOptimalValues(ParameterType.TEMPERATURE, plant.getMinTemperature(),
-                            plant.getMaxTemperature(), this.unit.get(ParameterType.TEMPERATURE.getName()));
+//                    this.unit = plant.getUnitMap();
+//                    this.repository.updateParameterOptimalValues(ParameterType.BRIGHTNESS, plant.getMinBrightness(),
+//                            plant.getMaxBrightness(), this.unit.get(ParameterType.BRIGHTNESS.getName()));
+//                    this.repository.updateParameterOptimalValues(ParameterType.SOIL_MOISTURE, plant.getMinSoilMoisture(),
+//                            plant.getMaxSoilMoisture(), this.unit.get(ParameterType.SOIL_MOISTURE.getName()));
+//                    this.repository.updateParameterOptimalValues(ParameterType.HUMIDITY, plant.getMinHumidity(), plant.getMaxHumidity(),
+//                            this.unit.get(ParameterType.HUMIDITY.getName()));
+//                    this.repository.updateParameterOptimalValues(ParameterType.TEMPERATURE, plant.getMinTemperature(),
+//                            plant.getMaxTemperature(), this.unit.get(ParameterType.TEMPERATURE.getName()));
                 })
                 .onFailure(Throwable::printStackTrace)
                 .andThen(res ->
@@ -108,27 +109,21 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                                         .send()
                                         .onSuccess(r -> {
                                             final ParameterValue value = gson.fromJson(r.body(), ParameterValueImpl.class);
-                                            boolean inRange = true;
-                                            switch (p) {
-                                                case BRIGHTNESS: {
-                                                    inRange = value.getValue() < this.plant.getMaxBrightness() && value.getValue() > this.plant.getMinBrightness();
-                                                    break;
-                                                }
-                                                case SOIL_MOISTURE: {
-                                                    inRange = value.getValue() < this.plant.getMaxSoilMoisture() && value.getValue() > this.plant.getMinSoilMoisture();
-                                                    break;
-                                                }
-                                                case HUMIDITY: {
-                                                    inRange = value.getValue() < this.plant.getMaxHumidity() && value.getValue() > this.plant.getMinHumidity();
-                                                    break;
-                                                }
-                                                case TEMPERATURE: {
-                                                    inRange = value.getValue() < this.plant.getMaxTemperature() && value.getValue() > this.plant.getMinTemperature();
-                                                    break;
-                                                }
-                                            }
-                                            value.setStatus(inRange ? "normal" : "alarm");
+                                            double min = this.paramOptimalValue("Min", p.getName(), plant);
+                                            double max = this.paramOptimalValue("Max", p.getName(), plant);
+                                            value.setStatus(value.getValue() < max && value.getValue() > min ? "normal" : "alarm");
                                             this.repository.updateParameterValue(p, value);
-                                        })));
+                                        }).onFailure(Throwable::printStackTrace)));
+
+    }
+
+    private Double paramOptimalValue(String type, String param, Plant plant){
+        String paramName = param.substring(0, 1).toUpperCase() + param.substring(1);
+        try {
+            Class<?> c = Class.forName(Plant.class.getName());
+            return (Double) c.getDeclaredMethod("get"+type+paramName).invoke(plant);
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
