@@ -58,6 +58,7 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
 
     @Override
     public void updateParameterValue(ParameterType parameter, ParameterValue parameterValue) {
+        System.out.println("update parameter value");
         Map<ParameterType, ParameterValue> map = parameterValueLiveData.getValue();
         if (map != null) {
             map.put(parameter, parameterValue);
