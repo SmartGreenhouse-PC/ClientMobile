@@ -12,14 +12,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatImageButton
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:id="@+id/plantImage"
+            android:id="@+id/plant_image"
             android:layout_margin="10dp"
             tools:srcCompat="@tools:sample/backgrounds/scenic">
 
-        </androidx.appcompat.widget.AppCompatImageButton>
+        </androidx.appcompat.widget.AppCompatImageView>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -49,6 +49,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/greenhouse_status"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 tools:text="@tools:sample/lorem"/>
 
@@ -62,13 +63,13 @@
         android:layout_margin="20dp"
         android:text="@string/imposta_controllo_manuale"/>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginBottom="80dp"-->
-<!--        android:id="@+id/housework_recycler_view"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
-<!--        app:spanCount="2"-->
-<!--        tools:listitem="@layout/homepage_parameter"/>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
+        android:id="@+id/housework_recycler_view"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/homepage_parameter"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
