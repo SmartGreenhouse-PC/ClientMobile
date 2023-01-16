@@ -1,7 +1,6 @@
 package it.unibo.smartgh.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -14,7 +13,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import it.unibo.smartgh.data.greenhouse.GreenhouseRepository;
 import it.unibo.smartgh.data.greenhouse.GreenhouseRepositoryImpl;
@@ -28,8 +26,9 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
 
     protected final GreenhouseRepository greenhouseRepository;
     private final MutableLiveData<Plant> plantLiveData;
-    private final List<Triple<ParameterType, String, String>> parameterList;
-    private final MutableLiveData<List<Triple<ParameterType, String, String>>> parametersLiveData;
+    private final List<Triple<ParameterType, ParameterValue, String>> parameterList;
+    private final MutableLiveData<List<Triple<ParameterType, ParameterValue, String>>> parametersLiveData;
+    private final MutableLiveData<String> statusLiveData;
 
     protected final MutableLiveData<Map<ParameterType, ParameterValue>> parameterValueLiveData;
     protected final MutableLiveData<Map<ParameterType, String>> optimalValuesLiveData;
@@ -43,11 +42,12 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         parameterList = initializeList();
         parametersLiveData = new MutableLiveData<>(parameterList);
         greenhouseRepository.initializeData();
+        statusLiveData = new MutableLiveData<>();
     }
 
-    private List<Triple<ParameterType, String, String>> initializeList() {
-        List<Triple<ParameterType, String, String>> list = new LinkedList<>();
-        Arrays.stream(ParameterType.values()).forEach(p -> list.add(new Triple<>(p, "", "")));
+    private List<Triple<ParameterType, ParameterValue, String>> initializeList() {
+        List<Triple<ParameterType, ParameterValue, String>> list = new LinkedList<>();
+        Arrays.stream(ParameterType.values()).forEach(p -> list.add(new Triple<>(p, new ParameterValueImpl(), "")));
         return list;
     }
 
@@ -67,7 +67,7 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
             final String unit = plant.getUnitMap().get(p.component1().getName());
             double min = this.paramOptimalValue("Min", p.component1().getName(), plant);
             double max = this.paramOptimalValue("Max", p.component1().getName(), plant);
-            final String optimalValue = String.join(" ", String.valueOf(min), "-", String.valueOf(max), unit);
+            final String optimalValue = min + " - " + max + " " + unit;
             return new Triple<>(p.component1(), p.component2(), optimalValue);
         });
         this.parametersLiveData.postValue(this.parameterList);
@@ -92,11 +92,11 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         }
         parameterValueLiveData.postValue(map);
 
-
-        final String value = parameterValue.getValue() + " " + plantLiveData.getValue().getUnitMap().get(parameter.getName());
-        parameterList.replaceAll(p -> p.component1().equals(parameter) ? new Triple<>(p.component1(), value, p.component3()) : p);
-        if (parameterList.stream().noneMatch(p -> p.component2().isEmpty())) {
+        parameterList.replaceAll(p -> p.component1().equals(parameter) ?
+                new Triple<>(p.component1(), parameterValue, p.component3()) : p);
+        if (parameterList.stream().noneMatch(p -> p.component2().getValue() == null)) {
             parametersLiveData.postValue(parameterList);
+            this.statusLiveData.postValue(this.parameterList.stream().anyMatch(p -> p.component2().getStatus().equals("alarm")) ? "ALLARME" : "NORMALE");
         }
     }
 
@@ -116,9 +116,15 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
     }
 
     @Override
-    public LiveData<List<Triple<ParameterType, String, String>>> getParametersLiveData() {
+    public LiveData<List<Triple<ParameterType, ParameterValue, String>>> getParametersLiveData() {
         return parametersLiveData;
     }
+
+    @Override
+    public LiveData<String> getStatusLiveData() {
+        return statusLiveData;
+    }
+
     private Double paramOptimalValue(String type, String param, Plant plant){
         String paramName = param.substring(0, 1).toUpperCase() + param.substring(1);
         try {

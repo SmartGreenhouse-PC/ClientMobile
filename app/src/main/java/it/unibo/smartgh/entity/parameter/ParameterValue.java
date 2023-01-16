@@ -54,4 +54,8 @@ public interface ParameterValue {
      * @param status the parameter status
      */
     void setStatus(String status);
+
+    String getUnit();
+
+    void setUnit(String unit);
 }
