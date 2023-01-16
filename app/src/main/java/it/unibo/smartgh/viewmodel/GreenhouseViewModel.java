@@ -23,5 +23,7 @@ public interface GreenhouseViewModel {
 
     LiveData<Plant> getPlantLiveData();
 
-    LiveData<List<Triple<ParameterType, String, String>>> getParametersLiveData();
+    LiveData<List<Triple<ParameterType, ParameterValue, String>>> getParametersLiveData();
+
+    LiveData<String> getStatusLiveData();
 }

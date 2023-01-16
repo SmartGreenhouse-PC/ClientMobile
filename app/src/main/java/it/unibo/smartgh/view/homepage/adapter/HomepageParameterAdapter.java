@@ -1,7 +1,6 @@
 package it.unibo.smartgh.view.homepage.adapter;
 
 import android.app.Activity;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
-import it.unibo.smartgh.entity.plant.Plant;
 import it.unibo.smartgh.view.recyclerview.Adapter;
 import kotlin.Triple;
 
-public class HomepageParameterAdapter extends RecyclerView.Adapter<HomepageParameterViewHolder> implements Adapter<Triple<ParameterType, String, String>> {
+public class HomepageParameterAdapter extends RecyclerView.Adapter<HomepageParameterViewHolder> implements Adapter<Triple<ParameterType, ParameterValue, String>> {
 
     private final Activity activity;
-    private List<Triple<ParameterType, String, String>> parameterList;
+    private List<Triple<ParameterType, ParameterValue, String>> parameterList;
 
     public HomepageParameterAdapter(Activity activity) {
         this.activity = activity;
@@ -40,10 +37,11 @@ public class HomepageParameterAdapter extends RecyclerView.Adapter<HomepageParam
 
     @Override
     public void onBindViewHolder(@NonNull HomepageParameterViewHolder holder, int position) {
-        final Triple<ParameterType, String, String> param = parameterList.get(position);
+        final Triple<ParameterType, ParameterValue, String> param = parameterList.get(position);
+        final String value = param.component2().getValue() + " " + param.component2().getUnit();
         holder.getParameterName().setText(param.component1().getTitle());
         holder.getParameterImage().setImageDrawable(ContextCompat.getDrawable(activity, param.component1().getImagePath()));
-        holder.getParameterCurrentValue().setText(param.component2());
+        holder.getParameterCurrentValue().setText(value);
         holder.getParameterOptimalValue().setText(param.component3());
     }
 
@@ -53,7 +51,7 @@ public class HomepageParameterAdapter extends RecyclerView.Adapter<HomepageParam
     }
 
     @Override
-    public void setData(List<Triple<ParameterType, String, String>> data) {
+    public void setData(List<Triple<ParameterType, ParameterValue, String>> data) {
         this.parameterList = data;
         notifyDataSetChanged();
     }

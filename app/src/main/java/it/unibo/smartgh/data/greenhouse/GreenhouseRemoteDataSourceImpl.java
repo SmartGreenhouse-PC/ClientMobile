@@ -72,6 +72,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                     Optional<ParameterType> parameter = ParameterType.parameterOf(json.getString("parameterName"));
                     parameter.ifPresent(parameterType -> {
                         final ParameterValue parameterValue = gson.fromJson(msg, ParameterValueImpl.class);
+                        parameterValue.setUnit(plant.getUnitMap().get(parameterType.getName()));
                         this.repository.updateParameterValue(parameterType, parameterValue);
                     });
             }});
@@ -112,6 +113,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                                             double min = this.paramOptimalValue("Min", p.getName(), plant);
                                             double max = this.paramOptimalValue("Max", p.getName(), plant);
                                             value.setStatus(value.getValue() < max && value.getValue() > min ? "normal" : "alarm");
+                                            value.setUnit(plant.getUnitMap().get(p.getName()));
                                             this.repository.updateParameterValue(p, value);
                                         }).onFailure(Throwable::printStackTrace)));
 

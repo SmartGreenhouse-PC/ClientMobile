@@ -57,12 +57,8 @@ public class HomeFragment extends Fragment {
                 plantImage.setImageURI(Uri.parse(plant.getImg()));
                 plantName.setText(plant.getName());
             });
-            viewModel.getParametersLiveData().observe((LifecycleOwner) activity, list -> {
-                this.homepageParameterAdapter.setData(list);
-                Log.e("HF", "set data" + list);
-                //todo
-//                plantName.setText(map.get(ParameterType.TEMPERATURE).getValue().toString());
-            });
+            viewModel.getParametersLiveData().observe((LifecycleOwner) activity, homepageParameterAdapter::setData);
+            viewModel.getStatusLiveData().observe((LifecycleOwner) activity, greenhouseStatus::setText);
         }
     }
 
