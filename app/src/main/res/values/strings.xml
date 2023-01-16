@@ -3,5 +3,6 @@
     <string name="pianta_coltivata">Pianta Coltivata</string>
     <string name="stato_serra">Stato serra</string>
     <string name="imposta_controllo_manuale">Imposta controllo manuale</string>
-    <string name="l_immagine_della_pianta_coltivata">L\'immagine della pianta coltivata</string>
+    <string name="valore_attuale">Valore Attuale:</string>
+    <string name="range_ottimale">Range ottimale:</string>
 </resources>

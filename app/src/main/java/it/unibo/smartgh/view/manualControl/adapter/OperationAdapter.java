@@ -1,20 +1,21 @@
 package it.unibo.smartgh.view.manualControl.adapter;
 
 
+import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.smartgh.R;
-import it.unibo.smartgh.entity.operation.Operation;
-import it.unibo.smartgh.entity.parameter.Parameter;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.plant.Plant;
@@ -24,9 +25,11 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
 
     private List<Pair<ParameterType, ParameterValue>> parameterList;
     private Plant plant;
+    private final Activity activity;
 
-    public OperationAdapter() {
+    public OperationAdapter(Activity activity) {
         this.parameterList = new ArrayList<>();
+        this.activity = activity;
     }
 
     @Override
@@ -47,31 +50,29 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
     public void onBindViewHolder(@NonNull OperationViewHolder holder, int position) {
         System.out.println("On bind view holder called");
         final Pair<ParameterType, ParameterValue> element = parameterList.get(position);
-        holder.getParameterName().setText(element.first.getName());
+        holder.getParameterName().setText(element.first.getTitle());
         holder.getCurrentValue().setText(String.valueOf(element.second.getValue()));
         if(this.plant != null) {
-            this.setOptimalValues(element.first, holder);
+            this.setElement(element.first, holder);
         }
-        //todo impostare optimal range impostare operazioni
     }
 
-    private void setOptimalValues(ParameterType parameter, OperationViewHolder holder) {
+    private void setElement(ParameterType parameter, OperationViewHolder holder) {
         switch (parameter) {
             case BRIGHTNESS:
-                holder.getOptimalRange().setText(plant.getMinBrightness() + " - " + plant.getMaxBrightness());
+                this.setBrightnessElement(holder);
                 break;
             case TEMPERATURE:
-                holder.getOptimalRange().setText(plant.getMinTemperature() + " - " + plant.getMaxTemperature());
+               this.setTemperatureElement(holder);
                 break;
             case HUMIDITY:
-                holder.getOptimalRange().setText(plant.getMinHumidity() + " - " + plant.getMaxHumidity());
+               this.setHumidityElement(holder);
                 break;
             case SOIL_MOISTURE:
-                holder.getOptimalRange().setText(plant.getMinSoilMoisture() + " - " + plant.getMaxSoilMoisture());
+                this.setSoilMoistureElement(holder);
                 break;
             default:
                 break;
-
         }
 
     }
@@ -81,6 +82,29 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
         return this.parameterList.size();
     }
 
+    private void setBrightnessElement(OperationViewHolder holder){
+        Drawable drawable = ContextCompat.getDrawable(this.activity, R.drawable.ic_brightness);
+        holder.getParameterImage().setImageDrawable(drawable);
+        holder.getOptimalRange().setText(plant.getMinBrightness() + " - " + plant.getMaxBrightness());
+    }
+
+    private void setTemperatureElement(OperationViewHolder holder){
+        Drawable drawable = ContextCompat.getDrawable(this.activity, R.drawable.ic_temperature);
+        holder.getParameterImage().setImageDrawable(drawable);
+        holder.getOptimalRange().setText(plant.getMinTemperature() + " - " + plant.getMaxTemperature());
+    }
+
+    private void setHumidityElement(OperationViewHolder holder){
+        Drawable drawable = ContextCompat.getDrawable(this.activity, R.drawable.ic_humidity);
+        holder.getParameterImage().setImageDrawable(drawable);
+        holder.getOptimalRange().setText(plant.getMinHumidity() + " - " + plant.getMaxHumidity());
+    }
+
+    private void setSoilMoistureElement(OperationViewHolder holder){
+        Drawable drawable = ContextCompat.getDrawable(this.activity, R.drawable.ic_soil_moisture);
+        holder.getParameterImage().setImageDrawable(drawable);
+        holder.getOptimalRange().setText(plant.getMinSoilMoisture() + " - " + plant.getMaxSoilMoisture());
+    }
 
     public void setPlant(Plant plant) {
         this.plant = plant;

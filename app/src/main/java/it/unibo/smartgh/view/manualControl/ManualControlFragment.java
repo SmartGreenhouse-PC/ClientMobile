@@ -69,7 +69,7 @@ public class ManualControlFragment extends Fragment {
     private void setRecyclerView(){
         final RecyclerView recyclerView = requireView().findViewById(R.id.manual_control_recycler_view);
         recyclerView.setHasFixedSize(true);
-        this.operationAdapter = new OperationAdapter();
+        this.operationAdapter = new OperationAdapter(getActivity());
         recyclerView.setAdapter(this.operationAdapter);
     }
 }
