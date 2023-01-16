@@ -29,6 +29,8 @@ import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModelImpl;
+import it.unibo.smartgh.viewmodel.OperationViewModel;
+import it.unibo.smartgh.viewmodel.OperationViewModelImpl;
 
 public class ManualControlFragment extends Fragment {
     private OperationAdapter operationAdapter;
@@ -58,6 +60,8 @@ public class ManualControlFragment extends Fragment {
                 //todo passaggio a modalità diversa
             });
             final GreenhouseViewModel greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
+            final OperationViewModel operationViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(OperationViewModelImpl.class);
+            //operationViewModel.sendNewOperation("temperature", "TEMPERATURE increase");
             greenhouseViewModel.getPlantLiveData().observe((LifecycleOwner) activity, plant -> operationAdapter.setPlant(plant));
             greenhouseViewModel.getParameterValueLiveData().observe((LifecycleOwner) activity, map ->{
                 System.out.println("New data arrived.");
