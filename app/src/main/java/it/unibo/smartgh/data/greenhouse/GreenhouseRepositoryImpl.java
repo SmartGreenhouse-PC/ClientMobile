@@ -35,4 +35,6 @@ public class GreenhouseRepositoryImpl implements GreenhouseRepository {
     public void updateParameterValue(ParameterType parameter, ParameterValue parameterValue) {
         this.viewModel.updateParameterValue(parameter, parameterValue);
     }
+
+    //todo add metodo put modality che richiama RemoteDataSource
 }

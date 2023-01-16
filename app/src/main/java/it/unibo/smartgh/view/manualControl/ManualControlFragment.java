@@ -61,12 +61,12 @@ public class ManualControlFragment extends Fragment {
                     operationViewModel.getLastParameterOperation(ParameterType.TEMPERATURE.getName());
                     operationViewModel.getLastParameterOperation(ParameterType.HUMIDITY.getName());
                     operationViewModel.getLastParameterOperation(ParameterType.SOIL_MOISTURE.getName());
-                }
+                    //Todo richiamo modalità manuale su greenhouseViewModel
+                }//todo else richiamo modalità automatica greenhouseViewModel
                 this.operationAdapter.updateModality(isChecked);
                 //todo passaggio a modalità diversa
             });
             final GreenhouseViewModel greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
-            //operationViewModel.sendNewOperation("temperature", "TEMPERATURE increase");
             operationViewModel.getAllLastOperationsParameter().observe((LifecycleOwner) activity, map -> {
                operationAdapter.setLastOperation(map);
             });

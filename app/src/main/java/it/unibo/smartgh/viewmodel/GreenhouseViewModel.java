@@ -20,4 +20,6 @@ public interface GreenhouseViewModel {
     LiveData<Map<ParameterType, String>> getOptimalParameterLiveData();
 
     LiveData<Plant> getPlantLiveData();
+
+    //todo add metod put modality
 }

@@ -4,5 +4,7 @@ public interface GreenhouseRemoteDataSource {
 
     void initializeData();
 
+    //todo add method put modality
+
     void closeSocket();
 }

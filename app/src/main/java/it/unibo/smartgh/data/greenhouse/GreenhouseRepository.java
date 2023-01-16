@@ -12,4 +12,6 @@ public interface GreenhouseRepository {
     void updateParameterOptimalValues(ParameterType parameterType, Double minBrightness, Double maxBrightness, String unit);
 
     void updateParameterValue(ParameterType parameter, ParameterValue parameterValue);
+
+    //todo add metodo put modality
 }
