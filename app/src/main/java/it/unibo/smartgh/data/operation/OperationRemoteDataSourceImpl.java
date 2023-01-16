@@ -7,10 +7,14 @@ import com.google.gson.Gson;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
+import io.vertx.ext.web.codec.BodyCodec;
 import it.unibo.smartgh.entity.operation.Operation;
+import it.unibo.smartgh.entity.operation.OperationImpl;
 import it.unibo.smartgh.presentation.GsonUtils;
 
 public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
@@ -21,7 +25,7 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
     private final Vertx vertx;
     private final Gson gson;
 
-    public OperationRemoteDataSourceImpl() {
+    public OperationRemoteDataSourceImpl(OperationRepositoryImpl operationRepository) {
         this.vertx = Vertx.vertx(); //vertx; TODO
         this.gson = GsonUtils.createGson(); //gson;
     }
@@ -39,5 +43,22 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
                         .put("parameter", operation.getParameter())
                         .put("action", operation.getAction())
                 );
+    }
+
+    @Override
+    public Future<Operation> getLastParameterOperation(String parameter, String id) {
+        Promise<Operation> p = Promise.promise();
+        WebClient client = WebClient.create(vertx);
+        client.get(PORT, HOST, BASE_PATH + "/"+parameter)
+                .addQueryParam("id", id)
+                .addQueryParam("limit", String.valueOf(1))
+                .as(BodyCodec.string())
+                .send()
+                .onSuccess(r -> {
+                    Operation operation = gson.fromJson(r.body(), OperationImpl.class);
+                    p.complete(operation);
+                });
+
+        return p.future();
     }
 }
