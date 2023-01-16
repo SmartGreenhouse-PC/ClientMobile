@@ -3,6 +3,7 @@ package it.unibo.smartgh.view.homepage;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,6 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import it.unibo.smartgh.R;
-import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.utility.ActivityUtilities;
 import it.unibo.smartgh.view.homepage.adapter.HomepageParameterAdapter;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
@@ -57,8 +57,9 @@ public class HomeFragment extends Fragment {
                 plantImage.setImageURI(Uri.parse(plant.getImg()));
                 plantName.setText(plant.getName());
             });
-            viewModel.getParameterValueLiveData().observe((LifecycleOwner) activity, map -> {
-//                this.homepageParameterAdapter.setData();
+            viewModel.getParametersLiveData().observe((LifecycleOwner) activity, list -> {
+                this.homepageParameterAdapter.setData(list);
+                Log.e("HF", "set data" + list);
                 //todo
 //                plantName.setText(map.get(ParameterType.TEMPERATURE).getValue().toString());
             });
@@ -68,7 +69,7 @@ public class HomeFragment extends Fragment {
     private void setRecyclerView() {
         final RecyclerView recyclerView = requireView().findViewById(R.id.housework_recycler_view);
         recyclerView.setHasFixedSize(true);
-        this.homepageParameterAdapter = new HomepageParameterAdapter();
+        this.homepageParameterAdapter = new HomepageParameterAdapter(this.activity);
         recyclerView.setAdapter(this.homepageParameterAdapter);
     }
 
