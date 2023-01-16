@@ -11,15 +11,18 @@
         android:id="@+id/manualControlChoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checked="true"
+        android:checked="false"
         android:layout_weight="1"
-        android:text="Controllo manuale:"
+        android:text="@string/controllo_manuale"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textSize="16sp"
         android:layout_gravity="center"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="80dp"
+        android:paddingTop="4dp"
         android:id="@+id/manual_control_recycler_view"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:operationitem="@layout/manual_control_parameter_card_layout"/>

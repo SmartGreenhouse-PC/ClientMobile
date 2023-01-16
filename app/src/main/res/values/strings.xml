@@ -5,4 +5,5 @@
     <string name="imposta_controllo_manuale">Imposta controllo manuale</string>
     <string name="valore_attuale">Valore Attuale:</string>
     <string name="range_ottimale">Range ottimale:</string>
+    <string name="controllo_manuale">Controllo manuale:</string>
 </resources>

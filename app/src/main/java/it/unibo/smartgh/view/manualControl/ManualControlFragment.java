@@ -8,10 +8,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -50,6 +52,11 @@ public class ManualControlFragment extends Fragment {
         if(activity != null){
             //todo setup toolbar
             setRecyclerView();
+            SwitchCompat manualControlSwitch = view.findViewById(R.id.manualControlChoice);
+            manualControlSwitch.setOnCheckedChangeListener((button, b) ->{
+                this.operationAdapter.updateModality(b);
+                //todo passaggio a modalità diversa
+            });
             final GreenhouseViewModel greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
             greenhouseViewModel.getPlantLiveData().observe((LifecycleOwner) activity, plant -> operationAdapter.setPlant(plant));
             greenhouseViewModel.getParameterValueLiveData().observe((LifecycleOwner) activity, map ->{

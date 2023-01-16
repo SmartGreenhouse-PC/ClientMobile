@@ -26,8 +26,8 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     private static final String TAG = GreenhouseRemoteDataSourceImpl.class.getSimpleName();
     private static final int PORT = 8890;
     private final static int SOCKET_PORT = 1234;
-    private static final String HOST = "192.168.1.26";
-    private final static String SOCKET_HOST = "192.168.1.26";
+    private static final String HOST = "192.168.1.35";
+    private final static String SOCKET_HOST = "192.168.1.35";
     private final static String BASE_PATH = "/clientCommunication";
     private static final String GREENHOUSE_PATH = BASE_PATH + "/greenhouse";
     private static final String PARAMETER_PATH = BASE_PATH + "/parameter";
