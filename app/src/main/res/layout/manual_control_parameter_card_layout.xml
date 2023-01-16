@@ -9,7 +9,11 @@
     app:strokeWidth="1dp"
     app:cardElevation="@dimen/cardview_default_elevation"
     app:cardCornerRadius="10dp"
-    android:transitionName="plant_card_transition">
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,14 +30,16 @@
                 android:id="@+id/parameterImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart ="5dp"
                 app:srcCompat="@drawable/ic_launcher_foreground"
                 android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/parameterName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_marginStart ="5dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textStyle="bold"
                 android:layout_gravity="center"/>
         </LinearLayout>
@@ -48,17 +54,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart ="5dp"
                 android:layout_gravity="start"
                 android:text="@string/valore_attuale"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="16sp"
+                />
 
             <TextView
                 android:id="@+id/currentValue"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                android:layout_marginStart ="10dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textSize="16sp"
+                />
 
         </LinearLayout>
 
@@ -73,16 +86,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart ="5dp"
                 android:text="@string/range_ottimale"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/optimalRange"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_gravity="end" />
+                android:layout_marginStart ="10dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textSize="16sp"
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
@@ -90,7 +107,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/operationsLayout"></LinearLayout>
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:id="@+id/operationsLayout">
+
+        </LinearLayout>
 
 
     </LinearLayout>
