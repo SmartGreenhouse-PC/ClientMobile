@@ -80,4 +80,6 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
     public LiveData<Plant> getPlantLiveData() {
         return plantLiveData;
     }
+
+    //todo add metodo put modality che  richiama repository
 }
