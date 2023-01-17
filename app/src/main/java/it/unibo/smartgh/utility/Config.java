@@ -23,9 +23,4 @@ public interface Config {
      */
     int getSocketPort();
 
-    /**
-     * Build the sever url.
-     * @return the url of the server
-     */
-    String buildUrl();
 }

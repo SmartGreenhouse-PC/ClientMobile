@@ -37,8 +37,4 @@ public class ConfigImpl implements Config {
         return socketPort;
     }
 
-    @Override
-    public String buildUrl() {
-        return "http://" + this.host + ":" + this.port + "/";
-    }
 }
