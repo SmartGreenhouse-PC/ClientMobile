@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:id="@+id/homepage_parameter_current_value"
+            android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             tools:text="@tools:sample/lorem"/>
 
