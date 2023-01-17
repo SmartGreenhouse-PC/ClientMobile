@@ -9,6 +9,10 @@ import java.util.Map;
 import it.unibo.smartgh.entity.plant.Plant;
 import it.unibo.smartgh.entity.plant.PlantBuilder;
 
+/**
+ * Custom {@link JsonDeserializer} for the {@link Plant} class. Used to convert a JSON object
+ * into an {@link Plant} object.
+ */
 public class PlantDeserializer  extends GeneralDeserializer implements JsonDeserializer<Plant> {
     @Override
     public Plant deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

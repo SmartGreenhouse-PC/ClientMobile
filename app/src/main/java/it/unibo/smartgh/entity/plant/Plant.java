@@ -3,7 +3,7 @@ package it.unibo.smartgh.entity.plant;
 import java.util.Map;
 
 /**
- * The Plant entity interface
+ * The Plant entity interface.
  */
 public interface Plant {
 
@@ -66,13 +66,13 @@ public interface Plant {
     Double getMaxHumidity();
 
     /**
-     * Get the plant image link
+     * Get the plant image link.
      * @return the plant image link
      */
     String getImg();
 
     /**
-     * Get the map of units <parameterName, unit>
+     * Get the map of units <parameterName, unit>.
      * @return the map of units <parameterName, unit>
      */
     Map<String, String> getUnitMap();
