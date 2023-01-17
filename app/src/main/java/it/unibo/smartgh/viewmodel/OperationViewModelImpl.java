@@ -15,6 +15,8 @@ import it.unibo.smartgh.data.operation.OperationRepositoryImpl;
 import it.unibo.smartgh.entity.operation.Operation;
 import it.unibo.smartgh.entity.operation.OperationImpl;
 import it.unibo.smartgh.entity.parameter.ParameterType;
+import it.unibo.smartgh.utility.ActivityUtilities;
+import it.unibo.smartgh.utility.Config;
 
 public class OperationViewModelImpl extends AndroidViewModel implements OperationViewModel{
     private final OperationRepository operationRepository;
@@ -22,7 +24,8 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
 
     public OperationViewModelImpl(@NonNull Application application) {
         super(application);
-        this.operationRepository = new OperationRepositoryImpl(this);
+        Config config = ActivityUtilities.getConfig(application);
+        this.operationRepository = new OperationRepositoryImpl(this, config.getHost(), config.getPort());
         this.operationsLiveData = new MutableLiveData<>(this.initializeMap(new OperationImpl()));
     }
 
