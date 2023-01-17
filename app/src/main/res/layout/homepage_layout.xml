@@ -72,6 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:id="@+id/manual_control_button"
         android:text="@string/imposta_controllo_manuale"/>
 
     <androidx.recyclerview.widget.RecyclerView
