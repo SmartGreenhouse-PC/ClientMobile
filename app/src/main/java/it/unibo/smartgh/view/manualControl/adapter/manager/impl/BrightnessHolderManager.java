@@ -9,6 +9,7 @@ import android.widget.SeekBar;
 
 import androidx.core.content.ContextCompat;
 
+import it.unibo.smartgh.R;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
@@ -55,7 +56,7 @@ public class BrightnessHolderManager extends AbstractParameterHolderManager {
         };
 
         int[] colors = new int[] {
-                Color.parseColor("#fcec03"),
+                ContextCompat.getColor(activity, R.color.brightness),
                 Color.LTGRAY,
         };
         this.seekbar.setEnabled(this.modality);

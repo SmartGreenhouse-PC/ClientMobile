@@ -10,4 +10,5 @@
     <color name="normal">#04B700</color>
     <color name="alarm">#a1101d</color>
     <color name="alarm_background">#F8D7DA</color>
+    <color name="brightness">#fcec03</color>
 </resources>
