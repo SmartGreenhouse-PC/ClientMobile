@@ -1,23 +1,25 @@
 package it.unibo.smartgh.view.homepage;
 
 import android.app.Activity;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.utility.ActivityUtilities;
@@ -50,15 +52,24 @@ public class HomeFragment extends Fragment {
             ActivityUtilities.setUpToolbar((AppCompatActivity) activity, "Smart Greenhouse");
             setRecyclerView();
             final TextView plantName = view.findViewById(R.id.plant_name);
-            final AppCompatImageView plantImage = view.findViewById(R.id.plant_image);
+            final ImageView plantImage = view.findViewById(R.id.plant_image);
             final TextView greenhouseStatus = view.findViewById(R.id.greenhouse_status);
             final GreenhouseViewModel viewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
             viewModel.getPlantLiveData().observe((LifecycleOwner) activity, plant -> {
-                plantImage.setImageURI(Uri.parse(plant.getImg()));
+                Picasso.get().load(plant.getImg()).into(plantImage);
                 plantName.setText(plant.getName());
             });
             viewModel.getParametersLiveData().observe((LifecycleOwner) activity, homepageParameterAdapter::setData);
-            viewModel.getStatusLiveData().observe((LifecycleOwner) activity, greenhouseStatus::setText);
+            viewModel.getStatusLiveData().observe((LifecycleOwner) activity, state -> {
+                greenhouseStatus.setText(state);
+                if (state.equals("ALLARME")) {
+                    greenhouseStatus.setTextColor(ContextCompat.getColor(activity, R.color.alarm));
+                    greenhouseStatus.setBackgroundColor(ContextCompat.getColor(activity, R.color.alarm_background));
+                } else {
+                    greenhouseStatus.setTextColor(ContextCompat.getColor(activity, R.color.normal));
+                    greenhouseStatus.setBackgroundColor(Color.TRANSPARENT);
+                }
+            });
         }
     }
 

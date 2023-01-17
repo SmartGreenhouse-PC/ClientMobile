@@ -41,8 +41,13 @@ public class HomepageParameterAdapter extends RecyclerView.Adapter<HomepageParam
         final String value = param.component2().getValue() + " " + param.component2().getUnit();
         holder.getParameterName().setText(param.component1().getTitle());
         holder.getParameterImage().setImageDrawable(ContextCompat.getDrawable(activity, param.component1().getImagePath()));
-        holder.getParameterCurrentValue().setText(value);
         holder.getParameterOptimalValue().setText(param.component3());
+        holder.getParameterCurrentValue().setText(value);
+        if (param.component2().getStatus() != null) {
+            holder.getParameterCurrentValue().setTextColor(ContextCompat.getColor(activity,
+                    param.component2().getStatus().equals("alarm") ? R.color.alarm :
+                            R.color.normal));
+        }
     }
 
     @Override
