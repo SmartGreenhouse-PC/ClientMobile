@@ -71,16 +71,9 @@ public class ManualControlFragment extends Fragment {
                 }
             });
 
-            operationViewModel.getAllLastOperationsParameter().observe((LifecycleOwner) activity, map -> {
-               operationAdapter.setLastOperation(map);
-            });
+            operationViewModel.getAllLastOperationsParameter().observe((LifecycleOwner) activity, map -> operationAdapter.setLastOperation(map));
             greenhouseViewModel.getPlantLiveData().observe((LifecycleOwner) activity, plant -> operationAdapter.setPlant(plant));
-            greenhouseViewModel.getParameterValueLiveData().observe((LifecycleOwner) activity, map ->{
-                System.out.println("New data arrived.");
-                List<Pair<ParameterType, ParameterValue>> list = new ArrayList<>();
-                map.forEach((k,v) -> list.add(new Pair<>(k,v)));
-               operationAdapter.setData(list);
-            });
+            greenhouseViewModel.getParametersLiveData().observe((LifecycleOwner) activity, list -> operationAdapter.setData(list));
         }
     }
 

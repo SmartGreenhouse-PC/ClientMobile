@@ -18,15 +18,6 @@ public interface GreenhouseRepository {
     void updatePlantInformation(Plant plant);
 
     /**
-     * Update the view parameter information.
-     * @param parameterType type of the parameter
-     * @param min value of the parameter.
-     * @param max value of the parameter.
-     * @param unit of measurement of the parameter.
-     */
-    void updateParameterOptimalValues(ParameterType parameterType, Double min, Double max, String unit);
-
-    /**
      * Update the view parameter value.
      * @param parameter type of the parameter.
      * @param parameterValue new value.

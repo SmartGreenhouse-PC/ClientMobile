@@ -28,11 +28,6 @@ public class GreenhouseRepositoryImpl implements GreenhouseRepository {
     }
 
     @Override
-    public void updateParameterOptimalValues(ParameterType parameterType, Double min, Double max, String unit) {
-        this.viewModel.updateParameterInfo(parameterType, min, max, unit);
-    }
-
-    @Override
     public void updateParameterValue(ParameterType parameter, ParameterValue parameterValue) {
         this.viewModel.updateParameterValue(parameter, parameterValue);
     }
