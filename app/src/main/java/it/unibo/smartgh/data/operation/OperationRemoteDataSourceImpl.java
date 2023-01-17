@@ -20,7 +20,7 @@ import it.unibo.smartgh.presentation.GsonUtils;
 public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
     private static final String TAG = OperationRemoteDataSourceImpl.class.getSimpleName();
     private static final int PORT = 8890;
-    private static final String HOST = "192.168.1.35";
+    private static final String HOST = "192.168.3.232";
     private final static String BASE_PATH = "/clientCommunication/operations";
     private final Vertx vertx;
     private final Gson gson;
@@ -34,7 +34,6 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
 
     @Override
     public void sendNewOperation(Operation operation) {
-        System.out.println("Send OPERATION " + operation.toString());
         WebClient client = WebClient.create(vertx);
         @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
         client.post(PORT, HOST, BASE_PATH)
@@ -58,8 +57,9 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
                 .as(BodyCodec.string())
                 .send()
                 .onSuccess(r -> {
-                    Operation operation = gson.fromJson(new JsonArray(r.body()).getJsonObject(0).toString(), OperationImpl.class);
-                    if(operation.getAction() != null) {
+                    JsonArray jsonArray = new JsonArray(r.body());
+                    if (!jsonArray.isEmpty()) {
+                        Operation operation = gson.fromJson(jsonArray.getJsonObject(0).toString(), OperationImpl.class);
                         operationRepository.updateParameterOperation(ParameterType.parameterOf(operation.getParameter()).get(), operation);
                     }
                 });

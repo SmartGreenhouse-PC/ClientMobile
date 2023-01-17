@@ -15,6 +15,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
 import it.unibo.smartgh.entity.greenhouse.GreenhouseImpl;
+import it.unibo.smartgh.entity.greenhouse.Modality;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
@@ -26,8 +27,8 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     private static final String TAG = GreenhouseRemoteDataSourceImpl.class.getSimpleName();
     private static final int PORT = 8890;
     private final static int SOCKET_PORT = 1234;
-    private static final String HOST = "192.168.1.35";
-    private final static String SOCKET_HOST = "192.168.1.35";
+    private static final String HOST = "192.168.3.232";
+    private final static String SOCKET_HOST = "192.168.3.232";
     private final static String BASE_PATH = "/clientCommunication";
     private static final String GREENHOUSE_PATH = BASE_PATH + "/greenhouse";
     private static final String PARAMETER_PATH = BASE_PATH + "/parameter";
@@ -56,6 +57,17 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     @Override
     public void closeSocket() {
         this.server.close();
+    }
+
+    @Override
+    public void putModality(String greenhouseId, Modality modality) {
+        WebClient client = WebClient.create(vertx);
+        client.post(PORT, HOST, GREENHOUSE_PATH + "/modality")
+                .putHeader("Content-Type", "application/json")
+                .sendJsonObject(new JsonObject()
+                        .put("id", greenhouseId)
+                        .put("modality", modality.name())
+                );
     }
 
     private void setSocket() {
@@ -88,6 +100,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                     this.greenhouse.setId(this.id);
                     this.plant = greenhouse.getPlant();
                     this.unit = plant.getUnitMap();
+                    this.repository.updateModality(this.greenhouse.getActualModality());
                     this.repository.updatePlantInformation(this.plant);
                     this.repository.updateParameterOptimalValues(ParameterType.BRIGHTNESS, plant.getMinBrightness(),
                             plant.getMaxBrightness(), this.unit.get(ParameterType.BRIGHTNESS.getName()));
@@ -131,6 +144,4 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                                             this.repository.updateParameterValue(p, value);
                                         })));
     }
-
-    //todo add metod put modality
 }
