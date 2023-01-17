@@ -59,7 +59,9 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
                 .send()
                 .onSuccess(r -> {
                     Operation operation = gson.fromJson(new JsonArray(r.body()).getJsonObject(0).toString(), OperationImpl.class);
-                    operationRepository.updateParameterOperation(ParameterType.parameterOf(operation.getParameter()).get(), operation);
+                    if(operation.getAction() != null) {
+                        operationRepository.updateParameterOperation(ParameterType.parameterOf(operation.getParameter()).get(), operation);
+                    }
                 });
 
     }
