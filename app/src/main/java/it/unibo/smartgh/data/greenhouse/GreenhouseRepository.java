@@ -1,17 +1,47 @@
 package it.unibo.smartgh.data.greenhouse;
 
+import it.unibo.smartgh.entity.greenhouse.Modality;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.plant.Plant;
 
 public interface GreenhouseRepository {
+    /**
+     * Initialize the view with the greenhouse data.
+     */
     void initializeData();
 
+    /**
+     * Update the view plant information.
+     * @param plant containing the information.
+     */
     void updatePlantInformation(Plant plant);
 
-    void updateParameterOptimalValues(ParameterType parameterType, Double minBrightness, Double maxBrightness, String unit);
+    /**
+     * Update the view parameter information.
+     * @param parameterType type of the parameter
+     * @param min value of the parameter.
+     * @param max value of the parameter.
+     * @param unit of measurement of the parameter.
+     */
+    void updateParameterOptimalValues(ParameterType parameterType, Double min, Double max, String unit);
 
+    /**
+     * Update the view parameter value.
+     * @param parameter type of the parameter.
+     * @param parameterValue new value.
+     */
     void updateParameterValue(ParameterType parameter, ParameterValue parameterValue);
 
-    //todo add metodo put modality
+    /**
+     * Update greenhouse management modality.
+     * @param modality the new modality
+     */
+    void changeModality(Modality modality);
+
+    /**
+     * Update the view modality.
+     * @param actualModality actual modality.
+     */
+    void updateModality(Modality actualModality);
 }

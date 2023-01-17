@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.smartgh.R;
+import it.unibo.smartgh.entity.greenhouse.Modality;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
@@ -53,20 +54,23 @@ public class ManualControlFragment extends Fragment {
             //todo setup toolbar
             setRecyclerView();
             final OperationViewModel operationViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(OperationViewModelImpl.class);
+            final GreenhouseViewModel greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
             this.operationAdapter.setOperationViewModel(operationViewModel);
             SwitchCompat manualControlSwitch = view.findViewById(R.id.manualControlChoice);
+            greenhouseViewModel.getModalityLiveData().observe((LifecycleOwner) activity, modality -> manualControlSwitch.setChecked(modality.equals(Modality.MANUAL)));
             manualControlSwitch.setOnCheckedChangeListener((button, isChecked) ->{
                 if(isChecked){
                     operationViewModel.getLastParameterOperation(ParameterType.BRIGHTNESS.getName());
                     operationViewModel.getLastParameterOperation(ParameterType.TEMPERATURE.getName());
                     operationViewModel.getLastParameterOperation(ParameterType.HUMIDITY.getName());
                     operationViewModel.getLastParameterOperation(ParameterType.SOIL_MOISTURE.getName());
-                    //Todo richiamo modalità manuale su greenhouseViewModel
-                }//todo else richiamo modalità automatica greenhouseViewModel
+                    greenhouseViewModel.changeModality(Modality.MANUAL);
+                } else {
+                    greenhouseViewModel.changeModality(Modality.AUTOMATIC);
+                }
                 this.operationAdapter.updateModality(isChecked);
-                //todo passaggio a modalità diversa
             });
-            final GreenhouseViewModel greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
+
             operationViewModel.getAllLastOperationsParameter().observe((LifecycleOwner) activity, map -> {
                operationAdapter.setLastOperation(map);
             });

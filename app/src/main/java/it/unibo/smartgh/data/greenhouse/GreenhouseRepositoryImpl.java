@@ -1,5 +1,6 @@
 package it.unibo.smartgh.data.greenhouse;
 
+import it.unibo.smartgh.entity.greenhouse.Modality;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.plant.Plant;
@@ -27,8 +28,8 @@ public class GreenhouseRepositoryImpl implements GreenhouseRepository {
     }
 
     @Override
-    public void updateParameterOptimalValues(ParameterType parameterType, Double minBrightness, Double maxBrightness, String unit) {
-        this.viewModel.updateParameterInfo(parameterType, minBrightness, maxBrightness, unit);
+    public void updateParameterOptimalValues(ParameterType parameterType, Double min, Double max, String unit) {
+        this.viewModel.updateParameterInfo(parameterType, min, max, unit);
     }
 
     @Override
@@ -36,5 +37,13 @@ public class GreenhouseRepositoryImpl implements GreenhouseRepository {
         this.viewModel.updateParameterValue(parameter, parameterValue);
     }
 
-    //todo add metodo put modality che richiama RemoteDataSource
+    @Override
+    public void changeModality(Modality modality) {
+        this.greenhouseRemoteDataSource.putModality(GREENHOUSE_ID, modality);
+    }
+
+    @Override
+    public void updateModality(Modality actualModality) {
+        this.viewModel.updateModality(actualModality);
+    }
 }

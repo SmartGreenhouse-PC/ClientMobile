@@ -12,6 +12,7 @@ import java.util.Map;
 
 import it.unibo.smartgh.data.greenhouse.GreenhouseRepository;
 import it.unibo.smartgh.data.greenhouse.GreenhouseRepositoryImpl;
+import it.unibo.smartgh.entity.greenhouse.Modality;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
@@ -23,6 +24,7 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
     protected final MutableLiveData<Map<ParameterType, ParameterValue>> parameterValueLiveData;
     protected final MutableLiveData<Map<ParameterType, String>> optimalValuesLiveData;
     private final MutableLiveData<Plant> plantLiveData;
+    private final MutableLiveData<Modality> modalityLiveData;
 
     public GreenhouseViewModelImpl(@NonNull Application application) {
         super(application);
@@ -30,6 +32,7 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         optimalValuesLiveData = new MutableLiveData<>(initializeMap(""));
         greenhouseRepository = new GreenhouseRepositoryImpl(this);
         plantLiveData = new MutableLiveData<>();
+        modalityLiveData = new MutableLiveData<>();
         greenhouseRepository.initializeData();
     }
 
@@ -48,10 +51,10 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
     }
 
     @Override
-    public void updateParameterInfo(ParameterType parameterType, Double minBrightness, Double maxBrightness, String unit) {
+    public void updateParameterInfo(ParameterType parameterType, Double min, Double max, String unit) {
         Map<ParameterType, String> map = optimalValuesLiveData.getValue();
         if (map != null) {
-            map.put(parameterType, minBrightness + " " + unit + " - " + maxBrightness + " " + unit);
+            map.put(parameterType, min + " " + unit + " - " + max + " " + unit);
         }
         optimalValuesLiveData.postValue(map);
     }
@@ -81,5 +84,18 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         return plantLiveData;
     }
 
-    //todo add metodo put modality che  richiama repository
+    @Override
+    public void changeModality(Modality modality) {
+        this.greenhouseRepository.changeModality(modality);
+    }
+
+    @Override
+    public void updateModality(Modality actualModality) {
+        this.modalityLiveData.postValue(actualModality);
+    }
+
+    @Override
+    public LiveData<Modality> getModalityLiveData() {
+        return this.modalityLiveData;
+    }
 }
