@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Optional;
 
 import io.vertx.core.Vertx;
@@ -25,23 +24,24 @@ import it.unibo.smartgh.presentation.GsonUtils;
 public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSource {
 
     private static final String TAG = GreenhouseRemoteDataSourceImpl.class.getSimpleName();
-    private static final int PORT = 8890;
-    private final static int SOCKET_PORT = 1234;
-    private static final String HOST = "192.168.0.108";
-    private final static String SOCKET_HOST = "192.168.0.108";
     private final static String BASE_PATH = "/clientCommunication";
     private static final String GREENHOUSE_PATH = BASE_PATH + "/greenhouse";
     private static final String PARAMETER_PATH = BASE_PATH + "/parameter";
+    private final int port;
+    private final int socketPort;
+    private final String host;
     private final GreenhouseRepository repository;
     private final Vertx vertx;
     private final String id;
     private final Gson gson;
     private GreenhouseImpl greenhouse;
     private Plant plant;
-    private Map<String, String> unit;
     private HttpClient server;
 
-    public GreenhouseRemoteDataSourceImpl(GreenhouseRepository repository, String id) {
+    public GreenhouseRemoteDataSourceImpl(String host, int port, int socketPort, String id, GreenhouseRepository repository) {
+        this.host = host;
+        this.port = port;
+        this.socketPort = socketPort;
         this.vertx =  Vertx.vertx();
         this.repository = repository;
         this.id = id;
@@ -61,7 +61,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
 
     private void setSocket() {
         server = vertx.createHttpClient();
-        server.webSocket(SOCKET_PORT, SOCKET_HOST, "/",
+        server.webSocket(socketPort, this.host, "/",
                 wsC -> {
                 WebSocket ctx = wsC.result();
                 Log.i(TAG, "Connected to socket");
@@ -81,7 +81,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
 
     private void updateView() {
         WebClient client = WebClient.create(vertx);
-        client.get(PORT, HOST, GREENHOUSE_PATH)
+        client.get(port, host, GREENHOUSE_PATH)
                 .addQueryParam("id", id)
                 .as(BodyCodec.string())
                 .send()
@@ -103,7 +103,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                 .onFailure(Throwable::printStackTrace)
                 .andThen(res ->
                         Arrays.stream(ParameterType.values()).forEach(p ->
-                                client.get(PORT, HOST, PARAMETER_PATH)
+                                client.get(port, host, PARAMETER_PATH)
                                         .addQueryParam("id", id)
                                         .addQueryParam("parameterName", p.getName())
                                         .as(BodyCodec.string())

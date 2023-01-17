@@ -11,9 +11,9 @@ public class GreenhouseRepositoryImpl implements GreenhouseRepository {
     private final GreenhouseRemoteDataSource greenhouseRemoteDataSource;
     private final GreenhouseViewModel viewModel;
 
-    public GreenhouseRepositoryImpl(GreenhouseViewModel viewModel) {
+    public GreenhouseRepositoryImpl(GreenhouseViewModel viewModel, String host, int port, int socketPort) {
         this.viewModel = viewModel;
-        this.greenhouseRemoteDataSource = new GreenhouseRemoteDataSourceImpl(this, GREENHOUSE_ID);
+        this.greenhouseRemoteDataSource = new GreenhouseRemoteDataSourceImpl(host, port, socketPort, GREENHOUSE_ID, this);
     }
 
     @Override
