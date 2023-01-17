@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.squareup.picasso.Picasso;
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.utility.ActivityUtilities;
 import it.unibo.smartgh.view.homepage.adapter.HomepageParameterAdapter;
+import it.unibo.smartgh.view.manualControl.ManualControlFragment;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModelImpl;
 
@@ -54,7 +56,9 @@ public class HomeFragment extends Fragment {
             final TextView plantName = view.findViewById(R.id.plant_name);
             final ImageView plantImage = view.findViewById(R.id.plant_image);
             final TextView greenhouseStatus = view.findViewById(R.id.greenhouse_status);
+            final Button manualControlButton = view.findViewById(R.id.manual_control_button);
             final GreenhouseViewModel viewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
+            manualControlButton.setOnClickListener(v -> ActivityUtilities.insertFragment((AppCompatActivity) activity, new ManualControlFragment(), ManualControlFragment.class.getSimpleName()));
             viewModel.getPlantLiveData().observe((LifecycleOwner) activity, plant -> {
                 Picasso.get().load(plant.getImg()).into(plantImage);
                 plantName.setText(plant.getName());
@@ -78,12 +82,5 @@ public class HomeFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         this.homepageParameterAdapter = new HomepageParameterAdapter(this.activity);
         recyclerView.setAdapter(this.homepageParameterAdapter);
-    }
-
-    /**
-     * Set the next view to show.
-     */
-    public void setNextView() {
-
     }
 }
