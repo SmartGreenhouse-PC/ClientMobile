@@ -59,6 +59,7 @@ public class ManualControlFragment extends Fragment {
             SwitchCompat manualControlSwitch = view.findViewById(R.id.manualControlChoice);
             greenhouseViewModel.getModalityLiveData().observe((LifecycleOwner) activity, modality -> manualControlSwitch.setChecked(modality.equals(Modality.MANUAL)));
             manualControlSwitch.setOnCheckedChangeListener((button, isChecked) ->{
+                this.operationAdapter.updateModality(isChecked);
                 if(isChecked){
                     operationViewModel.getLastParameterOperation(ParameterType.BRIGHTNESS.getName());
                     operationViewModel.getLastParameterOperation(ParameterType.TEMPERATURE.getName());
@@ -68,7 +69,6 @@ public class ManualControlFragment extends Fragment {
                 } else {
                     greenhouseViewModel.changeModality(Modality.AUTOMATIC);
                 }
-                this.operationAdapter.updateModality(isChecked);
             });
 
             operationViewModel.getAllLastOperationsParameter().observe((LifecycleOwner) activity, map -> {

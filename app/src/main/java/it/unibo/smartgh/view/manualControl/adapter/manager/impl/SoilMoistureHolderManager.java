@@ -19,9 +19,22 @@ public class SoilMoistureHolderManager extends AbstractParameterHolderManager {
     public static final String IRRIGATION = "IRRIGATION ";
 
     private Button soilMoistureButton;
+    private OperationViewHolder holder;
 
     public SoilMoistureHolderManager(Activity activity, OperationAdapter adapter){
         super(activity, adapter);
+        this.soilMoistureButton = new  Button(this.activity.getApplicationContext());
+    }
+
+    @Override
+    public void setHolder(OperationViewHolder holder) {
+        this.holder = holder;
+    }
+
+    @Override
+    public void setManualModality(Boolean modality) {
+        super.setManualModality(modality);
+        this.soilMoistureButton.setEnabled(this.modality);
     }
 
     @Override
@@ -32,18 +45,12 @@ public class SoilMoistureHolderManager extends AbstractParameterHolderManager {
         this.setSoilMoistureOperationElement();
     }
 
-    @Override
-    public void setManualModality(Boolean modality) {
-        this.soilMoistureButton.setEnabled(modality);
-    }
-
     public void setButtonTextSoilMoisture(String soilMoisture) {
         this.soilMoistureButton.setText(soilMoisture.equals(ATTIVA_IRRIGAZIONE) ? DISATTIVA_IRRIGAZIONE : ATTIVA_IRRIGAZIONE);
     }
 
     private void setSoilMoistureOperationElement() {
-        this.soilMoistureButton = new  Button(this.activity.getApplicationContext());
-        this.soilMoistureButton.setEnabled(false);
+        this.soilMoistureButton.setEnabled(this.modality);
         this.soilMoistureButton.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         this.soilMoistureButton.setText(ATTIVA_IRRIGAZIONE);
         this.soilMoistureButton.setOnClickListener(v -> {

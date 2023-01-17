@@ -15,14 +15,26 @@ import it.unibo.smartgh.view.manualControl.adapter.manager.ParameterHolderManage
 public class HumidityHolderManager extends AbstractParameterHolderManager {
     public static final String ATTIVA_VENTILAZIONE = "attiva ventilazione";
     public static final String DISATTIVA_VENTILAZIONE = "disattiva ventilazione";
-    public static final String HUMIDITY = "HUMIDITY ";
+    public static final String HUMIDITY = "VENTILATION ";
 
     private Button humidityButton;
+    private OperationViewHolder holder;
 
     public HumidityHolderManager(Activity activity, OperationAdapter adapter){
        super(activity, adapter);
+       this.humidityButton= new  Button(this.activity.getApplicationContext());
     }
 
+    @Override
+    public void setHolder(OperationViewHolder holder) {
+        this.holder = holder;
+    }
+
+    @Override
+    public void setManualModality(Boolean modality) {
+        super.setManualModality(modality);
+        this.humidityButton.setEnabled(this.modality);
+    }
 
     @Override
     public void setElement() {
@@ -32,18 +44,12 @@ public class HumidityHolderManager extends AbstractParameterHolderManager {
         this.setHumidityOperationElement();
     }
 
-    @Override
-    public void setManualModality(Boolean modality) {
-        this.humidityButton.setEnabled(modality);
-    }
-
     public void setButtonTextHumidity(String humidity) {
         this.humidityButton.setText(humidity.equals(ATTIVA_VENTILAZIONE) ? DISATTIVA_VENTILAZIONE : ATTIVA_VENTILAZIONE);
     }
 
     private void setHumidityOperationElement() {
-        this.humidityButton= new  Button(this.activity.getApplicationContext());
-        this.humidityButton.setEnabled(false);
+        this.humidityButton.setEnabled(this.modality);
         this.humidityButton.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         this.humidityButton.setText(ATTIVA_VENTILAZIONE);
         this.humidityButton.setOnClickListener(v -> {
