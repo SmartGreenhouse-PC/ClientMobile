@@ -10,6 +10,10 @@ import java.text.SimpleDateFormat;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
 
+/**
+ * Custom {@link JsonDeserializer} for the {@link ParameterValue} class. Used to convert a JSON object
+ * into an {@link ParameterValue} object.
+ */
 public class ParameterValueDeserializer  extends GeneralDeserializer implements JsonDeserializer<ParameterValue> {
     @Override
     public ParameterValue deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

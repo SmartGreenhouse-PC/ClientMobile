@@ -55,7 +55,15 @@ public interface ParameterValue {
      */
     void setStatus(String status);
 
+    /**
+     * Get the unit of measurement of the parameter.
+     * @return the parameter unit
+     */
     String getUnit();
 
+    /**
+     * Set the unit of measurement of the parameter.
+     * @param unit the parameter unit
+     */
     void setUnit(String unit);
 }
