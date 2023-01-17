@@ -1,6 +1,8 @@
 package it.unibo.smartgh.utility;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import android.app.Application;
 import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,16 +25,15 @@ import it.unibo.smartgh.R;
 public class ActivityUtilities {
 
     /**
-     * Gets the server url.
+     * Gets the server configuration.
      * @param context current context
-     * @return the url of the server
+     * @return the server configuration
      */
-    public static String getUrl(Context context) {
+    public static Config getConfig(Context context) {
         final Gson gson = new Gson();
         final InputStream rawResource = context.getResources().openRawResource(R.raw.config);
         final String result = new BufferedReader(new InputStreamReader(rawResource)).lines().parallel().collect(Collectors.joining("\n"));
-        final Config config = gson.fromJson(result, ConfigImpl.class);
-        return config.buildUrl();
+        return gson.fromJson(result, ConfigImpl.class);
     }
 
     /**

@@ -20,6 +20,8 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
 import it.unibo.smartgh.entity.plant.Plant;
+import it.unibo.smartgh.utility.ActivityUtilities;
+import it.unibo.smartgh.utility.Config;
 import kotlin.Triple;
 
 public class GreenhouseViewModelImpl extends AndroidViewModel implements GreenhouseViewModel {
@@ -37,12 +39,13 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         super(application);
         parameterValueLiveData = new MutableLiveData<>(initializeMap(new ParameterValueImpl()));
         optimalValuesLiveData = new MutableLiveData<>(initializeMap(""));
-        greenhouseRepository = new GreenhouseRepositoryImpl(this);
         plantLiveData = new MutableLiveData<>();
         parameterList = initializeList();
         parametersLiveData = new MutableLiveData<>(parameterList);
-        greenhouseRepository.initializeData();
         statusLiveData = new MutableLiveData<>();
+        Config config = ActivityUtilities.getConfig(application);
+        greenhouseRepository = new GreenhouseRepositoryImpl(this, config.getHost(), config.getPort(), config.getSocketPort());
+        greenhouseRepository.initializeData();
     }
 
     private List<Triple<ParameterType, ParameterValue, String>> initializeList() {
