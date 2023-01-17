@@ -2,28 +2,21 @@ package it.unibo.smartgh.viewmodel;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.Map;
+import java.util.List;
 
 import it.unibo.smartgh.entity.greenhouse.Modality;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.plant.Plant;
+import kotlin.Triple;
 
 public interface GreenhouseViewModel {
+
     /**
      * Update the view plant information.
      * @param plant containing the information.
      */
     void updatePlantInformation(Plant plant);
-
-    /**
-     * Update the view parameter information.
-     * @param parameterType type of the parameter
-     * @param min value of the parameter.
-     * @param max value of the parameter.
-     * @param unit of measurement of the parameter.
-     */
-    void updateParameterInfo(ParameterType parameterType, Double min, Double max, String unit);
 
     /**
      * Update the view parameter value.
@@ -33,22 +26,22 @@ public interface GreenhouseViewModel {
     void updateParameterValue(ParameterType parameter, ParameterValue parameterValue);
 
     /**
-     * Get the parameter value live data.
-     * @return the parameter value live data.
-     */
-    LiveData<Map<ParameterType, ParameterValue>> getParameterValueLiveData();
-
-    /**
-     * Get the optimal parameter live data.
-     * @return the optimal parameter live data.
-     */
-    LiveData<Map<ParameterType, String>> getOptimalParameterLiveData();
-
-    /**
      * Get the plant live data.
      * @return the plant live data.
      */
     LiveData<Plant> getPlantLiveData();
+
+    /**
+     * Get the parameters live data.
+     * @return the parameters live data
+     */
+    LiveData<List<Triple<ParameterType, ParameterValue, String>>> getParametersLiveData();
+
+    /**
+     * Get the status live data.
+     * @return the status live data
+     */
+    LiveData<String> getStatusLiveData();
 
     /**
      * Update greenhouse management modality.
@@ -67,4 +60,5 @@ public interface GreenhouseViewModel {
      * @return the modality live data.
      */
     LiveData<Modality> getModalityLiveData();
+
 }

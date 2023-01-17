@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -26,8 +27,9 @@ import it.unibo.smartgh.view.manualControl.adapter.manager.impl.SoilMoistureHold
 import it.unibo.smartgh.view.manualControl.adapter.manager.impl.TemperatureHolderManager;
 import it.unibo.smartgh.view.recyclerview.Adapter;
 import it.unibo.smartgh.viewmodel.OperationViewModel;
+import kotlin.Triple;
 
-public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> implements Adapter<Pair<ParameterType, ParameterValue>> {
+public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> implements Adapter<Triple<ParameterType, ParameterValue, String>> {
 
     public static final String ATTIVA_VENTILAZIONE = "attiva ventilazione";
     public static final String DISATTIVA_VENTILAZIONE = "disattiva ventilazione";
@@ -37,8 +39,9 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
     public static final String HUMIDITY = "HUMIDITY ";
     public static final String IRRIGATION = "IRRIGATION ";
     public static final String TEMPERATURE = "TEMPERATURE ";
+    private final Activity activity;
 
-    private List<Pair<ParameterType, ParameterValue>> parameterList;
+    private List<Triple<ParameterType, ParameterValue, String>> parameterList;
     private OperationViewModel viewModel;
     private Plant plant;
     private final BrightnessHolderManager brightnessHolderManager;
@@ -52,12 +55,12 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
         this.temperatureHolderManager = new TemperatureHolderManager(activity, this);
         this.humidityHolderManager = new HumidityHolderManager(activity, this);
         this.soilMoistureHolderManager = new SoilMoistureHolderManager(activity ,this);
+        this.activity = activity;
     }
 
     @Override
-    public void setData(List<Pair<ParameterType, ParameterValue>> data) {
+    public void setData(List<Triple<ParameterType, ParameterValue, String>> data) {
         this.parameterList = data;
-        System.out.println("Data setted");
         notifyDataSetChanged();
     }
 
@@ -70,23 +73,22 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull OperationViewHolder holder, int position) {
-        System.out.println("On bind view holder called");
-        final Pair<ParameterType, ParameterValue> element = parameterList.get(position);
-        if(element.second.getStatus() != null){
-            System.out.println("STATUS:" + element.second.getStatus());
-            if(element.second.getStatus().equals("alarm")){
-                holder.getCurrentValue().setTextColor(Color.parseColor("#842029"));
-            }else{
-                holder.getCurrentValue().setTextColor(Color.parseColor("#04B700"));
+        final Triple<ParameterType, ParameterValue, String> element = parameterList.get(position);
+        if(element.component2().getStatus() != null){
+            System.out.println("STATUS:" + element.component2().getStatus());
+            if(element.component2().getStatus().equals("alarm")){
+                holder.getCurrentValue().setTextColor(ContextCompat.getColor(activity, R.color.alarm));
+            } else {
+                holder.getCurrentValue().setTextColor(ContextCompat.getColor(activity, R.color.normal));
             }
         }
-        holder.getParameterName().setText(element.first.getTitle());
-        holder.getCurrentValue().setText(String.valueOf(element.second.getValue()));
+        holder.getParameterName().setText(element.component1().getTitle());
+        holder.getCurrentValue().setText(String.valueOf(element.component2().getValue()));
         if(this.plant != null && (!this.brightnessHolderManager.isHolderAlreadySet()
                 || !this.temperatureHolderManager.isHolderAlreadySet()
                 || !this.humidityHolderManager.isHolderAlreadySet()
                 || !this.soilMoistureHolderManager.isHolderAlreadySet())) {
-            this.setElement(element.first, holder);
+            this.setElement(element.component1(), holder);
         }
     }
 
@@ -135,7 +137,6 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
             default:
                 break;
         }
-
     }
 
     public void setLastOperation(Map<ParameterType, Operation> map) {
@@ -162,13 +163,7 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
 
     }
 
-
-
     public void sendOperation(String parameter, String action){
         this.viewModel.sendNewOperation(parameter, action);
     }
-
-
-
-
 }
