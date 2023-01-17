@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import it.unibo.smartgh.R;
 
+/**
+ * This class represents the homepage parameter view holder.
+ */
 public class HomepageParameterViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView parameterName;
@@ -26,18 +29,34 @@ public class HomepageParameterViewHolder extends RecyclerView.ViewHolder {
         parameterImage = itemView.findViewById(R.id.homepage_parameter_image);
     }
 
+    /**
+     * Return the parameter name TextView.
+     * @return the parameter name view
+     */
     public TextView getParameterName() {
         return parameterName;
     }
 
+    /**
+     * Returns the parameter current value TextView.
+     * @return the parameter current value view
+     */
     public TextView getParameterCurrentValue() {
         return parameterCurrentValue;
     }
 
+    /**
+     * Returns the parameter optimal value TextView.
+     * @return the parameter optimal value view
+     */
     public TextView getParameterOptimalValue() {
         return parameterOptimalValue;
     }
 
+    /**
+     * Returns the parameter ImageView.
+     * @return the parameter image view
+     */
     public AppCompatImageView getParameterImage() {
         return parameterImage;
     }

@@ -18,6 +18,9 @@ import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.view.recyclerview.Adapter;
 import kotlin.Triple;
 
+/**
+ * This class represents the adapter of homepage parameters.
+ */
 public class HomepageParameterAdapter extends RecyclerView.Adapter<HomepageParameterViewHolder> implements Adapter<Triple<ParameterType, ParameterValue, String>> {
 
     private final Activity activity;

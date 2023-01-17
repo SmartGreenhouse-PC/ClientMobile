@@ -29,6 +29,9 @@ import it.unibo.smartgh.view.manualControl.ManualControlFragment;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModelImpl;
 
+/**
+ * This class represents the fragment of homepage layout.
+ */
 public class HomeFragment extends Fragment {
 
     private Activity activity;
