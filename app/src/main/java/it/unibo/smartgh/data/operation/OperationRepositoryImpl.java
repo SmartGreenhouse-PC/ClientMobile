@@ -13,8 +13,8 @@ public class OperationRepositoryImpl implements OperationRepository{
     private final OperationRemoteDataSource operationRemoteDataSource;
     private final OperationViewModel viewModel;
 
-    public OperationRepositoryImpl(OperationViewModel viewModel) {
-        this.operationRemoteDataSource = new OperationRemoteDataSourceImpl(this);
+    public OperationRepositoryImpl(OperationViewModel viewModel, String host, int port) {
+        this.operationRemoteDataSource = new OperationRemoteDataSourceImpl(this, host, port);
         this.viewModel = viewModel;
     }
 

@@ -19,14 +19,16 @@ import it.unibo.smartgh.presentation.GsonUtils;
 
 public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
     private static final String TAG = OperationRemoteDataSourceImpl.class.getSimpleName();
-    private static final int PORT = 8890;
-    private static final String HOST = "192.168.1.35";
+    private final int port;
+    private final String host;
     private final static String BASE_PATH = "/clientCommunication/operations";
     private final Vertx vertx;
     private final Gson gson;
     private final OperationRepository operationRepository;
 
-    public OperationRemoteDataSourceImpl(OperationRepositoryImpl operationRepository) {
+    public OperationRemoteDataSourceImpl(OperationRepositoryImpl operationRepository, String host, int port) {
+        this.host = host;
+        this.port = port;
         this.vertx = Vertx.vertx(); //vertx; TODO
         this.gson = GsonUtils.createGson(); //gson;
         this.operationRepository = operationRepository;
@@ -36,7 +38,7 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
     public void sendNewOperation(Operation operation) {
         WebClient client = WebClient.create(vertx);
         @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
-        client.post(PORT, HOST, BASE_PATH)
+        client.post(port, host, BASE_PATH)
                 .putHeader("Content-Type", "application/json")
                 .sendJsonObject(new JsonObject()
                         .put("greenhouseId", operation.getGreenhouseId())
@@ -50,7 +52,7 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
     @Override
     public void getLastParameterOperation(String parameter, String id) {
         WebClient client = WebClient.create(vertx);
-        client.get(PORT, HOST, BASE_PATH + "/parameter")
+        client.get(port, host, BASE_PATH + "/parameter")
                 .addQueryParam("id", id)
                 .addQueryParam("parameterName", parameter)
                 .addQueryParam("limit", String.valueOf(1))
@@ -63,6 +65,5 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
                         operationRepository.updateParameterOperation(ParameterType.parameterOf(operation.getParameter()).get(), operation);
                     }
                 });
-
     }
 }
