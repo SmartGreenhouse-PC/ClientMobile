@@ -78,7 +78,6 @@ public class BrightnessHolderManager extends AbstractParameterHolderManager {
                 adapter.sendOperation(ParameterType.BRIGHTNESS.getName(), LUMINOSITY + seekbarValue);
             }
         });
-        System.out.println("Brightness adapter:" + this.holder.getOperationsLayout().getChildCount());
         this.holder.getOperationsLayout().addView(this.seekbar);
         this.set = true;
     }
