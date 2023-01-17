@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import it.unibo.smartgh.R;
@@ -27,12 +28,30 @@ public class TemperatureHolderManager extends AbstractParameterHolderManager {
     public static final String DIMINUISCI = "diminuisci";
     public static final String SPEGNI_SISTEMI = "spegni sistemi";
     public static final String TEMPERATURE = "TEMPERATURE ";
-    private Boolean set;
-    private List<Button> controlsList;
+
+    private OperationViewHolder holder;
+    private final List<Button> controlsList;
+    private final Button increaseButton;
+    private final Button decreaseButton;
+    private final Button systemOnOff;
 
     public TemperatureHolderManager(Activity activity, OperationAdapter adapter){
         super(activity, adapter);
-        this.controlsList = new ArrayList<>();
+        this.increaseButton = new Button(this.activity.getApplicationContext());
+        this.decreaseButton = new Button(this.activity.getApplicationContext());
+        this.systemOnOff = new Button(this.activity.getApplicationContext());
+        this.controlsList = Arrays.asList(this.increaseButton, this.decreaseButton, this.systemOnOff);
+    }
+
+    @Override
+    public void setHolder(OperationViewHolder holder) {
+        this.holder = holder;
+    }
+
+    @Override
+    public void setManualModality(Boolean modality) {
+        super.setManualModality(modality);
+        this.controlsList.forEach(b -> b.setEnabled(this.modality));
     }
 
     @Override
@@ -41,11 +60,6 @@ public class TemperatureHolderManager extends AbstractParameterHolderManager {
         holder.getParameterImage().setImageDrawable(drawable);
         holder.getOptimalRange().setText(plant.getMinTemperature() + " - " + plant.getMaxTemperature() + plant.getUnitMap().get("temperature"));
         this.setTemperatureOperationElement();
-    }
-
-    @Override
-    public void setManualModality(Boolean modality) {
-        this.controlsList.forEach(b -> b.setEnabled(modality));
     }
 
     public void setEnableTemperatureButton(final String temperature) {
@@ -70,20 +84,30 @@ public class TemperatureHolderManager extends AbstractParameterHolderManager {
     }
 
     private void setTemperatureOperationElement() {
-        Button increaseButton = new Button(this.activity.getApplicationContext());
-        Button decreaseButton = new Button(this.activity.getApplicationContext());
-        Button systemOnOff = new  Button(this.activity.getApplicationContext());
+
         View.OnClickListener listener = (v) -> {
             Button b = (Button) v;
             if(b.isEnabled()){
-                adapter.sendOperation(ParameterType.TEMPERATURE.getName(), TEMPERATURE + b.getText().toString());
+                String message = "";
+                switch(b.getText().toString()){
+                    case AUMENTA:
+                        message = INCREASE;
+                        break;
+                    case DIMINUISCI:
+                        message = DECREASE;
+                        break;
+                    case SPEGNI_SISTEMI:
+                        message = TURN_OFF;
+                        break;
+                    default:
+                        break;
+                }
+                adapter.sendOperation(ParameterType.TEMPERATURE.getName(), TEMPERATURE + message);
                 setEnableTemperatureButton(b.getText().toString());
             }
         };
 
-        increaseButton.setEnabled(false);
-        decreaseButton.setEnabled(false);
-        systemOnOff.setEnabled(false);
+        this.controlsList.forEach(b -> b.setEnabled(this.modality));
 
         increaseButton.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         increaseButton.setText(AUMENTA);
@@ -101,9 +125,6 @@ public class TemperatureHolderManager extends AbstractParameterHolderManager {
         holder.getOperationsLayout().addView(decreaseButton);
         holder.getOperationsLayout().addView(systemOnOff);
 
-        this.controlsList.add(increaseButton);
-        this.controlsList.add(decreaseButton);
-        this.controlsList.add(systemOnOff);
         this.set = true;
     }
 

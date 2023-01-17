@@ -11,17 +11,22 @@ import androidx.core.content.ContextCompat;
 
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
+import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 
 public class BrightnessHolderManager extends AbstractParameterHolderManager {
     public static final String LUMINOSITY = "LUMINOSITY ";
 
+    private OperationViewHolder holder;
     private final SeekBar seekbar;
 
     public BrightnessHolderManager(Activity activity, OperationAdapter adapter){
         super(activity, adapter);
         this.seekbar = new SeekBar(this.activity.getApplicationContext());
-        this.seekbar.setEnabled(false);
+    }
 
+    @Override
+    public void setHolder(OperationViewHolder holder) {
+        this.holder = holder;
     }
 
     @Override
@@ -34,7 +39,8 @@ public class BrightnessHolderManager extends AbstractParameterHolderManager {
 
     @Override
     public void setManualModality(Boolean modality) {
-        this.seekbar.setEnabled(modality);
+        super.setManualModality(modality);
+        this.seekbar.setEnabled(this.modality);
     }
 
     public void setLampBrightnessLevel(int progress) {
@@ -52,10 +58,11 @@ public class BrightnessHolderManager extends AbstractParameterHolderManager {
                 Color.parseColor("#fcec03"),
                 Color.LTGRAY,
         };
+        this.seekbar.setEnabled(this.modality);
         this.seekbar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         this.seekbar.setProgressTintList(new ColorStateList(states, colors));
         this.seekbar.setMax(max);
-        this.seekbar.setProgress((int) max/2);
+        this.seekbar.setProgress(max/2);
         this.seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             private int seekbarValue;
             @Override
@@ -70,6 +77,7 @@ public class BrightnessHolderManager extends AbstractParameterHolderManager {
                 adapter.sendOperation(ParameterType.BRIGHTNESS.getName(), LUMINOSITY + seekbarValue);
             }
         });
+        System.out.println("Brightness adapter:" + this.holder.getOperationsLayout().getChildCount());
         this.holder.getOperationsLayout().addView(this.seekbar);
         this.set = true;
     }

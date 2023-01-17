@@ -20,7 +20,7 @@ import it.unibo.smartgh.presentation.GsonUtils;
 public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
     private static final String TAG = OperationRemoteDataSourceImpl.class.getSimpleName();
     private static final int PORT = 8890;
-    private static final String HOST = "192.168.3.232";
+    private static final String HOST = "192.168.1.35";
     private final static String BASE_PATH = "/clientCommunication/operations";
     private final Vertx vertx;
     private final Gson gson;

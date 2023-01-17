@@ -11,19 +11,15 @@ public abstract class AbstractParameterHolderManager implements ParameterHolderM
 
     protected final Activity activity;
     protected final OperationAdapter adapter;
-    protected OperationViewHolder holder;
     protected Plant plant;
     protected Boolean set;
+    protected Boolean modality;
 
     public AbstractParameterHolderManager(Activity activity, OperationAdapter adapter){
         this.activity = activity;
         this.adapter = adapter;
+        this.modality = false;
         this.set = false;
-    }
-
-    @Override
-    public void setHolder(OperationViewHolder holder){
-        this.holder = holder;
     }
 
     @Override
@@ -32,11 +28,17 @@ public abstract class AbstractParameterHolderManager implements ParameterHolderM
     }
 
     @Override
+    public void setManualModality(Boolean modality) {
+        this.modality = modality;
+    }
+
+    @Override
     public Boolean isHolderAlreadySet(){
         return this.set;
     }
 
+    public abstract void setHolder(OperationViewHolder holder);
+
     public abstract void setElement();
 
-    public abstract void setManualModality(Boolean modality);
 }
