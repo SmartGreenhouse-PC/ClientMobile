@@ -31,8 +31,8 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource 
     public OperationRemoteDataSourceImpl(OperationRepositoryImpl operationRepository, String host, int port) {
         this.host = host;
         this.port = port;
-        this.vertx = Vertx.vertx(); //vertx; TODO
-        this.gson = GsonUtils.createGson(); //gson;
+        this.vertx = Vertx.vertx();
+        this.gson = GsonUtils.createGson();
         this.operationRepository = operationRepository;
     }
 

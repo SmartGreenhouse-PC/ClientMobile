@@ -2,8 +2,6 @@ package it.unibo.smartgh.view.manualControl.adapter;
 
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +37,7 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
     public static final String ATTIVA_IRRIGAZIONE = "attiva irrigazione";
     public static final String DISATTIVA_IRRIGAZIONE = "disattiva irrigazione";
     public static final String LUMINOSITY = "LUMINOSITY ";
-    public static final String HUMIDITY = "HUMIDITY ";
+    public static final String HUMIDITY = "VENTILATION ";
     public static final String IRRIGATION = "IRRIGATION ";
     public static final String TEMPERATURE = "TEMPERATURE ";
     private final Activity activity;

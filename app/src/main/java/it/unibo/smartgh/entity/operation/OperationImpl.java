@@ -103,6 +103,6 @@ public class OperationImpl implements Operation {
 
     @Override
     public String toString() {
-        return "OperationImpl{" + "greenhouseId='" + greenhouseId + '\'' + ", modality=" + modality + ", date=" + date + ", parameter='" + parameter + '\'' + ", action='" + action + '}';
+        return "OperationImpl{" + "greenhouseId='" + greenhouseId + '\'' + ", modality=" + modality + ", date=" + date + ", parameter='" + parameter + '\'' + ", action='" + action + "'}";
     }
 }

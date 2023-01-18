@@ -11,7 +11,7 @@ import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
  */
 public class GreenhouseRepositoryImpl implements GreenhouseRepository {
 
-    private static final String GREENHOUSE_ID = "63af0ae025d55e9840cbc1fa";
+    private static final String GREENHOUSE_ID = "63af0ae025d55e9840cbc1fc";
     private final GreenhouseRemoteDataSource greenhouseRemoteDataSource;
     private final GreenhouseViewModel viewModel;
 

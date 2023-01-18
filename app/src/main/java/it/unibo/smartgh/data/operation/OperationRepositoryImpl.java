@@ -12,7 +12,7 @@ import it.unibo.smartgh.viewmodel.OperationViewModel;
  * Implementation of {@link OperationRepository} interface.
  */
 public class OperationRepositoryImpl implements OperationRepository{
-    private static final String GREENHOUSE_ID = "63af0ae025d55e9840cbc1fa";
+    private static final String GREENHOUSE_ID = "63af0ae025d55e9840cbc1fc";
     private final OperationRemoteDataSource operationRemoteDataSource;
     private final OperationViewModel viewModel;
 
