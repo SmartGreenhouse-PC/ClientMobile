@@ -58,9 +58,18 @@ public class ManualControlFragment extends Fragment {
             final GreenhouseViewModel greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
             this.operationAdapter.setOperationViewModel(operationViewModel);
             SwitchCompat manualControlSwitch = view.findViewById(R.id.manualControlChoice);
-            greenhouseViewModel.getModalityLiveData().observe((LifecycleOwner) activity, modality -> manualControlSwitch.setChecked(modality.equals(Modality.MANUAL)));
+            greenhouseViewModel.getModalityLiveData().observe((LifecycleOwner) activity, modality -> {
+                boolean isManual = modality.equals(Modality.MANUAL);
+                if(isManual){
+                    operationViewModel.getLastParameterOperation(ParameterType.BRIGHTNESS.getName());
+                    operationViewModel.getLastParameterOperation(ParameterType.TEMPERATURE.getName());
+                    operationViewModel.getLastParameterOperation(ParameterType.HUMIDITY.getName());
+                    operationViewModel.getLastParameterOperation(ParameterType.SOIL_MOISTURE.getName());
+                    manualControlSwitch.setChecked(true);
+                }
+                this.operationAdapter.updateModality(isManual);
+            });
             manualControlSwitch.setOnCheckedChangeListener((button, isChecked) ->{
-                this.operationAdapter.updateModality(isChecked);
                 if(isChecked){
                     operationViewModel.getLastParameterOperation(ParameterType.BRIGHTNESS.getName());
                     operationViewModel.getLastParameterOperation(ParameterType.TEMPERATURE.getName());
@@ -71,7 +80,6 @@ public class ManualControlFragment extends Fragment {
                     greenhouseViewModel.changeModality(Modality.AUTOMATIC);
                 }
             });
-
             operationViewModel.getAllLastOperationsParameter().observe((LifecycleOwner) activity, map -> operationAdapter.setLastOperation(map));
             greenhouseViewModel.getPlantLiveData().observe((LifecycleOwner) activity, plant -> operationAdapter.setPlant(plant));
             greenhouseViewModel.getParametersLiveData().observe((LifecycleOwner) activity, list -> operationAdapter.setData(list));
