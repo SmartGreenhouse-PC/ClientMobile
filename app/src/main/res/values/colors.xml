@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="green_200">#BCC096</color>
-    <color name="green_500">#949F5C</color>
-    <color name="green_700">#6A743B</color>
-    <color name="beige_200">#C9C2B3</color>
+    <color name="green_500">#b2d3a8</color>
+    <color name="green_700">#7ea384</color>
+    <color name="green_900">#475f52</color>
+    <color name="beige_200">#04B700</color>
     <color name="beige_700">#846042</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

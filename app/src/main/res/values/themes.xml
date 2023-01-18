@@ -15,8 +15,8 @@
     </style>
 
     <style name="ThemeOverlay.Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/green_900</item>
+        <item name="colorOnPrimary">@color/green_900</item>
     </style>
 
     <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -27,6 +27,7 @@
         <item name="android:paddingRight">12dp</item>
         <item name="android:minWidth">48dp</item>
         <item name="android:minHeight">48dp</item>
+        <item name="android:textColor">@color/green_900</item>
     </style>
 
 </resources>
