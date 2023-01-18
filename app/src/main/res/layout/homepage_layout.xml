@@ -74,7 +74,7 @@
         android:layout_margin="20dp"
         android:id="@+id/manual_control_button"
         style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-        android:drawableLeft="@drawable/manual_control"
+        android:drawableLeft="@drawable/ic_manual_control"
         android:text="@string/imposta_controllo_manuale">
 
     </Button>
