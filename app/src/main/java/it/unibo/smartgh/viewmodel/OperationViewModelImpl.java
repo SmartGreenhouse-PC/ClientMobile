@@ -64,13 +64,12 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
 
     @Override
     public void updateParameterOperation(ParameterType parameter, Operation operation) {
-        System.out.println("update operations  value");
         this.map = operationsLiveData.getValue();
         if (map != null) {
             map.put(parameter, operation);
-        }
-        if (map.values().stream().noneMatch(op -> op.getAction() == null)) {
-            operationsLiveData.postValue(map);
+            if (map.values().stream().noneMatch(op -> op.getAction() == null)) {
+                operationsLiveData.postValue(map);
+            }
         }
     }
 }
