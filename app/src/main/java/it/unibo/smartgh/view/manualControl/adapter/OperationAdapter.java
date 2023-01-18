@@ -29,6 +29,9 @@ import it.unibo.smartgh.view.recyclerview.Adapter;
 import it.unibo.smartgh.viewmodel.OperationViewModel;
 import kotlin.Triple;
 
+/**
+ * A class that represents the operation adapter.
+ */
 public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> implements Adapter<Triple<ParameterType, ParameterValue, String>> {
 
     public static final String ATTIVA_VENTILAZIONE = "attiva ventilazione";
@@ -49,6 +52,10 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
     private final HumidityHolderManager humidityHolderManager;
     private final SoilMoistureHolderManager soilMoistureHolderManager;
 
+    /**
+     * Constructor of {@link OperationAdapter}.
+     * @param activity the current activity
+     */
     public OperationAdapter(Activity activity) {
         this.parameterList = new ArrayList<>();
         this.brightnessHolderManager = new BrightnessHolderManager(activity, this);

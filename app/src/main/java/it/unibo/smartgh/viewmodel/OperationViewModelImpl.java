@@ -18,10 +18,17 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.utility.ActivityUtilities;
 import it.unibo.smartgh.utility.Config;
 
+/**
+ * A class that represents the operation view model.
+ */
 public class OperationViewModelImpl extends AndroidViewModel implements OperationViewModel{
     private final OperationRepository operationRepository;
     private final MutableLiveData<Map<ParameterType, Operation>> operationsLiveData;
 
+    /**
+     * Constructor of {@link OperationViewModelImpl}.
+     * @param application the current application instance
+     */
     public OperationViewModelImpl(@NonNull Application application) {
         super(application);
         Config config = ActivityUtilities.getConfig(application);

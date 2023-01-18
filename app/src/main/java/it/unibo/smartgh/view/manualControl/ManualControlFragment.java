@@ -28,6 +28,9 @@ import it.unibo.smartgh.viewmodel.GreenhouseViewModelImpl;
 import it.unibo.smartgh.viewmodel.OperationViewModel;
 import it.unibo.smartgh.viewmodel.OperationViewModelImpl;
 
+/**
+ * A class that represents the manual control fragment.
+ */
 public class ManualControlFragment extends Fragment {
     private OperationAdapter operationAdapter;
 

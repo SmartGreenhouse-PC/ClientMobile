@@ -12,14 +12,22 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 
+/**
+ * A class that represent the holder manager for the soil moisture parameter.
+ */
 public class SoilMoistureHolderManager extends AbstractParameterHolderManager {
     public static final String ATTIVA_IRRIGAZIONE = "attiva irrigazione";
     public static final String DISATTIVA_IRRIGAZIONE = "disattiva irrigazione";
     public static final String IRRIGATION = "IRRIGATION ";
 
-    private Button soilMoistureButton;
+    private final Button soilMoistureButton;
     private OperationViewHolder holder;
 
+    /**
+     * Constructor of {@link SoilMoistureHolderManager}.
+     * @param activity the current activity
+     * @param adapter the operation adapter
+     */
     public SoilMoistureHolderManager(Activity activity, OperationAdapter adapter){
         super(activity, adapter);
         this.soilMoistureButton = new  Button(this.activity.getApplicationContext());
@@ -39,7 +47,8 @@ public class SoilMoistureHolderManager extends AbstractParameterHolderManager {
     @Override
     public void setElement() {
         Drawable drawable = ContextCompat.getDrawable(this.activity, R.drawable.ic_soil_moisture);
-        holder.getOptimalRange().setText(plant.getMinSoilMoisture() + " - " + plant.getMaxSoilMoisture() + plant.getUnitMap().get("soilMoisture"));
+        String optimalRange = plant.getMinSoilMoisture() + " - " + plant.getMaxSoilMoisture() + plant.getUnitMap().get("soilMoisture");
+        holder.getOptimalRange().setText(optimalRange);
         holder.getParameterImage().setImageDrawable(drawable);
         this.setSoilMoistureOperationElement();
     }

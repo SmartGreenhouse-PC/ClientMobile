@@ -20,6 +20,9 @@ import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 import it.unibo.smartgh.view.manualControl.adapter.manager.ParameterHolderManager;
 
+/**
+ * A class that represents the holder manager for the temperature parameter.
+ */
 public class TemperatureHolderManager extends AbstractParameterHolderManager {
     public static final String INCREASE = "increase";
     public static final String DECREASE = "decrease";
@@ -35,6 +38,11 @@ public class TemperatureHolderManager extends AbstractParameterHolderManager {
     private final Button decreaseButton;
     private final Button systemOnOff;
 
+    /**
+     * Constructor of {@link TemperatureHolderManager}.
+     * @param activity the current activity
+     * @param adapter the operation adapter
+     */
     public TemperatureHolderManager(Activity activity, OperationAdapter adapter){
         super(activity, adapter);
         this.increaseButton = new Button(this.activity.getApplicationContext());
@@ -57,14 +65,15 @@ public class TemperatureHolderManager extends AbstractParameterHolderManager {
     @Override
     public void setElement() {
         Drawable drawable = ContextCompat.getDrawable(this.activity, ParameterType.TEMPERATURE.getImagePath());
+        String optimalValue = plant.getMinTemperature() + " - " + plant.getMaxTemperature() + plant.getUnitMap().get("temperature");
         holder.getParameterImage().setImageDrawable(drawable);
-        holder.getOptimalRange().setText(plant.getMinTemperature() + " - " + plant.getMaxTemperature() + plant.getUnitMap().get("temperature"));
+        holder.getOptimalRange().setText(optimalValue);
         this.setTemperatureOperationElement();
     }
 
     public void setEnableTemperatureButton(final String temperature) {
         this.controlsList.forEach(b -> {
-            String message = "";
+            String message;
             switch(temperature){
                 case INCREASE:
                     message = AUMENTA;
