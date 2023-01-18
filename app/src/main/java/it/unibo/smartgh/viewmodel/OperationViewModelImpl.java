@@ -24,6 +24,7 @@ import it.unibo.smartgh.utility.Config;
 public class OperationViewModelImpl extends AndroidViewModel implements OperationViewModel{
     private final OperationRepository operationRepository;
     private final MutableLiveData<Map<ParameterType, Operation>> operationsLiveData;
+    private Map<ParameterType, Operation> map;
 
     /**
      * Constructor of {@link OperationViewModelImpl}.
@@ -32,8 +33,9 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
     public OperationViewModelImpl(@NonNull Application application) {
         super(application);
         Config config = ActivityUtilities.getConfig(application);
+        this.map = new HashMap<>(this.initializeMap(new OperationImpl()));
         this.operationRepository = new OperationRepositoryImpl(this, config.getHost(), config.getPort());
-        this.operationsLiveData = new MutableLiveData<>(this.initializeMap(new OperationImpl()));
+        this.operationsLiveData = new MutableLiveData<>(map);
     }
 
     private <V> Map<ParameterType, V> initializeMap(V value) {
@@ -63,10 +65,12 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
     @Override
     public void updateParameterOperation(ParameterType parameter, Operation operation) {
         System.out.println("update operations  value");
-        Map<ParameterType, Operation> map = operationsLiveData.getValue();
+        this.map = operationsLiveData.getValue();
         if (map != null) {
             map.put(parameter, operation);
         }
-        operationsLiveData.postValue(map);
+        if (map.values().stream().noneMatch(op -> op.getAction() == null)) {
+            operationsLiveData.postValue(map);
+        }
     }
 }

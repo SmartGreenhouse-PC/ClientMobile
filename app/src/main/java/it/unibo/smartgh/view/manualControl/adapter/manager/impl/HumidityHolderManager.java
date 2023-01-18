@@ -6,11 +6,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.core.content.ContextCompat;
+
 import it.unibo.smartgh.entity.parameter.ParameterType;
-import it.unibo.smartgh.entity.plant.Plant;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
-import it.unibo.smartgh.view.manualControl.adapter.manager.ParameterHolderManager;
 
 /**
  * A class that represents the holder for the humidity parameter.
