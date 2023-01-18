@@ -2,7 +2,6 @@ package it.unibo.smartgh.view.manualControl;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -18,13 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.entity.greenhouse.Modality;
 import it.unibo.smartgh.entity.parameter.ParameterType;
-import it.unibo.smartgh.entity.parameter.ParameterValue;
+import it.unibo.smartgh.utility.ActivityUtilities;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModelImpl;
@@ -51,7 +48,8 @@ public class ManualControlFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final Activity activity  = getActivity();
         if(activity != null){
-            //todo setup toolbar
+            ActivityUtilities.setUpToolbar((AppCompatActivity) activity, "Controllo manuale");
+            ActivityUtilities.setVisibleToolbarNavigationIcon((AppCompatActivity) activity, true);
             setRecyclerView();
             final OperationViewModel operationViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(OperationViewModelImpl.class);
             final GreenhouseViewModel greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
@@ -79,7 +77,7 @@ public class ManualControlFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        //todo
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void setRecyclerView(){
