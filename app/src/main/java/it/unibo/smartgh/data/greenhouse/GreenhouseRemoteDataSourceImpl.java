@@ -23,6 +23,9 @@ import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
 import it.unibo.smartgh.entity.plant.Plant;
 import it.unibo.smartgh.presentation.GsonUtils;
 
+/**
+ * Implementation of a greenhouse remote data source.
+ */
 public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSource {
 
     private static final String TAG = GreenhouseRemoteDataSourceImpl.class.getSimpleName();
@@ -40,6 +43,14 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     private Plant plant;
     private HttpClient server;
 
+    /**
+     * Constructor of a {@link GreenhouseRemoteDataSource}.
+     * @param host the host of the server
+     * @param port the port of the server
+     * @param socketPort the socket port
+     * @param id the greenhouse id
+     * @param repository the greenhouse repository
+     */
     public GreenhouseRemoteDataSourceImpl(String host, int port, int socketPort, String id, GreenhouseRepository repository) {
         this.host = host;
         this.port = port;
@@ -69,7 +80,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                 .sendJsonObject(new JsonObject()
                         .put("id", greenhouseId)
                         .put("modality", modality.name())
-                );
+                ).onSuccess(r -> this.repository.updateModality(modality));
     }
 
     private void setSocket() {
@@ -118,6 +129,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                                             value.setStatus(value.getValue() < max && value.getValue() > min ? "normal" : "alarm");
                                             value.setUnit(plant.getUnitMap().get(p.getName()));
                                             this.repository.updateParameterValue(p, value);
+                                            this.repository.updateModality(this.greenhouse.getActualModality());
                                         }).onFailure(Throwable::printStackTrace)));
     }
 
