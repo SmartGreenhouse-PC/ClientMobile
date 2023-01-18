@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartGreenhouse</string>
+    <string name="app_name">Smart Greenhouse</string>
     <string name="pianta_coltivata">Pianta Coltivata</string>
     <string name="stato_serra">Stato serra</string>
     <string name="imposta_controllo_manuale">Imposta controllo manuale</string>
