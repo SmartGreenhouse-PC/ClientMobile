@@ -3,6 +3,9 @@ package it.unibo.smartgh.data.operation;
 import it.unibo.smartgh.entity.operation.Operation;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 
+/**
+ * This interface represents the repository of operation.
+ */
 public interface OperationRepository {
     /**
      * Send a new operation to server.
@@ -14,9 +17,13 @@ public interface OperationRepository {
     /**
      * Get the last operation performed on a parameter.
      * @param parameter on which the last operation is performed
-     * @return the operation
      */
     void getLastParameterOperation(String parameter);
 
+    /**
+     * Update the parameter operation.
+     * @param parameter the parameter type
+     * @param operation the parameter operation
+     */
     void updateParameterOperation(ParameterType parameter, Operation operation);
 }

@@ -9,10 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import it.unibo.smartgh.data.greenhouse.GreenhouseRepository;
 import it.unibo.smartgh.data.greenhouse.GreenhouseRepositoryImpl;

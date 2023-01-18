@@ -5,7 +5,11 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.plant.Plant;
 
+/**
+ * This interface represents the greenhouse repository.
+ */
 public interface GreenhouseRepository {
+
     /**
      * Initialize the view with the greenhouse data.
      */

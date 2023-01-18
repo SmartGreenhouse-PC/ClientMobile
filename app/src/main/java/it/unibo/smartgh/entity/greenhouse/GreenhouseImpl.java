@@ -37,6 +37,7 @@ public class GreenhouseImpl implements Greenhouse {
         return this.modality;
     }
 
+    @Override
     public void setId(String id){
         this.id = id;
     }

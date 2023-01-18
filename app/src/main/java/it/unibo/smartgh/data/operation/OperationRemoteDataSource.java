@@ -1,9 +1,12 @@
 package it.unibo.smartgh.data.operation;
 
-
 import it.unibo.smartgh.entity.operation.Operation;
 
+/**
+ * Interface that represents the remote data source of operations.
+ */
 public interface OperationRemoteDataSource {
+
     /**
      * Send a new operation to server.
      * @param operation the new operation performed.
