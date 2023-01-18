@@ -10,6 +10,9 @@ import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.plant.Plant;
 import kotlin.Triple;
 
+/**
+ * An interface that represents the greenhouse view model.
+ */
 public interface GreenhouseViewModel {
 
     /**

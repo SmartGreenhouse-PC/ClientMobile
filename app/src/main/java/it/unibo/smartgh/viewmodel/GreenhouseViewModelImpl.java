@@ -23,6 +23,9 @@ import it.unibo.smartgh.utility.ActivityUtilities;
 import it.unibo.smartgh.utility.Config;
 import kotlin.Triple;
 
+/**
+ * An implementation of greenhouse view model.
+ */
 public class GreenhouseViewModelImpl extends AndroidViewModel implements GreenhouseViewModel {
 
     protected final GreenhouseRepository greenhouseRepository;
@@ -32,7 +35,10 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
     private final MutableLiveData<String> statusLiveData;
     private final MutableLiveData<Modality> modalityLiveData;
 
-
+    /**
+     * Constructor of {@link GreenhouseViewModelImpl}.
+     * @param application the current application
+     */
     public GreenhouseViewModelImpl(@NonNull Application application) {
         super(application);
         plantLiveData = new MutableLiveData<>();

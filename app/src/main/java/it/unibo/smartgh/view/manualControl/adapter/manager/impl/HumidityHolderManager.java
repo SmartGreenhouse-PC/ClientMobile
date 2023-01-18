@@ -12,14 +12,22 @@ import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 import it.unibo.smartgh.view.manualControl.adapter.manager.ParameterHolderManager;
 
+/**
+ * A class that represents the holder for the humidity parameter.
+ */
 public class HumidityHolderManager extends AbstractParameterHolderManager {
     public static final String ATTIVA_VENTILAZIONE = "attiva ventilazione";
     public static final String DISATTIVA_VENTILAZIONE = "disattiva ventilazione";
     public static final String HUMIDITY = "VENTILATION ";
 
-    private Button humidityButton;
+    private final Button humidityButton;
     private OperationViewHolder holder;
 
+    /**
+     * Constructor of {@link HumidityHolderManager}.
+     * @param activity the current activity
+     * @param adapter the operation adapter
+     */
     public HumidityHolderManager(Activity activity, OperationAdapter adapter){
        super(activity, adapter);
        this.humidityButton= new  Button(this.activity.getApplicationContext());
@@ -39,8 +47,9 @@ public class HumidityHolderManager extends AbstractParameterHolderManager {
     @Override
     public void setElement() {
         Drawable drawable = ContextCompat.getDrawable(this.activity, ParameterType.HUMIDITY.getImagePath());
+        String optimalRange = plant.getMinHumidity() + " - " + plant.getMaxHumidity() + plant.getUnitMap().get("humidity");
         holder.getParameterImage().setImageDrawable(drawable);
-        holder.getOptimalRange().setText(plant.getMinHumidity() + " - " + plant.getMaxHumidity() + plant.getUnitMap().get("humidity"));
+        holder.getOptimalRange().setText(optimalRange);
         this.setHumidityOperationElement();
     }
 

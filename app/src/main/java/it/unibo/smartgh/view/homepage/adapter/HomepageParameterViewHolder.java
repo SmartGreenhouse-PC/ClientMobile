@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import it.unibo.smartgh.R;
@@ -20,7 +19,10 @@ public class HomepageParameterViewHolder extends RecyclerView.ViewHolder {
     private final TextView parameterOptimalValue;
     private final AppCompatImageView parameterImage;
 
-
+    /**
+     * Constructor of {@link HomepageParameterViewHolder}.
+     * @param itemView the view item
+     */
     public HomepageParameterViewHolder(@NonNull View itemView) {
         super(itemView);
         parameterName = itemView.findViewById(R.id.homepage_parameter_name);

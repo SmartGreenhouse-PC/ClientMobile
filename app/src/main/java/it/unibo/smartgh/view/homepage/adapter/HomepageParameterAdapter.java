@@ -26,6 +26,10 @@ public class HomepageParameterAdapter extends RecyclerView.Adapter<HomepageParam
     private final Activity activity;
     private List<Triple<ParameterType, ParameterValue, String>> parameterList;
 
+    /**
+     * Constructor of {@link HomepageParameterAdapter}.
+     * @param activity the current instance of activity
+     */
     public HomepageParameterAdapter(Activity activity) {
         this.activity = activity;
         this.parameterList = new LinkedList<>();

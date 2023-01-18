@@ -14,12 +14,19 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 
+/**
+ * A class that represents the holder for the brightness parameter.
+ */
 public class BrightnessHolderManager extends AbstractParameterHolderManager {
     public static final String LUMINOSITY = "LUMINOSITY ";
-
     private OperationViewHolder holder;
     private final SeekBar seekbar;
 
+    /**
+     * Constructor of {@link BrightnessHolderManager}.
+     * @param activity the current activity
+     * @param adapter the operation adapter
+     */
     public BrightnessHolderManager(Activity activity, OperationAdapter adapter){
         super(activity, adapter);
         this.seekbar = new SeekBar(this.activity.getApplicationContext());
@@ -33,8 +40,9 @@ public class BrightnessHolderManager extends AbstractParameterHolderManager {
     @Override
     public void setElement() {
         Drawable drawable = ContextCompat.getDrawable(this.activity, ParameterType.BRIGHTNESS.getImagePath());
+        String optimalRange = plant.getMinBrightness() + " - " + plant.getMaxBrightness() + plant.getUnitMap().get("brightness");
         holder.getParameterImage().setImageDrawable(drawable);
-        holder.getOptimalRange().setText(plant.getMinBrightness() + " - " + plant.getMaxBrightness() + plant.getUnitMap().get("brightness"));
+        holder.getOptimalRange().setText(optimalRange);
         this.setBrightnessOperationElement();
     }
 

@@ -7,6 +7,9 @@ import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 import it.unibo.smartgh.view.manualControl.adapter.manager.ParameterHolderManager;
 
+/**
+ * Abstract class for manage the parameter holder.
+ */
 public abstract class AbstractParameterHolderManager implements ParameterHolderManager {
 
     protected final Activity activity;
@@ -15,6 +18,11 @@ public abstract class AbstractParameterHolderManager implements ParameterHolderM
     protected Boolean set;
     protected Boolean modality;
 
+    /**
+     * Constructor of {@link AbstractParameterHolderManager}.
+     * @param activity the current activity
+     * @param adapter the current operation adapter
+     */
     public AbstractParameterHolderManager(Activity activity, OperationAdapter adapter){
         this.activity = activity;
         this.adapter = adapter;
