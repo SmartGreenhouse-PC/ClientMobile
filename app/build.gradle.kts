@@ -43,13 +43,12 @@ android {
 
 dependencies {
 
-    implementation("androidx.appcompat:appcompat:1.6.0")
-    implementation("com.google.android.material:material:1.6.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation(libs.bundles.android.dependencies)
     implementation(libs.bundles.vertx.dependencies)
+    implementation(libs.picasso)
     implementation(libs.gson)
-    testImplementation("junit:junit:4.+")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    testImplementation(libs.junit.api)
+    testImplementation(libs.junit.engine)
+    androidTestImplementation(libs.androidx.test)
+    androidTestImplementation(libs.androidx.espresso)
 }
