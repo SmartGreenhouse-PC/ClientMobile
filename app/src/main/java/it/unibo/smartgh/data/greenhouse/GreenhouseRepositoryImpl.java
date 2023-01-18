@@ -6,15 +6,25 @@ import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.plant.Plant;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
 
+/**
+ * Implementation of {@link GreenhouseRepository} interface.
+ */
 public class GreenhouseRepositoryImpl implements GreenhouseRepository {
 
     private static final String GREENHOUSE_ID = "63af0ae025d55e9840cbc1fa";
     private final GreenhouseRemoteDataSource greenhouseRemoteDataSource;
     private final GreenhouseViewModel viewModel;
 
-    public GreenhouseRepositoryImpl(GreenhouseViewModel viewModel) {
+    /**
+     * Constructor of {@link GreenhouseRepositoryImpl}.
+     * @param viewModel the view model instance
+     * @param host the host of the server
+     * @param port the port of the server
+     * @param socketPort the socket port
+     */
+    public GreenhouseRepositoryImpl(GreenhouseViewModel viewModel, String host, int port, int socketPort) {
         this.viewModel = viewModel;
-        this.greenhouseRemoteDataSource = new GreenhouseRemoteDataSourceImpl(this, GREENHOUSE_ID);
+        this.greenhouseRemoteDataSource = new GreenhouseRemoteDataSourceImpl(host, port, socketPort, GREENHOUSE_ID, this);
     }
 
     @Override

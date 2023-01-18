@@ -17,8 +17,10 @@ import it.unibo.smartgh.entity.operation.OperationImpl;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.presentation.GsonUtils;
 
-public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource{
-    private static final String TAG = OperationRemoteDataSourceImpl.class.getSimpleName();
+/**
+ * Implementation of {@link OperationRemoteDataSource} interface.
+ */
+public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource {
     private final int port;
     private final String host;
     private final static String BASE_PATH = "/clientCommunication/operations";

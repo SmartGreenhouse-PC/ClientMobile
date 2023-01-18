@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Optional;
 
 import io.vertx.core.Vertx;

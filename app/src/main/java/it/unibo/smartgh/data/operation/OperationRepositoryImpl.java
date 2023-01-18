@@ -8,11 +8,20 @@ import it.unibo.smartgh.entity.operation.OperationImpl;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.viewmodel.OperationViewModel;
 
+/**
+ * Implementation of {@link OperationRepository} interface.
+ */
 public class OperationRepositoryImpl implements OperationRepository{
     private static final String GREENHOUSE_ID = "63af0ae025d55e9840cbc1fa";
     private final OperationRemoteDataSource operationRemoteDataSource;
     private final OperationViewModel viewModel;
 
+    /**
+     * Constructor of {@link OperationRepositoryImpl}.
+     * @param viewModel the operation view model
+     * @param host the host of the server
+     * @param port the port of the server
+     */
     public OperationRepositoryImpl(OperationViewModel viewModel, String host, int port) {
         this.operationRemoteDataSource = new OperationRemoteDataSourceImpl(this, host, port);
         this.viewModel = viewModel;
