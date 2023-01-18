@@ -81,8 +81,8 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull OperationViewHolder holder, int position) {
         final Triple<ParameterType, ParameterValue, String> element = parameterList.get(position);
+        final String currentValue = element.component2().getValue() + " " + element.component2().getUnit();
         if(element.component2().getStatus() != null){
-            System.out.println("STATUS:" + element.component2().getStatus());
             if(element.component2().getStatus().equals("alarm")){
                 holder.getCurrentValue().setTextColor(ContextCompat.getColor(activity, R.color.alarm));
             } else {
@@ -90,7 +90,7 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
             }
         }
         holder.getParameterName().setText(element.component1().getTitle());
-        holder.getCurrentValue().setText(String.valueOf(element.component2().getValue()));
+        holder.getCurrentValue().setText(currentValue);
         if(this.plant != null && (!this.brightnessHolderManager.isHolderAlreadySet()
                 || !this.temperatureHolderManager.isHolderAlreadySet()
                 || !this.humidityHolderManager.isHolderAlreadySet()

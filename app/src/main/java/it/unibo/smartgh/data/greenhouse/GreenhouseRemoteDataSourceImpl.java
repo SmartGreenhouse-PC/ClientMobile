@@ -95,6 +95,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                     Optional<ParameterType> parameter = ParameterType.parameterOf(json.getString("parameterName"));
                     parameter.ifPresent(parameterType -> {
                         final ParameterValue parameterValue = gson.fromJson(msg, ParameterValueImpl.class);
+                        parameterValue.setUnit(plant.getUnitMap().get(parameter.get().getName()));
                         this.repository.updateParameterValue(parameterType, parameterValue);
                     });
             }});
