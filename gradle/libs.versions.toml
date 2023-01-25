@@ -1,7 +1,7 @@
 [versions]
 vertx = "4.3.3"
 junit = "5.8.1"
-gson = "2.8.8"
+gson = "2.8.9"
 androidx = "1.6.0"
 constraintlayout = "2.0.4"
 picasso = "2.8"
