@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/SmartGreenhouse-22-23/ClientMobile/compare/1.0.0...1.0.1) (2023-01-25)
+
+
+### Dependency updates
+
+* **core-deps:** update dependency gradle to v7.3.3 ([93da9ae](https://github.com/SmartGreenhouse-22-23/ClientMobile/commit/93da9ae1047dbb062a3666c65c74c1034017cf88))
+
 ## 1.0.0 (2023-01-25)
 
 
