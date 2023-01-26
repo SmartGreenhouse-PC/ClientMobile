@@ -1,3 +1,16 @@
+## [1.0.2](https://github.com/SmartGreenhouse-22-23/ClientMobile/compare/1.0.1...1.0.2) (2023-01-26)
+
+
+### Dependency updates
+
+* **core-deps:** update dependency gradle to v7.6 ([e608b37](https://github.com/SmartGreenhouse-22-23/ClientMobile/commit/e608b37592d11d4ea72ba5b634e60e785391bd83))
+* **deps:** update dependency androidx.constraintlayout:constraintlayout to v2.1.4 ([f78f27d](https://github.com/SmartGreenhouse-22-23/ClientMobile/commit/f78f27d2dd7bf5b8117de5cfe80e4c5fbc06def2))
+* **deps:** update dependency androidx.test.ext:junit to v1.1.5 ([275e068](https://github.com/SmartGreenhouse-22-23/ClientMobile/commit/275e068818c5b6e5f5766213116bd7af33642a82))
+* **deps:** update dependency com.google.code.gson:gson to v2.8.9 ([03b125c](https://github.com/SmartGreenhouse-22-23/ClientMobile/commit/03b125ce6d212f455d39e2e44794e05454c2da90))
+* **deps:** update dependency org.jetbrains.kotlin:kotlin-gradle-plugin to v1.5.32 ([2277e50](https://github.com/SmartGreenhouse-22-23/ClientMobile/commit/2277e5081b78fc2722a2690f9789132a14d60f3f))
+* **deps:** update junit5 monorepo to v5.8.2 ([31feb8d](https://github.com/SmartGreenhouse-22-23/ClientMobile/commit/31feb8d5b2c01e97beee22bbaed8703f9459fcd2))
+* **deps:** update vertx to v4.3.7 ([60db1ef](https://github.com/SmartGreenhouse-22-23/ClientMobile/commit/60db1efe7d3e7ace5f8556627548b95253a8cb82))
+
 ## [1.0.1](https://github.com/SmartGreenhouse-22-23/ClientMobile/compare/1.0.0...1.0.1) (2023-01-25)
 
 
