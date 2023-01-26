@@ -6,7 +6,7 @@ androidx = "1.6.0"
 constraintlayout = "2.0.4"
 picasso = "2.8"
 android = "7.0.4"
-kotlin = "1.5.10"
+kotlin = "1.5.32"
 androidx-test = "1.1.5"
 espresso = "3.3.0"
 
