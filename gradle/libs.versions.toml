@@ -8,7 +8,7 @@ picasso = "2.8"
 android = "7.0.4"
 kotlin = "1.5.32"
 androidx-test = "1.1.5"
-espresso = "3.3.0"
+espresso = "3.5.1"
 
 [libraries]
 vertx-core = {module = "io.vertx:vertx-core", version.ref = "vertx"}
