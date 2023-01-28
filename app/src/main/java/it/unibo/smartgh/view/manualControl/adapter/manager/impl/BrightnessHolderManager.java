@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.entity.parameter.ParameterType;
+import it.unibo.smartgh.entity.plant.PlantParameter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 
@@ -40,7 +41,8 @@ public class BrightnessHolderManager extends AbstractParameterHolderManager {
     @Override
     public void setElement() {
         Drawable drawable = ContextCompat.getDrawable(this.activity, ParameterType.BRIGHTNESS.getImagePath());
-        String optimalRange = plant.getMinBrightness() + " - " + plant.getMaxBrightness() + plant.getUnitMap().get("brightness");
+        PlantParameter parameter = plant.getParameters().get(ParameterType.BRIGHTNESS);
+        String optimalRange = parameter.getMin() + " - " + parameter.getMax() + parameter.getUnit();
         holder.getParameterImage().setImageDrawable(drawable);
         holder.getOptimalRange().setText(optimalRange);
         this.setBrightnessOperationElement();

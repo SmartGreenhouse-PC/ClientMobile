@@ -19,6 +19,7 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
 import it.unibo.smartgh.entity.plant.Plant;
+import it.unibo.smartgh.entity.plant.PlantParameter;
 import it.unibo.smartgh.utility.ActivityUtilities;
 import it.unibo.smartgh.utility.Config;
 import kotlin.Triple;
@@ -61,9 +62,10 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
     public void updatePlantInformation(Plant plant) {
         this.plantLiveData.postValue(plant);
         this.parameterList.replaceAll(p -> {
-            final String unit = plant.getUnitMap().get(p.component1().getName());
-            double min = this.paramOptimalValue("Min", p.component1().getName(), plant);
-            double max = this.paramOptimalValue("Max", p.component1().getName(), plant);
+            final PlantParameter plantParameter = plant.getParameters().get(ParameterType.parameterOf(p.component1().getName()).get());
+            final String unit = plantParameter.getUnit();
+            double min = plantParameter.getMin();
+            double max = plantParameter.getMax();
             final String optimalValue = min + " - " + max + " " + unit;
             return new Triple<>(p.component1(), p.component2(), optimalValue);
         });
@@ -108,16 +110,5 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
     @Override
     public LiveData<Modality> getModalityLiveData() {
         return this.modalityLiveData;
-    }
-
-    private Double paramOptimalValue(String type, String param, Plant plant) {
-        String paramName = param.substring(0, 1).toUpperCase() + param.substring(1);
-        try {
-            Class<?> c = Class.forName(Plant.class.getName());
-            return (Double) c.getDeclaredMethod("get" + type + paramName).invoke(plant);
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException |
-                 IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

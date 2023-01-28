@@ -20,6 +20,7 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
 import it.unibo.smartgh.entity.plant.Plant;
+import it.unibo.smartgh.entity.plant.PlantParameter;
 import it.unibo.smartgh.presentation.GsonUtils;
 
 /**
@@ -95,7 +96,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                     Optional<ParameterType> parameter = ParameterType.parameterOf(json.getString("parameterName"));
                     parameter.ifPresent(parameterType -> {
                         final ParameterValue parameterValue = gson.fromJson(msg, ParameterValueImpl.class);
-                        parameterValue.setUnit(plant.getUnitMap().get(parameter.get().getName()));
+                        parameterValue.setUnit(plant.getParameters().get(ParameterType.parameterOf(parameter.get().getName()).get()).getUnit());
                         this.repository.updateParameterValue(parameterType, parameterValue);
                     });
             }});
@@ -124,22 +125,13 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                                         .send()
                                         .onSuccess(r -> {
                                             final ParameterValue value = gson.fromJson(r.body(), ParameterValueImpl.class);
-                                            double min = this.paramOptimalValue("Min", p.getName(), plant);
-                                            double max = this.paramOptimalValue("Max", p.getName(), plant);
+                                            PlantParameter parameter = plant.getParameters().get(ParameterType.parameterOf(p.getName()).get());
+                                            double min = parameter.getMin();
+                                            double max = parameter.getMax();
                                             value.setStatus(value.getValue() < max && value.getValue() > min ? "normal" : "alarm");
-                                            value.setUnit(plant.getUnitMap().get(p.getName()));
+                                            value.setUnit(plant.getParameters().get(ParameterType.parameterOf(p.getName()).get()).getUnit());
                                             this.repository.updateParameterValue(p, value);
                                             this.repository.updateModality(this.greenhouse.getActualModality());
                                         }).onFailure(Throwable::printStackTrace)));
-    }
-
-    private Double paramOptimalValue(String type, String param, Plant plant){
-        String paramName = param.substring(0, 1).toUpperCase() + param.substring(1);
-        try {
-            Class<?> c = Class.forName(Plant.class.getName());
-            return (Double) c.getDeclaredMethod("get"+type+paramName).invoke(plant);
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

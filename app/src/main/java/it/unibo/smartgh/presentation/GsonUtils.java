@@ -7,10 +7,12 @@ import it.unibo.smartgh.entity.greenhouse.GreenhouseImpl;
 import it.unibo.smartgh.entity.operation.OperationImpl;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
 import it.unibo.smartgh.entity.plant.PlantImpl;
+import it.unibo.smartgh.entity.plant.PlantParameterImpl;
 import it.unibo.smartgh.presentation.deserializer.GreenhouseDeserializer;
 import it.unibo.smartgh.presentation.deserializer.OperationDeserializer;
 import it.unibo.smartgh.presentation.deserializer.ParameterValueDeserializer;
 import it.unibo.smartgh.presentation.deserializer.PlantDeserializer;
+import it.unibo.smartgh.presentation.deserializer.PlantParameterDeserializer;
 
 /**
  * This is a utility class to instantiate the {@link com.google.gson.JsonSerializer} and {@link com.google.gson.JsonDeserializer}
@@ -28,6 +30,7 @@ public class GsonUtils {
                 .registerTypeAdapter(GreenhouseImpl.class, new GreenhouseDeserializer())
                 .registerTypeAdapter(PlantImpl.class, new PlantDeserializer())
                 .registerTypeAdapter(OperationImpl.class, new OperationDeserializer())
+                .registerTypeAdapter(PlantParameterImpl.class, new PlantParameterDeserializer())
                 .create();
     }
 }
