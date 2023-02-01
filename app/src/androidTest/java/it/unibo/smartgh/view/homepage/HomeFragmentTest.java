@@ -11,60 +11,26 @@ import static org.hamcrest.Matchers.allOf;
 
 import android.view.View;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.hamcrest.core.IsInstanceOf;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.entity.parameter.ParameterType;
-import it.unibo.smartgh.entity.plant.Plant;
-import it.unibo.smartgh.entity.plant.PlantBuilder;
-import it.unibo.smartgh.entity.plant.PlantParameter;
-import it.unibo.smartgh.entity.plant.PlantParameterBuilder;
-import it.unibo.smartgh.view.MainActivity;
-import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
-import it.unibo.smartgh.viewmodel.GreenhouseViewModelImpl;
+import it.unibo.smartgh.view.AbstractActivityTest;
 
 /**
  * Test to verify the correct behaviour of the homepage fragment.
  */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class HomeFragmentTest {
-
-    @Rule
-    public ActivityScenarioRule<MainActivity> mActivityScenarioRule = new ActivityScenarioRule<>(MainActivity.class);
-    private MainActivity activity;
-    private GreenhouseViewModel viewModel;
-    private final Map<ParameterType, PlantParameter> parameters = new HashMap<ParameterType, PlantParameter>(){{
-        put(ParameterType.TEMPERATURE, new PlantParameterBuilder("temperature").min(8.0).max(35.0).unit("\u2103").build());
-        put(ParameterType.BRIGHTNESS, new PlantParameterBuilder("brightness").min(4200.0).max(130000.0).unit("Lux").build());
-        put(ParameterType.SOIL_MOISTURE, new PlantParameterBuilder("soilMoisture").min(20.0).max(65.0).unit("%").build());
-        put(ParameterType.HUMIDITY, new PlantParameterBuilder("humidity").min(30.0).max(80.0).unit("%").build());
-    }};
-    private final Plant plant =
-        new PlantBuilder("Plant name").description("Plant description").image("http://is.am/5b4x").parameters(parameters).build();
-
-    @Before
-    public void init() {
-        mActivityScenarioRule.getScenario().onActivity((activity) -> {
-            this.activity = activity;
-            this.viewModel = new ViewModelProvider(this.activity).get(GreenhouseViewModelImpl.class);
-            this.viewModel.updatePlantInformation(this.plant);
-        });
-    }
+public class HomeFragmentTest extends AbstractActivityTest {
 
     @Test
     public void basicInformationTest() {
