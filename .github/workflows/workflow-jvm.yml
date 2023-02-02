@@ -43,7 +43,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          trueemulator-build: 7425822
+          emulator-build: 7425822
           script: ./gradlew connectedDebugAndroidTest --parallel || ./gradlew connectedDebugAndroidTest --parallel || ./gradlew connectedDebugAndroidTest --parallel
   release:
     if: github.event_name == 'push'
