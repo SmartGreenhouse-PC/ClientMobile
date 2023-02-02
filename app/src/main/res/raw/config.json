@@ -3,5 +3,5 @@
   "port": 8890,
   "socketPort": 1234,
   "socketOperationPort": 1235,
-  "socketModalityPort": 1235
+  "socketModalityPort": 1236
 }
