@@ -57,7 +57,7 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource 
                         JsonObject json = new JsonObject(msg);
                         Log.i(TAG, msg);
                         if (json.getValue("greenhouseId").equals(this.id)) {
-                            //getLastParameterOperation(json.getString("parameterName"), id);
+                            getLastParameterOperation(json.getString("parameterName"), id);
                         }});
                 });
     }
