@@ -34,7 +34,11 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
         super(application);
         Config config = ActivityUtilities.getConfig(application);
         this.map = new HashMap<>(this.initializeMap(new OperationImpl()));
-        this.operationRepository = new OperationRepositoryImpl(this, config.getHost(), config.getPort());
+        this.operationRepository = new OperationRepositoryImpl(this,
+                config.getHost(),
+                config.getPort(),
+                config.getSocketOperationPort());
+        this.operationRepository.initialize();
         this.operationsLiveData = new MutableLiveData<>(map);
     }
 
@@ -66,6 +70,7 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
     public void updateParameterOperation(ParameterType parameter, Operation operation) {
         this.map = operationsLiveData.getValue();
         if (map != null) {
+            System.out.println(operation);
             map.put(parameter, operation);
             if (map.values().stream().noneMatch(op -> op.getAction() == null)) {
                 operationsLiveData.postValue(map);
