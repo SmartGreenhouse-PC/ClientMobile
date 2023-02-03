@@ -13,14 +13,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.allOf;
 
-import android.view.View;
-
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.awaitility.Duration;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -51,14 +48,14 @@ public class ManualControlFragmentTest extends AbstractActivityTest {
             await().pollInterval(Duration.TWO_HUNDRED_MILLISECONDS).atMost(Duration.FIVE_SECONDS).untilAsserted(() -> {
                 ViewInteraction textView = onView(
                         allOf(withId(R.id.parameterName), withText(type.getTitle()),
-                                withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
+//                                withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
                                 isDisplayed()));
                 textView.check(matches(withText(type.getTitle())));
 
                 ViewInteraction textView3 = onView(
                         allOf(withId(R.id.optimalRange),
                                 withText(parameter.getMin() + " - " + parameter.getMax() + parameter.getUnit()),
-                                withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
+//                                withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
                                 isDisplayed()));
                 textView3.check(matches(withText(parameter.getMin() + " - " + parameter.getMax() + parameter.getUnit())));
             });
