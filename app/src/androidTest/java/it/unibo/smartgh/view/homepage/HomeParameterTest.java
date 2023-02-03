@@ -29,6 +29,9 @@ import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
 import it.unibo.smartgh.view.AbstractActivityTest;
 
+/**
+ * Test to verify the correct behaviour of the homepage parameter test.
+ */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class HomeParameterTest extends AbstractActivityTest {
