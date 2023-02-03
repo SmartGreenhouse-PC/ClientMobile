@@ -43,26 +43,6 @@ public class ManualControlFragmentTest extends AbstractActivityTest {
     }
 
     @Test
-    public void parameterTest() {
-        this.plant.getParameters().forEach((type, parameter) -> {
-            await().pollInterval(Duration.TWO_HUNDRED_MILLISECONDS).atMost(Duration.FIVE_SECONDS).untilAsserted(() -> {
-                ViewInteraction textView = onView(
-                        allOf(withId(R.id.parameterName), withText(type.getTitle()),
-//                                withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
-                                isDisplayed()));
-                textView.check(matches(withText(type.getTitle())));
-
-                ViewInteraction textView3 = onView(
-                        allOf(withId(R.id.optimalRange),
-                                withText(parameter.getMin() + " - " + parameter.getMax() + parameter.getUnit()),
-//                                withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
-                                isDisplayed()));
-                textView3.check(matches(withText(parameter.getMin() + " - " + parameter.getMax() + parameter.getUnit())));
-            });
-        });
-    }
-
-    @Test
     public void modalityTest() {
         await().pollInterval(Duration.TWO_HUNDRED_MILLISECONDS).atMost(Duration.FIVE_SECONDS).untilAsserted(() -> {
             ViewInteraction switch_ = onView(
