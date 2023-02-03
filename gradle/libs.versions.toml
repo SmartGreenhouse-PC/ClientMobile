@@ -1,6 +1,6 @@
 [versions]
 vertx = "4.3.3"
-junit = "5.8.1"
+junit = "5.9.2"
 gson = "2.8.8"
 androidx = "1.6.0"
 constraintlayout = "2.0.4"
@@ -11,6 +11,7 @@ androidx-test = "1.1.2"
 espresso = "3.3.0"
 rules = "1.2.0"
 runner = "1.4.0"
+awaitility = "3.0.0"
 
 [libraries]
 vertx-core = {module = "io.vertx:vertx-core", version.ref = "vertx"}
@@ -30,6 +31,7 @@ androidx-rules = {module = "androidx.test:rules", version.ref = "rules"}
 androidx-runner = {module = "androidx.test:runner", version.ref = "runner"}
 picasso = {module = "com.squareup.picasso:picasso", version.ref = "picasso"}
 kotlin = {module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin"}
+awaitility = {module = "org.awaitility:awaitility", version.ref = "awaitility"}
 
 [bundles]
 vertx-dependencies = [

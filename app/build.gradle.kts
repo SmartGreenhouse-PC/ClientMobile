@@ -49,5 +49,6 @@ dependencies {
     implementation(libs.gson)
     testImplementation(libs.junit.api)
     testImplementation(libs.junit.engine)
+    androidTestImplementation(libs.awaitility)
     androidTestImplementation(libs.bundles.androidx.test)
 }
