@@ -33,6 +33,7 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource 
     private final OperationRepository operationRepository;
     private final String id;
     private final int socketOperationPort;
+    private HttpClient clientOperation;
 
     public OperationRemoteDataSourceImpl(OperationRepositoryImpl operationRepository,
                                          String id,
@@ -48,7 +49,7 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource 
         this.socketOperationPort = socketOperationPort;
     }
     public void initialize(){
-        HttpClient clientOperation = vertx.createHttpClient();
+        clientOperation = vertx.createHttpClient();
         clientOperation.webSocket(socketOperationPort, this.host, "/",
                 wsC -> {
                     WebSocket ctx = wsC.result();
@@ -93,5 +94,10 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource 
                         operationRepository.updateParameterOperation(ParameterType.parameterOf(operation.getParameter()).get(), operation);
                     }
                 });
+    }
+
+    @Override
+    public void closeSocket() {
+        this.clientOperation.close();
     }
 }

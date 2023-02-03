@@ -54,4 +54,9 @@ public class OperationRepositoryImpl implements OperationRepository{
     public void updateParameterOperation(ParameterType parameter, Operation operation) {
         this.viewModel.updateParameterOperation(parameter, operation);
     }
+
+    @Override
+    public void closeSocket() {
+        this.operationRemoteDataSource.closeSocket();
+    }
 }

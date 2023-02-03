@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         statusLiveData = new MutableLiveData<>();
         modalityLiveData = new MutableLiveData<>();
         Config config = ActivityUtilities.getConfig(application);
-        greenhouseRepository = new GreenhouseRepositoryImpl(this, config.getHost(), config.getPort(), config.getSocketPort());
+        greenhouseRepository = new GreenhouseRepositoryImpl(this, config.getHost(), config.getPort(), config.getSocketPort(), config.getSocketModalityPort());
         greenhouseRepository.initializeData();
     }
 
@@ -110,5 +109,15 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
     @Override
     public LiveData<Modality> getModalityLiveData() {
         return this.modalityLiveData;
+    }
+
+    @Override
+    public void closeModalitySocket() {
+        this.greenhouseRepository.closeModalitySocket();
+    }
+
+    @Override
+    public void initializeModalitySocket() {
+        this.greenhouseRepository.initializeModalitySocket();
     }
 }

@@ -24,4 +24,9 @@ public interface OperationRemoteDataSource {
      * @param id greenhouse id
      */
     void getLastParameterOperation(String parameter, String id);
+
+    /**
+     * Close the operation socket.
+     */
+    void closeSocket();
 }

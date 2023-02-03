@@ -22,9 +22,9 @@ public class GreenhouseRepositoryImpl implements GreenhouseRepository {
      * @param port the port of the server
      * @param socketPort the socket port
      */
-    public GreenhouseRepositoryImpl(GreenhouseViewModel viewModel, String host, int port, int socketPort) {
+    public GreenhouseRepositoryImpl(GreenhouseViewModel viewModel, String host, int port, int socketPort, int socketModalityPort) {
         this.viewModel = viewModel;
-        this.greenhouseRemoteDataSource = new GreenhouseRemoteDataSourceImpl(host, port, socketPort, GREENHOUSE_ID, this);
+        this.greenhouseRemoteDataSource = new GreenhouseRemoteDataSourceImpl(host, port, socketPort, GREENHOUSE_ID, this, socketModalityPort);
     }
 
     @Override
@@ -50,5 +50,15 @@ public class GreenhouseRepositoryImpl implements GreenhouseRepository {
     @Override
     public void updateModality(Modality actualModality) {
         this.viewModel.updateModality(actualModality);
+    }
+
+    @Override
+    public void closeModalitySocket() {
+        this.greenhouseRemoteDataSource.closeModalitySocket();
+    }
+
+    @Override
+    public void initializeModalitySocket() {
+        this.greenhouseRemoteDataSource.initializeModalitySocket();
     }
 }

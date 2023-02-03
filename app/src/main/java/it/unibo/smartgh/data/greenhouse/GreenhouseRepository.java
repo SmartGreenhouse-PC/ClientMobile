@@ -39,4 +39,14 @@ public interface GreenhouseRepository {
      * @param actualModality actual modality.
      */
     void updateModality(Modality actualModality);
+
+    /**
+     * Close the modality socket.
+     */
+    void closeModalitySocket();
+
+    /**
+     * Initialize the modality socket.
+     */
+    void initializeModalitySocket();
 }

@@ -64,4 +64,13 @@ public interface GreenhouseViewModel {
      */
     LiveData<Modality> getModalityLiveData();
 
+    /**
+     * Close the modality socket.
+     */
+    void closeModalitySocket();
+
+    /**
+     * Initialize the modality socket.
+     */
+    void initializeModalitySocket();
 }

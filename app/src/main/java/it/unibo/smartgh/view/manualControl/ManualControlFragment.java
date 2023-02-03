@@ -33,6 +33,7 @@ import it.unibo.smartgh.viewmodel.OperationViewModelImpl;
  */
 public class ManualControlFragment extends Fragment {
     private OperationAdapter operationAdapter;
+    private GreenhouseViewModel greenhouseViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +56,8 @@ public class ManualControlFragment extends Fragment {
             ActivityUtilities.setVisibleToolbarNavigationIcon((AppCompatActivity) activity, true);
             setRecyclerView();
             final OperationViewModel operationViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(OperationViewModelImpl.class);
-            final GreenhouseViewModel greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
+            greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
+            greenhouseViewModel.initializeModalitySocket();
             this.operationAdapter.setOperationViewModel(operationViewModel);
             SwitchCompat manualControlSwitch = view.findViewById(R.id.manualControlChoice);
             greenhouseViewModel.getModalityLiveData().observe((LifecycleOwner) activity, modality -> {
@@ -65,8 +67,8 @@ public class ManualControlFragment extends Fragment {
                     operationViewModel.getLastParameterOperation(ParameterType.TEMPERATURE.getName());
                     operationViewModel.getLastParameterOperation(ParameterType.HUMIDITY.getName());
                     operationViewModel.getLastParameterOperation(ParameterType.SOIL_MOISTURE.getName());
-                    manualControlSwitch.setChecked(true);
                 }
+                manualControlSwitch.setChecked(isManual);
                 this.operationAdapter.updateModality(isManual);
             });
             manualControlSwitch.setOnCheckedChangeListener((button, isChecked) ->{
@@ -89,6 +91,12 @@ public class ManualControlFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onDestroyView() {
+        this.greenhouseViewModel.closeModalitySocket();
+        super.onDestroyView();
     }
 
     private void setRecyclerView(){

@@ -70,11 +70,16 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
     public void updateParameterOperation(ParameterType parameter, Operation operation) {
         this.map = operationsLiveData.getValue();
         if (map != null) {
-            System.out.println(operation);
             map.put(parameter, operation);
             if (map.values().stream().noneMatch(op -> op.getAction() == null)) {
                 operationsLiveData.postValue(map);
             }
         }
+    }
+
+    @Override
+    protected void onCleared() {
+        this.operationRepository.closeSocket();
+        super.onCleared();
     }
 }

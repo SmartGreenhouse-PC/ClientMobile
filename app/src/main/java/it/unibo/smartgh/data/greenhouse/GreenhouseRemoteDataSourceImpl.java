@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -39,9 +38,11 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     private final Vertx vertx;
     private final String id;
     private final Gson gson;
+    private final int socketModalityPort;
     private GreenhouseImpl greenhouse;
     private Plant plant;
     private HttpClient server;
+    private HttpClient modalitySocket;
 
     /**
      * Constructor of a {@link GreenhouseRemoteDataSource}.
@@ -50,8 +51,9 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
      * @param socketPort the socket port
      * @param id the greenhouse id
      * @param repository the greenhouse repository
+     * @param socketModalityPort the modality socket port
      */
-    public GreenhouseRemoteDataSourceImpl(String host, int port, int socketPort, String id, GreenhouseRepository repository) {
+    public GreenhouseRemoteDataSourceImpl(String host, int port, int socketPort, String id, GreenhouseRepository repository, int socketModalityPort) {
         this.host = host;
         this.port = port;
         this.socketPort = socketPort;
@@ -59,12 +61,30 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
         this.repository = repository;
         this.id = id;
         this.gson = GsonUtils.createGson();
+        this.socketModalityPort = socketModalityPort;
     }
 
     @Override
     public void initializeData() {
         this.updateView();
         this.setSocket();
+    }
+    @Override
+    public void initializeModalitySocket(){
+        this.modalitySocket = vertx.createHttpClient();
+        this.modalitySocket.webSocket(this.socketModalityPort, this.host, "/",
+                wsC -> {
+                    WebSocket ctx = wsC.result();
+                    Log.i(TAG, "Connected to socket");
+                    ctx.textMessageHandler(msg -> {
+                        JsonObject json = new JsonObject(msg);
+                        Log.i(TAG, msg);
+                        if (json.getValue("greenhouseId").equals(this.id)) {
+                            this.repository.updateModality(
+                                    Modality.valueOf(json.getString("modality"))
+                            );
+                        }});
+                });
     }
 
     @Override
@@ -81,6 +101,11 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                         .put("id", greenhouseId)
                         .put("modality", modality.name())
                 ).onSuccess(r -> this.repository.updateModality(modality));
+    }
+
+    @Override
+    public void closeModalitySocket() {
+        this.modalitySocket.close();
     }
 
     private void setSocket() {
