@@ -39,7 +39,6 @@ public class ManualControlFragmentTest extends AbstractActivityTest {
                 allOf(withId(R.id.manual_control_button), withText("Imposta controllo manuale"),
                         isDisplayed()));
         materialButton.perform(click());
-        this.viewModel.updatePlantInformation(this.plant);
     }
 
     @Test
