@@ -49,4 +49,6 @@ public abstract class AbstractParameterHolderManager implements ParameterHolderM
 
     public abstract void setElement();
 
+    public abstract void setDefaultConfiguration();
+
 }

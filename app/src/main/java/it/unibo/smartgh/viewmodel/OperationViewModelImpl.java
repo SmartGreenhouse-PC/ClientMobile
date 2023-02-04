@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import it.unibo.smartgh.data.operation.OperationRepository;
 import it.unibo.smartgh.data.operation.OperationRepositoryImpl;
@@ -67,9 +68,10 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
         this.map = operationsLiveData.getValue();
         if (map != null) {
             map.put(parameter, operation);
-            if (map.values().stream().noneMatch(op -> op.getAction() == null)) {
+            if (map.values().stream().noneMatch(Objects::isNull)) {
                 operationsLiveData.postValue(map);
             }
         }
     }
+
 }

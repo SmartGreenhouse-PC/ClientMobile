@@ -49,6 +49,11 @@ public class BrightnessHolderManager extends AbstractParameterHolderManager {
     }
 
     @Override
+    public void setDefaultConfiguration() {
+        this.seekbar.setProgress(0);
+    }
+
+    @Override
     public void setManualModality(Boolean modality) {
         super.setManualModality(modality);
         this.seekbar.setEnabled(this.modality);

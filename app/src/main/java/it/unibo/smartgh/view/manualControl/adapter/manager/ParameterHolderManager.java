@@ -36,4 +36,9 @@ public interface ParameterHolderManager {
      * @return true, if is already set, false otherwise
      */
     Boolean isHolderAlreadySet();
+
+    /**
+     * Set the default configuration of the controls.
+     */
+    void setDefaultConfiguration();
 }

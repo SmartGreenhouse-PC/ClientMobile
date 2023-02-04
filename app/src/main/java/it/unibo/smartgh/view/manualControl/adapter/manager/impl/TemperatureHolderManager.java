@@ -73,6 +73,11 @@ public class TemperatureHolderManager extends AbstractParameterHolderManager {
         this.setTemperatureOperationElement();
     }
 
+    @Override
+    public void setDefaultConfiguration() {
+        this.systemOnOff.setEnabled(false);
+    }
+
     public void setEnableTemperatureButton(final String temperature) {
         this.controlsList.forEach(b -> {
             String message;

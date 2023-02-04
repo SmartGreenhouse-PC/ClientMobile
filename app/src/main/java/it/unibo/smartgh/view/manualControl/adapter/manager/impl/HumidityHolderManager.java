@@ -54,6 +54,11 @@ public class HumidityHolderManager extends AbstractParameterHolderManager {
         this.setHumidityOperationElement();
     }
 
+    @Override
+    public void setDefaultConfiguration() {
+        this.humidityButton.setText(ATTIVA_VENTILAZIONE);
+    }
+
     public void setButtonTextHumidity(String humidity) {
         this.humidityButton.setText(humidity.equals(ATTIVA_VENTILAZIONE) ? DISATTIVA_VENTILAZIONE : ATTIVA_VENTILAZIONE);
     }

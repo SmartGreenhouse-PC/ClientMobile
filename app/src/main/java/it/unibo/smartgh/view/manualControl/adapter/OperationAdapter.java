@@ -146,23 +146,37 @@ public class OperationAdapter extends RecyclerView.Adapter<OperationViewHolder> 
 
     public void setLastOperation(Map<ParameterType, Operation> map) {
         map.forEach((k, v) -> {
-            if(v.getAction() != null) {
-                switch (k) {
-                    case BRIGHTNESS:
+            switch (k) {
+                case BRIGHTNESS:
+                    if(v.getAction() != null){
                         this.brightnessHolderManager.setLampBrightnessLevel(Integer.parseInt(v.getAction().replace(LUMINOSITY, "")));
-                        break;
-                    case TEMPERATURE:
+                    }else{
+                        this.brightnessHolderManager.setDefaultConfiguration();
+                    }
+                    break;
+                case TEMPERATURE:
+                    if(v.getAction() != null) {
                         this.temperatureHolderManager.setEnableTemperatureButton(v.getAction().replace(TEMPERATURE, ""));
-                        break;
-                    case HUMIDITY:
+                    }else{
+                            this.temperatureHolderManager.setDefaultConfiguration();
+                        }
+                    break;
+                case HUMIDITY:
+                    if(v.getAction() != null){
                         this.humidityHolderManager.setButtonTextHumidity(v.getAction().replace(HUMIDITY, "").equals("on") ? ATTIVA_VENTILAZIONE : DISATTIVA_VENTILAZIONE);
-                        break;
-                    case SOIL_MOISTURE:
+                    }else{
+                        this.humidityHolderManager.setDefaultConfiguration();
+                    }
+                    break;
+                case SOIL_MOISTURE:
+                    if(v.getAction() != null) {
                         this.soilMoistureHolderManager.setButtonTextSoilMoisture(v.getAction().replace(IRRIGATION, "").equals("on") ? ATTIVA_IRRIGAZIONE : DISATTIVA_IRRIGAZIONE);
-                        break;
-                    default:
-                        break;
-                }
+                    } else{
+                        this.soilMoistureHolderManager.setDefaultConfiguration();
+                    }
+                    break;
+                default:
+                    break;
             }
         });
 

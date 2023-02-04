@@ -55,6 +55,11 @@ public class SoilMoistureHolderManager extends AbstractParameterHolderManager {
         this.setSoilMoistureOperationElement();
     }
 
+    @Override
+    public void setDefaultConfiguration() {
+        this.soilMoistureButton.setText(ATTIVA_IRRIGAZIONE);
+    }
+
     public void setButtonTextSoilMoisture(String soilMoisture) {
         this.soilMoistureButton.setText(soilMoisture.equals(ATTIVA_IRRIGAZIONE) ? DISATTIVA_IRRIGAZIONE : ATTIVA_IRRIGAZIONE);
     }
