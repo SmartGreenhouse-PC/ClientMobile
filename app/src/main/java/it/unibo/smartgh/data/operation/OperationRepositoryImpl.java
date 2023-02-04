@@ -21,10 +21,16 @@ public class OperationRepositoryImpl implements OperationRepository{
      * @param viewModel the operation view model
      * @param host the host of the server
      * @param port the port of the server
+     * @param socketOperationPort the port of the operation socket
      */
-    public OperationRepositoryImpl(OperationViewModel viewModel, String host, int port) {
-        this.operationRemoteDataSource = new OperationRemoteDataSourceImpl(this, host, port);
+    public OperationRepositoryImpl(OperationViewModel viewModel, String host, int port, int socketOperationPort) {
+        this.operationRemoteDataSource = new OperationRemoteDataSourceImpl(this, GREENHOUSE_ID, host, port, socketOperationPort);
         this.viewModel = viewModel;
+    }
+
+    @Override
+    public void initialize() {
+        this.operationRemoteDataSource.initialize();
     }
 
     @Override
@@ -47,5 +53,10 @@ public class OperationRepositoryImpl implements OperationRepository{
     @Override
     public void updateParameterOperation(ParameterType parameter, Operation operation) {
         this.viewModel.updateParameterOperation(parameter, operation);
+    }
+
+    @Override
+    public void closeSocket() {
+        this.operationRemoteDataSource.closeSocket();
     }
 }

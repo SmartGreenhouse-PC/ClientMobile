@@ -23,4 +23,16 @@ public interface Config {
      */
     int getSocketPort();
 
+    /**
+     * Returns the socket operation port.
+     * @return the socket operation port
+     */
+    int getSocketOperationPort();
+
+    /**
+     * Returns the socket modality port.
+     * @return the socket modality port
+     */
+    int getSocketModalityPort();
+
 }

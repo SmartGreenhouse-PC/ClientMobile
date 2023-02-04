@@ -48,7 +48,11 @@ dependencies {
     implementation(libs.picasso)
     implementation(libs.gson)
     testImplementation(libs.junit.api)
-    testImplementation(libs.junit.engine)
-    androidTestImplementation(libs.androidx.test)
-    androidTestImplementation(libs.androidx.espresso)
+    testRuntimeOnly(libs.junit.engine)
+    androidTestImplementation(libs.awaitility)
+    androidTestImplementation(libs.bundles.androidx.test)
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

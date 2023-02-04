@@ -8,6 +8,11 @@ import it.unibo.smartgh.entity.operation.Operation;
 public interface OperationRemoteDataSource {
 
     /**
+     * Initialize the socket.
+     */
+    void initialize();
+
+    /**
      * Send a new operation to server.
      * @param operation the new operation performed.
      */
@@ -19,4 +24,9 @@ public interface OperationRemoteDataSource {
      * @param id greenhouse id
      */
     void getLastParameterOperation(String parameter, String id);
+
+    /**
+     * Close the operation socket.
+     */
+    void closeSocket();
 }

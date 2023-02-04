@@ -8,6 +8,11 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
  */
 public interface OperationRepository {
     /**
+     * Initialize the socket.
+     */
+    void initialize();
+
+    /**
      * Send a new operation to server.
      * @param parameter on which is performed the new operation.
      * @param action performed.
@@ -27,4 +32,8 @@ public interface OperationRepository {
      */
     void updateParameterOperation(ParameterType parameter, Operation operation);
 
+    /**
+     * Close the operation socket.
+     */
+    void closeSocket();
 }
