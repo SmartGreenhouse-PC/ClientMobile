@@ -12,6 +12,7 @@ espresso = "3.3.0"
 rules = "1.2.0"
 runner = "1.4.0"
 awaitility = "3.0.0"
+jacoco = "0.8.8"
 
 [libraries]
 vertx-core = {module = "io.vertx:vertx-core", version.ref = "vertx"}
@@ -32,6 +33,7 @@ androidx-runner = {module = "androidx.test:runner", version.ref = "runner"}
 picasso = {module = "com.squareup.picasso:picasso", version.ref = "picasso"}
 kotlin = {module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin"}
 awaitility = {module = "org.awaitility:awaitility", version.ref = "awaitility"}
+jacoco = {module = "org.jacoco:org.jacoco.build", version.ref = "jacoco"}
 
 [bundles]
 vertx-dependencies = [
@@ -56,3 +58,4 @@ androidx-test = [
 
 [plugins]
 gitSemVer = "org.danilopianini.git-sensitive-semantic-versioning-gradle-plugin:0.3.20"
+jacocoCoverage = "com.vanniktech.android.junit.jacoco:0.16.0"

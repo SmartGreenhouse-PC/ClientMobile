@@ -1,11 +1,18 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     id("com.android.application")
+    jacoco
     alias(libs.plugins.gitSemVer)
+    alias(libs.plugins.jacocoCoverage)
+}
+
+jacoco {
+    toolVersion = "0.8.8"
 }
 
 android {
     compileSdk =  33
-
 
     defaultConfig {
         applicationId = "it.unibo.smartgh"
@@ -28,6 +35,10 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        debug {
+            isTestCoverageEnabled = true
+        }
     }
 
     compileOptions {
@@ -47,6 +58,7 @@ dependencies {
     implementation(libs.bundles.vertx.dependencies)
     implementation(libs.picasso)
     implementation(libs.gson)
+    implementation(libs.jacoco)
     testImplementation(libs.junit.api)
     testRuntimeOnly(libs.junit.engine)
     androidTestImplementation(libs.awaitility)

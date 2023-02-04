@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath(libs.android)
         classpath(libs.kotlin)
+        classpath(libs.jacoco)
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
