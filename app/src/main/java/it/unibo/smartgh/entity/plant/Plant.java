@@ -23,8 +23,8 @@ public interface Plant {
     String getImg();
 
     /**
-     * Get the map of parameters <ParameterType, Parameter>.
-     * @return the map of parameters <ParameterType, Parameter>.
+     * Get the map of parameters with key ParameterType and value Parameter.
+     * @return the map of parameters with key ParameterType and value Parameter.
      */
     Map<ParameterType, PlantParameter> getParameters();
 

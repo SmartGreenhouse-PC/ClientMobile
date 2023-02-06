@@ -59,3 +59,4 @@ androidx-test = [
 [plugins]
 gitSemVer = "org.danilopianini.git-sensitive-semantic-versioning-gradle-plugin:0.3.20"
 jacocoCoverage = "com.vanniktech.android.junit.jacoco:0.16.0"
+javadocAndroid = "com.vanniktech.android.javadoc:0.3.0"

@@ -5,6 +5,7 @@ plugins {
     jacoco
     alias(libs.plugins.gitSemVer)
     alias(libs.plugins.jacocoCoverage)
+    alias(libs.plugins.javadocAndroid)
 }
 
 jacoco {
