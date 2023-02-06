@@ -3,4 +3,4 @@
     "extends": [
       "github>DanySK/renovate-config:gradle-plugin"
     ]
-}
+  }

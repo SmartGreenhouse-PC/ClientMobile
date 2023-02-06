@@ -13,6 +13,11 @@ public interface GreenhouseRemoteDataSource {
     void initializeData();
 
     /**
+     * Initialize the modality socket.
+     */
+    void initializeModalitySocket();
+
+    /**
      * Close the socket.
      */
     void closeSocket();
@@ -23,4 +28,9 @@ public interface GreenhouseRemoteDataSource {
      * @param modality new modality.
      */
     void putModality(String greenhouseId, Modality modality);
+
+    /**
+     * Close the modality socket.
+     */
+    void closeModalitySocket();
 }

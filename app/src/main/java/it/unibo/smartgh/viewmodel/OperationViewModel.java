@@ -37,4 +37,5 @@ public interface OperationViewModel {
      * @param operation the parameter operation
      */
     void updateParameterOperation(ParameterType parameter, Operation operation);
+
 }

@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.core.content.ContextCompat;
 
 import it.unibo.smartgh.entity.parameter.ParameterType;
+import it.unibo.smartgh.entity.plant.PlantParameter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 
@@ -46,10 +47,16 @@ public class HumidityHolderManager extends AbstractParameterHolderManager {
     @Override
     public void setElement() {
         Drawable drawable = ContextCompat.getDrawable(this.activity, ParameterType.HUMIDITY.getImagePath());
-        String optimalRange = plant.getMinHumidity() + " - " + plant.getMaxHumidity() + plant.getUnitMap().get("humidity");
+        PlantParameter parameter = plant.getParameters().get(ParameterType.HUMIDITY);
+        String optimalRange = parameter.getMin() + " - " + parameter.getMax() + parameter.getUnit();
         holder.getParameterImage().setImageDrawable(drawable);
         holder.getOptimalRange().setText(optimalRange);
         this.setHumidityOperationElement();
+    }
+
+    @Override
+    public void setDefaultConfiguration() {
+        this.humidityButton.setText(ATTIVA_VENTILAZIONE);
     }
 
     public void setButtonTextHumidity(String humidity) {

@@ -16,6 +16,7 @@ import java.util.List;
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.plant.Plant;
+import it.unibo.smartgh.entity.plant.PlantParameter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 import it.unibo.smartgh.view.manualControl.adapter.manager.ParameterHolderManager;
@@ -65,10 +66,16 @@ public class TemperatureHolderManager extends AbstractParameterHolderManager {
     @Override
     public void setElement() {
         Drawable drawable = ContextCompat.getDrawable(this.activity, ParameterType.TEMPERATURE.getImagePath());
-        String optimalValue = plant.getMinTemperature() + " - " + plant.getMaxTemperature() + plant.getUnitMap().get("temperature");
+        PlantParameter parameter = plant.getParameters().get(ParameterType.TEMPERATURE);
+        String optimalRange = parameter.getMin() + " - " + parameter.getMax() + parameter.getUnit();
         holder.getParameterImage().setImageDrawable(drawable);
-        holder.getOptimalRange().setText(optimalValue);
+        holder.getOptimalRange().setText(optimalRange);
         this.setTemperatureOperationElement();
+    }
+
+    @Override
+    public void setDefaultConfiguration() {
+        this.systemOnOff.setEnabled(false);
     }
 
     public void setEnableTemperatureButton(final String temperature) {

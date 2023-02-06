@@ -1,14 +1,18 @@
 [versions]
-vertx = "4.3.7"
+vertx = "4.3.3"
 junit = "5.9.2"
-gson = "2.10.1"
+gson = "2.8.8"
 androidx = "1.6.0"
-constraintlayout = "2.1.4"
-picasso = "2.71828"
+constraintlayout = "2.0.4"
+picasso = "2.8"
 android = "7.0.4"
-kotlin = "1.8.10"
-androidx-test = "1.1.5"
-espresso = "3.5.1"
+kotlin = "1.5.10"
+androidx-test = "1.1.2"
+espresso = "3.3.0"
+rules = "1.2.0"
+runner = "1.4.0"
+awaitility = "3.0.0"
+jacoco = "0.8.8"
 
 [libraries]
 vertx-core = {module = "io.vertx:vertx-core", version.ref = "vertx"}
@@ -24,8 +28,12 @@ androidx-constraintlayout = {module = "androidx.constraintlayout:constraintlayou
 android-material = {module = "com.google.android.material:material", version.ref = "androidx"}
 androidx-test = {module = "androidx.test.ext:junit", version.ref = "androidx-test"}
 androidx-espresso = {module = "androidx.test.espresso:espresso-core", version.ref = "espresso"}
+androidx-rules = {module = "androidx.test:rules", version.ref = "rules"}
+androidx-runner = {module = "androidx.test:runner", version.ref = "runner"}
 picasso = {module = "com.squareup.picasso:picasso", version.ref = "picasso"}
 kotlin = {module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin"}
+awaitility = {module = "org.awaitility:awaitility", version.ref = "awaitility"}
+jacoco = {module = "org.jacoco:org.jacoco.build", version.ref = "jacoco"}
 
 [bundles]
 vertx-dependencies = [
@@ -41,5 +49,14 @@ android-dependencies = [
     "android-material"
 ]
 
+androidx-test = [
+    "androidx-test",
+    "androidx-espresso",
+    "androidx-rules",
+    "androidx-runner"
+]
+
 [plugins]
 gitSemVer = "org.danilopianini.git-sensitive-semantic-versioning-gradle-plugin:0.3.20"
+jacocoCoverage = "com.vanniktech.android.junit.jacoco:0.16.0"
+javadocAndroid = "com.vanniktech.android.javadoc:0.3.0"

@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.entity.parameter.ParameterType;
+import it.unibo.smartgh.entity.plant.PlantParameter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationAdapter;
 import it.unibo.smartgh.view.manualControl.adapter.OperationViewHolder;
 
@@ -47,10 +48,16 @@ public class SoilMoistureHolderManager extends AbstractParameterHolderManager {
     @Override
     public void setElement() {
         Drawable drawable = ContextCompat.getDrawable(this.activity, R.drawable.ic_soil_moisture);
-        String optimalRange = plant.getMinSoilMoisture() + " - " + plant.getMaxSoilMoisture() + plant.getUnitMap().get("soilMoisture");
+        PlantParameter parameter = plant.getParameters().get(ParameterType.SOIL_MOISTURE);
+        String optimalRange = parameter.getMin() + " - " + parameter.getMax() + parameter.getUnit();
         holder.getOptimalRange().setText(optimalRange);
         holder.getParameterImage().setImageDrawable(drawable);
         this.setSoilMoistureOperationElement();
+    }
+
+    @Override
+    public void setDefaultConfiguration() {
+        this.soilMoistureButton.setText(ATTIVA_IRRIGAZIONE);
     }
 
     public void setButtonTextSoilMoisture(String soilMoisture) {

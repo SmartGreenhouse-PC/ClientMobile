@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +18,7 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
 import it.unibo.smartgh.entity.plant.Plant;
+import it.unibo.smartgh.entity.plant.PlantParameter;
 import it.unibo.smartgh.utility.ActivityUtilities;
 import it.unibo.smartgh.utility.Config;
 import kotlin.Triple;
@@ -47,7 +47,7 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         statusLiveData = new MutableLiveData<>();
         modalityLiveData = new MutableLiveData<>();
         Config config = ActivityUtilities.getConfig(application);
-        greenhouseRepository = new GreenhouseRepositoryImpl(this, config.getHost(), config.getPort(), config.getSocketPort());
+        greenhouseRepository = new GreenhouseRepositoryImpl(this, config.getHost(), config.getPort(), config.getSocketPort(), config.getSocketModalityPort());
         greenhouseRepository.initializeData();
     }
 
@@ -61,11 +61,17 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
     public void updatePlantInformation(Plant plant) {
         this.plantLiveData.postValue(plant);
         this.parameterList.replaceAll(p -> {
-            final String unit = plant.getUnitMap().get(p.component1().getName());
-            double min = this.paramOptimalValue("Min", p.component1().getName(), plant);
-            double max = this.paramOptimalValue("Max", p.component1().getName(), plant);
-            final String optimalValue = min + " - " + max + " " + unit;
-            return new Triple<>(p.component1(), p.component2(), optimalValue);
+            final ParameterType type = ParameterType.parameterOf(p.component1().getName()).get();
+            if (plant.getParameters().containsKey(type)) {
+                final PlantParameter plantParameter = plant.getParameters().get(type);
+                final String unit = plantParameter.getUnit();
+                double min = plantParameter.getMin();
+                double max = plantParameter.getMax();
+                final String optimalValue = min + " - " + max + " " + unit;
+                return new Triple<>(p.component1(), p.component2(), optimalValue);
+            } else {
+                return p;
+            }
         });
         this.parametersLiveData.postValue(this.parameterList);
     }
@@ -110,14 +116,13 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         return this.modalityLiveData;
     }
 
-    private Double paramOptimalValue(String type, String param, Plant plant) {
-        String paramName = param.substring(0, 1).toUpperCase() + param.substring(1);
-        try {
-            Class<?> c = Class.forName(Plant.class.getName());
-            return (Double) c.getDeclaredMethod("get" + type + paramName).invoke(plant);
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException |
-                 IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public void closeModalitySocket() {
+        this.greenhouseRepository.closeModalitySocket();
+    }
+
+    @Override
+    public void initializeModalitySocket() {
+        this.greenhouseRepository.initializeModalitySocket();
     }
 }

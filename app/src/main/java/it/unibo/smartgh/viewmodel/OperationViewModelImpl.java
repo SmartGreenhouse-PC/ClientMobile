@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import it.unibo.smartgh.data.operation.OperationRepository;
 import it.unibo.smartgh.data.operation.OperationRepositoryImpl;
@@ -34,7 +35,11 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
         super(application);
         Config config = ActivityUtilities.getConfig(application);
         this.map = new HashMap<>(this.initializeMap(new OperationImpl()));
-        this.operationRepository = new OperationRepositoryImpl(this, config.getHost(), config.getPort());
+        this.operationRepository = new OperationRepositoryImpl(this,
+                config.getHost(),
+                config.getPort(),
+                config.getSocketOperationPort());
+        this.operationRepository.initialize();
         this.operationsLiveData = new MutableLiveData<>(map);
     }
 
@@ -67,9 +72,15 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
         this.map = operationsLiveData.getValue();
         if (map != null) {
             map.put(parameter, operation);
-            if (map.values().stream().noneMatch(op -> op.getAction() == null)) {
+            if (map.values().stream().noneMatch(Objects::isNull)) {
                 operationsLiveData.postValue(map);
             }
         }
+    }
+
+    @Override
+    protected void onCleared() {
+        this.operationRepository.closeSocket();
+        super.onCleared();
     }
 }
