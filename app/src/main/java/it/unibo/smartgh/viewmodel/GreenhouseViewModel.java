@@ -1,6 +1,7 @@
 package it.unibo.smartgh.viewmodel;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -15,11 +16,11 @@ import kotlin.Triple;
  */
 public interface GreenhouseViewModel {
 
-    void setgreenhouseId(String greenhouseId);
+    void setGreenhouseId(String greenhouseId);
 
-    void setGreenhousesName(List<String> greenhousesName);
+    void updateGreenhousesName(List<String> greenhousesName);
 
-    List<String> getAllGreenhouses();
+    MutableLiveData<List<String>> getAllGreenhouses();
 
     /**
      * Update the view plant information.

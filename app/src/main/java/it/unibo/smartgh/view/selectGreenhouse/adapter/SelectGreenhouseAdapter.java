@@ -16,21 +16,18 @@ import it.unibo.smartgh.view.recyclerview.Adapter;
 import it.unibo.smartgh.view.recyclerview.OnItemListener;
 
 public class SelectGreenhouseAdapter extends RecyclerView.Adapter<SelectGreenhouseViewHolder> implements Adapter<String> {
-
-    private Activity activity;
     private List<String> greenhouseList;
     private final OnItemListener listener;
 
-    public SelectGreenhouseAdapter(Activity activity, OnItemListener listener){
-        this.activity = activity;
-        this.greenhouseList = new LinkedList<String>();
+    public SelectGreenhouseAdapter(OnItemListener listener){
+        this.greenhouseList = new LinkedList<>();
         this.listener = listener;
     }
 
     @NonNull
     @Override
     public SelectGreenhouseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.select_greenhouse_layout, parent, false);
+        final View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.greenhouse_card_layout, parent, false);
         return new SelectGreenhouseViewHolder(layoutView, this.listener);
     }
 
@@ -47,6 +44,7 @@ public class SelectGreenhouseAdapter extends RecyclerView.Adapter<SelectGreenhou
 
     @Override
     public void setData(List<String> data) {
+        System.out.println("ADAPTER " + data);
         this.greenhouseList = data;
         notifyDataSetChanged();
     }

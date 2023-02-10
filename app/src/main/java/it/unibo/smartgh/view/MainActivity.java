@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.isVisible()) {
-            if (item.getItemId() == android.R.id.home) {
+            if (item.getItemId() == android.R.id.home ) {
                 onBackPressed();
                 return  true;
             }

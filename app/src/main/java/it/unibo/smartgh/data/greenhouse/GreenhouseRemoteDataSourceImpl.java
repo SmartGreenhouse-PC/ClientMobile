@@ -128,6 +128,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
                     if (!jsonArray.isEmpty()) {
                        List<String> greenhousesName = new LinkedList<String>();
                        jsonArray.forEach(s -> greenhousesName.add(s.toString()));
+                       System.out.println("GREENHOUSE DATA SOURCE: " + greenhousesName);
                        this.repository.updateGreenhousesName(greenhousesName);
                     }
                 });

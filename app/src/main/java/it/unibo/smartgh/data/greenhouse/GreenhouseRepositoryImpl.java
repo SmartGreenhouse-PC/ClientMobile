@@ -35,6 +35,7 @@ public class GreenhouseRepositoryImpl implements GreenhouseRepository {
 
     @Override
     public void setAllGreenhousesName() {
+        System.out.println("REPOSITORY set all greenhouse name!");
       this.greenhouseRemoteDataSource.getAllGreenhousesName();
     }
 
@@ -45,7 +46,8 @@ public class GreenhouseRepositoryImpl implements GreenhouseRepository {
 
     @Override
     public void updateGreenhousesName(List<String> greenhousesName) {
-        this.viewModel.setGreenhousesName(greenhousesName);
+        System.out.println("REPOSITORY update greenhouse names");
+        this.viewModel.updateGreenhousesName(greenhousesName);
     }
 
     @Override
