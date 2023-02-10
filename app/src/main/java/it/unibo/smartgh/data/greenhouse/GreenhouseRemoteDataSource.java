@@ -12,6 +12,8 @@ public interface GreenhouseRemoteDataSource {
      */
     void initializeData();
 
+    void setGreenhouseId(String greenhouseId);
+
     /**
      * Initialize the modality socket.
      */
@@ -24,13 +26,14 @@ public interface GreenhouseRemoteDataSource {
 
     /**
      * Update the greenhouse management modality.
-     * @param greenhouseId id of the greenhouse.
      * @param modality new modality.
      */
-    void putModality(String greenhouseId, Modality modality);
+    void putModality(Modality modality);
 
     /**
      * Close the modality socket.
      */
     void closeModalitySocket();
+
+    void getAllGreenhousesName();
 }

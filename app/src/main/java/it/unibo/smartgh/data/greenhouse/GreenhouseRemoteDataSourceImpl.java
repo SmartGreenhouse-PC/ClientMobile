@@ -5,16 +5,21 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.WebSocket;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
 import it.unibo.smartgh.entity.greenhouse.GreenhouseImpl;
 import it.unibo.smartgh.entity.greenhouse.Modality;
+import it.unibo.smartgh.entity.operation.Operation;
+import it.unibo.smartgh.entity.operation.OperationImpl;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
 import it.unibo.smartgh.entity.parameter.ParameterValueImpl;
@@ -36,7 +41,7 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     private final String host;
     private final GreenhouseRepository repository;
     private final Vertx vertx;
-    private final String id;
+    private String id;
     private final Gson gson;
     private final int socketModalityPort;
     private GreenhouseImpl greenhouse;
@@ -49,17 +54,15 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
      * @param host the host of the server
      * @param port the port of the server
      * @param socketPort the socket port
-     * @param id the greenhouse id
      * @param repository the greenhouse repository
      * @param socketModalityPort the modality socket port
      */
-    public GreenhouseRemoteDataSourceImpl(String host, int port, int socketPort, String id, GreenhouseRepository repository, int socketModalityPort) {
+    public GreenhouseRemoteDataSourceImpl(String host, int port, int socketPort, GreenhouseRepository repository, int socketModalityPort) {
         this.host = host;
         this.port = port;
         this.socketPort = socketPort;
         this.vertx =  Vertx.vertx();
         this.repository = repository;
-        this.id = id;
         this.gson = GsonUtils.createGson();
         this.socketModalityPort = socketModalityPort;
     }
@@ -69,6 +72,12 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
         this.updateView();
         this.setSocket();
     }
+
+    @Override
+    public void setGreenhouseId(String greenhouseId) {
+        this.id = greenhouseId;
+    }
+
     @Override
     public void initializeModalitySocket(){
         this.modalitySocket = vertx.createHttpClient();
@@ -93,12 +102,12 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     }
 
     @Override
-    public void putModality(String greenhouseId, Modality modality) {
+    public void putModality(Modality modality) {
         WebClient client = WebClient.create(vertx);
         client.post(port, host, GREENHOUSE_PATH + "/modality")
                 .putHeader("Content-Type", "application/json")
                 .sendJsonObject(new JsonObject()
-                        .put("id", greenhouseId)
+                        .put("id", this.id)
                         .put("modality", modality.name())
                 ).onSuccess(r -> this.repository.updateModality(modality));
     }
@@ -106,6 +115,22 @@ public class GreenhouseRemoteDataSourceImpl implements GreenhouseRemoteDataSourc
     @Override
     public void closeModalitySocket() {
         this.modalitySocket.close();
+    }
+
+    @Override
+    public void getAllGreenhousesName() {
+        WebClient client = WebClient.create(vertx);
+        client.get(port, host, GREENHOUSE_PATH + "/all")
+                .putHeader("Content-Type", "application/json")
+                .send()
+                .onSuccess(r -> {
+                    JsonArray jsonArray = new JsonArray(r.body());
+                    if (!jsonArray.isEmpty()) {
+                       List<String> greenhousesName = new LinkedList<String>();
+                       jsonArray.forEach(s -> greenhousesName.add(s.toString()));
+                       this.repository.updateGreenhousesName(greenhousesName);
+                    }
+                });
     }
 
     private void setSocket() {

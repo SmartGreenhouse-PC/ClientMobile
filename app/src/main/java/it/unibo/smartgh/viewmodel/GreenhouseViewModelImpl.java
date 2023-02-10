@@ -29,6 +29,7 @@ import kotlin.Triple;
 public class GreenhouseViewModelImpl extends AndroidViewModel implements GreenhouseViewModel {
 
     protected final GreenhouseRepository greenhouseRepository;
+    private List<String> grenhousesName;
     private final MutableLiveData<Plant> plantLiveData;
     private final List<Triple<ParameterType, ParameterValue, String>> parameterList;
     private final MutableLiveData<List<Triple<ParameterType, ParameterValue, String>>> parametersLiveData;
@@ -41,6 +42,7 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
      */
     public GreenhouseViewModelImpl(@NonNull Application application) {
         super(application);
+        grenhousesName = new LinkedList<>();
         plantLiveData = new MutableLiveData<>();
         parameterList = initializeList();
         parametersLiveData = new MutableLiveData<>(parameterList);
@@ -55,6 +57,24 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         List<Triple<ParameterType, ParameterValue, String>> list = new LinkedList<>();
         Arrays.stream(ParameterType.values()).forEach(p -> list.add(new Triple<>(p, new ParameterValueImpl(), "")));
         return list;
+    }
+
+    @Override
+    public void setgreenhouseId(String greenhouseId) {
+        this.greenhouseRepository.setGreenhouseId(greenhouseId);
+    }
+
+    @Override
+    public void setGreenhousesName(List<String> greenhousesName) {
+        this.grenhousesName = greenhousesName;
+    }
+
+    @Override
+    public List<String> getAllGreenhouses() {
+        this.greenhouseRepository.setAllGreenhousesName();
+        System.out.println("GET all greenhouses called");
+        System.out.println(grenhousesName.toString());
+        return grenhousesName;
     }
 
     @Override

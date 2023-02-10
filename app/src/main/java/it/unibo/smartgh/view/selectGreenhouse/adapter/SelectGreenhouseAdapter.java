@@ -1,0 +1,57 @@
+package it.unibo.smartgh.view.selectGreenhouse.adapter;
+
+import android.app.Activity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import it.unibo.smartgh.R;
+import it.unibo.smartgh.view.recyclerview.Adapter;
+import it.unibo.smartgh.view.recyclerview.OnItemListener;
+
+public class SelectGreenhouseAdapter extends RecyclerView.Adapter<SelectGreenhouseViewHolder> implements Adapter<String> {
+
+    private Activity activity;
+    private List<String> greenhouseList;
+    private final OnItemListener listener;
+
+    public SelectGreenhouseAdapter(Activity activity, OnItemListener listener){
+        this.activity = activity;
+        this.greenhouseList = new LinkedList<String>();
+        this.listener = listener;
+    }
+
+    @NonNull
+    @Override
+    public SelectGreenhouseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.select_greenhouse_layout, parent, false);
+        return new SelectGreenhouseViewHolder(layoutView, this.listener);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull SelectGreenhouseViewHolder holder, int position) {
+        final String greenhouseName = this.greenhouseList.get(position);
+        holder.getGreenhouseName().setText(greenhouseName);
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.greenhouseList.size();
+    }
+
+    @Override
+    public void setData(List<String> data) {
+        this.greenhouseList = data;
+        notifyDataSetChanged();
+    }
+
+    public List<String> getData(){
+        return this.greenhouseList;
+    }
+}

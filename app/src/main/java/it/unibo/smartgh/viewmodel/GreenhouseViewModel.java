@@ -15,6 +15,12 @@ import kotlin.Triple;
  */
 public interface GreenhouseViewModel {
 
+    void setgreenhouseId(String greenhouseId);
+
+    void setGreenhousesName(List<String> greenhousesName);
+
+    List<String> getAllGreenhouses();
+
     /**
      * Update the view plant information.
      * @param plant containing the information.
