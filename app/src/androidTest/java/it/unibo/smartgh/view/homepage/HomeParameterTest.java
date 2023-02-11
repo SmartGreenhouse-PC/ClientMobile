@@ -65,13 +65,10 @@ public class HomeParameterTest extends AbstractActivityTest {
     }
 
     @Test
-    public void currentValueTest() {
-        final ParameterValue currentValue = new ParameterValueImpl("greenhouse1", new Date(), 7.0);
-        currentValue.setUnit(Objects.requireNonNull(plant.getParameters().get(ParameterType.TEMPERATURE)).getUnit());
-        this.greenhouseViewModel.updateParameterValue(ParameterType.TEMPERATURE, currentValue);
+    public void currentValueTest() throws InterruptedException {
         ViewInteraction textView = onView(
                 allOf(withId(R.id.homepage_parameter_current_value),
-                        withText(currentValue.getValue() + " " + currentValue.getUnit()),
+                        withText(this.currentValue.getValue() + " " + this.currentValue.getUnit()),
                         withParent(withParent(IsInstanceOf.<View>instanceOf(androidx.cardview.widget.CardView.class))),
                         isDisplayed()));
         textView.check(matches(withText(currentValue.getValue() + " " + currentValue.getUnit())));
