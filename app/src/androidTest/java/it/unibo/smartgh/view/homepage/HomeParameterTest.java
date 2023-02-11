@@ -66,7 +66,7 @@ public class HomeParameterTest extends AbstractActivityTest {
 
     @Test
     public void currentValueTest() {
-        final ParameterValue currentValue = new ParameterValueImpl("1", new Date(), 7.0);
+        final ParameterValue currentValue = new ParameterValueImpl("greenhouse1", new Date(), 7.0);
         currentValue.setUnit(Objects.requireNonNull(plant.getParameters().get(ParameterType.TEMPERATURE)).getUnit());
         this.greenhouseViewModel.updateParameterValue(ParameterType.TEMPERATURE, currentValue);
         ViewInteraction textView = onView(
