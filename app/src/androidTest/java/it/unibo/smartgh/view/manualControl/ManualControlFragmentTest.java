@@ -4,6 +4,8 @@ package it.unibo.smartgh.view.manualControl;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.scrollTo;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
@@ -35,6 +37,8 @@ public class ManualControlFragmentTest extends AbstractActivityTest {
     @Override
     public void init() {
         super.init();
+        ViewInteraction card = onView(withId(R.id.select_greenhouse_recycler_view)).perform(scrollTo(hasDescendant(withText("greenhouse1"))));
+        card.perform(click());
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.manual_control_button), withText("Imposta controllo manuale"),
                         isDisplayed()));
@@ -49,9 +53,9 @@ public class ManualControlFragmentTest extends AbstractActivityTest {
                         withParent(withParent(withId(R.id.fragment_container_view))),
                         isDisplayed()));
             switch_.check(matches(isDisplayed()));
-            this.viewModel.updateModality(Modality.MANUAL);
+            this.greenhouseViewModel.updateModality(Modality.MANUAL);
             switch_.check(matches(isChecked()));
-            this.viewModel.updateModality(Modality.AUTOMATIC);
+            this.greenhouseViewModel.updateModality(Modality.AUTOMATIC);
             switch_.check(matches(isNotChecked()));
         });
     }

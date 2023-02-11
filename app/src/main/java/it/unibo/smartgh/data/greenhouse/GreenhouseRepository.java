@@ -1,5 +1,7 @@
 package it.unibo.smartgh.data.greenhouse;
 
+import java.util.List;
+
 import it.unibo.smartgh.entity.greenhouse.Modality;
 import it.unibo.smartgh.entity.parameter.ParameterType;
 import it.unibo.smartgh.entity.parameter.ParameterValue;
@@ -14,6 +16,19 @@ public interface GreenhouseRepository {
      * Initialize the view with the greenhouse data.
      */
     void initializeData();
+
+    /**
+     * Sets all the name of the different greenhouses.
+     */
+    void setAllGreenhousesName();
+
+    /**
+     * Set the id of the current greenhouse selected.
+     * @param greenhouseId the id of the greenhouse.
+     */
+    void setGreenhouseId(String greenhouseId);
+
+    void updateGreenhousesName(List<String> greenhousesName);
 
     /**
      * Update the view plant information.

@@ -1,6 +1,7 @@
 package it.unibo.smartgh.viewmodel;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -14,6 +15,20 @@ import kotlin.Triple;
  * An interface that represents the greenhouse view model.
  */
 public interface GreenhouseViewModel {
+
+    /**
+     * Set the id of the current greenhouse selected.
+     * @param greenhouseId the id of the greenhouse.
+     */
+    void setGreenhouseId(String greenhouseId);
+
+    /**
+     * Update the list og greenhouse name.
+     * @param greenhousesName the list of the different greenhouse name.
+     */
+    void updateGreenhousesName(List<String> greenhousesName);
+
+    MutableLiveData<List<String>> getAllGreenhouses();
 
     /**
      * Update the view plant information.

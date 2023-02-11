@@ -29,6 +29,7 @@ import kotlin.Triple;
 public class GreenhouseViewModelImpl extends AndroidViewModel implements GreenhouseViewModel {
 
     protected final GreenhouseRepository greenhouseRepository;
+    private MutableLiveData<List<String>> greenhousesName;
     private final MutableLiveData<Plant> plantLiveData;
     private final List<Triple<ParameterType, ParameterValue, String>> parameterList;
     private final MutableLiveData<List<Triple<ParameterType, ParameterValue, String>>> parametersLiveData;
@@ -41,6 +42,7 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
      */
     public GreenhouseViewModelImpl(@NonNull Application application) {
         super(application);
+        greenhousesName = new MutableLiveData<>();
         plantLiveData = new MutableLiveData<>();
         parameterList = initializeList();
         parametersLiveData = new MutableLiveData<>(parameterList);
@@ -48,13 +50,29 @@ public class GreenhouseViewModelImpl extends AndroidViewModel implements Greenho
         modalityLiveData = new MutableLiveData<>();
         Config config = ActivityUtilities.getConfig(application);
         greenhouseRepository = new GreenhouseRepositoryImpl(this, config.getHost(), config.getPort(), config.getSocketPort(), config.getSocketModalityPort());
-        greenhouseRepository.initializeData();
     }
 
     private List<Triple<ParameterType, ParameterValue, String>> initializeList() {
         List<Triple<ParameterType, ParameterValue, String>> list = new LinkedList<>();
         Arrays.stream(ParameterType.values()).forEach(p -> list.add(new Triple<>(p, new ParameterValueImpl(), "")));
         return list;
+    }
+
+    @Override
+    public void setGreenhouseId(String greenhouseId) {
+        this.greenhouseRepository.setGreenhouseId(greenhouseId);
+        greenhouseRepository.initializeData();
+    }
+
+    @Override
+    public void updateGreenhousesName(List<String> greenhousesName) {
+       this.greenhousesName.postValue(greenhousesName);
+    }
+
+    @Override
+    public MutableLiveData<List<String>> getAllGreenhouses() {
+        this.greenhouseRepository.setAllGreenhousesName();
+        return this.greenhousesName;
     }
 
     @Override

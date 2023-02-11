@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.utility.ActivityUtilities;
 import it.unibo.smartgh.view.homepage.HomeFragment;
+import it.unibo.smartgh.view.manualControl.ManualControlFragment;
+import it.unibo.smartgh.view.selectGreenhouse.SelectGreenhouseFragment;
 
 /**
  * This class represents the main activity of the application.
@@ -21,9 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         if (savedInstanceState == null) {
-            ActivityUtilities.insertFragment(this, new HomeFragment(), HomeFragment.class.getSimpleName());
+            ActivityUtilities.insertFragment(this, new SelectGreenhouseFragment(), SelectGreenhouseFragment.class.getSimpleName());
         }
     }
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.isVisible()) {
-            if (item.getItemId() == android.R.id.home) {
+            if (item.getItemId() == android.R.id.home ) {
                 onBackPressed();
                 return  true;
             }

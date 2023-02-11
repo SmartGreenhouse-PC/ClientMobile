@@ -1,7 +1,11 @@
 package it.unibo.smartgh.view.homepage;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.scrollTo;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -31,6 +35,13 @@ import it.unibo.smartgh.view.AbstractActivityTest;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class HomeFragmentTest extends AbstractActivityTest {
+
+    @Override
+    public void init() {
+        super.init();
+        ViewInteraction card = onView(withId(R.id.select_greenhouse_recycler_view)).perform(scrollTo(hasDescendant(withText("greenhouse1"))));
+        card.perform(click());
+    }
 
     @Test
     public void basicInformationTest() {

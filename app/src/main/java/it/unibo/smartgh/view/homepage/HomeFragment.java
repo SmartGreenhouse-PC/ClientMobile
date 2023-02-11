@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -55,7 +57,7 @@ public class HomeFragment extends Fragment {
         this.activity = getActivity();
         if (activity != null) {
             ActivityUtilities.setUpToolbar((AppCompatActivity) activity, "Smart Greenhouse");
-            ActivityUtilities.setVisibleToolbarNavigationIcon((AppCompatActivity) activity, false);
+            ActivityUtilities.setVisibleToolbarNavigationIcon((AppCompatActivity) activity, true);
             setRecyclerView();
             final TextView plantName = view.findViewById(R.id.plant_name);
             final ImageView plantImage = view.findViewById(R.id.plant_image);
@@ -79,6 +81,16 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     private void setRecyclerView() {

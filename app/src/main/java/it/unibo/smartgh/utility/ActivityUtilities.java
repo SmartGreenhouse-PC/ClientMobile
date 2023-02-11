@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 import it.unibo.smartgh.R;
 import it.unibo.smartgh.view.homepage.HomeFragment;
+import it.unibo.smartgh.view.selectGreenhouse.SelectGreenhouseFragment;
 
 
 /**
@@ -46,7 +47,7 @@ public class ActivityUtilities {
     public static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag) {
         final FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container_view, fragment, tag);
-        if (!(fragment instanceof HomeFragment)) {
+        if (!(fragment instanceof SelectGreenhouseFragment)) {
             transaction.addToBackStack(tag);
         }
         transaction.commit();
