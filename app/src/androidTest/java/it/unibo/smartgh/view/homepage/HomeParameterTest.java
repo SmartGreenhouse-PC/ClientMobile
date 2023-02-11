@@ -2,7 +2,10 @@ package it.unibo.smartgh.view.homepage;
 
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.scrollTo;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
@@ -36,6 +39,13 @@ import it.unibo.smartgh.view.AbstractActivityTest;
 @RunWith(AndroidJUnit4.class)
 public class HomeParameterTest extends AbstractActivityTest {
 
+    @Override
+    public void init() {
+        super.init();
+        ViewInteraction card = onView(withId(R.id.select_greenhouse_recycler_view)).perform(scrollTo(hasDescendant(withText("greenhouse1"))));
+        card.perform(click());
+    }
+
     @Test
     public void homeParameterTest() {
         this.plant.getParameters().forEach((type, parameter) -> {
@@ -58,7 +68,7 @@ public class HomeParameterTest extends AbstractActivityTest {
     public void currentValueTest() {
         final ParameterValue currentValue = new ParameterValueImpl("1", new Date(), 7.0);
         currentValue.setUnit(Objects.requireNonNull(plant.getParameters().get(ParameterType.TEMPERATURE)).getUnit());
-        this.viewModel.updateParameterValue(ParameterType.TEMPERATURE, currentValue);
+        this.greenhouseViewModel.updateParameterValue(ParameterType.TEMPERATURE, currentValue);
         ViewInteraction textView = onView(
                 allOf(withId(R.id.homepage_parameter_current_value),
                         withText(currentValue.getValue() + " " + currentValue.getUnit()),
