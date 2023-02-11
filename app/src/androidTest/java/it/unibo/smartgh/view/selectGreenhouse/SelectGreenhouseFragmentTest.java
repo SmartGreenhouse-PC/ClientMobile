@@ -20,6 +20,9 @@ import org.junit.runner.RunWith;
 
 import it.unibo.smartgh.view.AbstractActivityTest;
 
+/**
+ * Test to verify the correct behaviour of the select greenhouse fragment.
+ */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class SelectGreenhouseFragmentTest extends AbstractActivityTest {

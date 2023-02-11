@@ -35,5 +35,8 @@ public interface GreenhouseRemoteDataSource {
      */
     void closeModalitySocket();
 
+    /**
+     * Gets all the names of the different greenhouses.
+     */
     void getAllGreenhousesName();
 }

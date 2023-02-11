@@ -15,10 +15,17 @@ import it.unibo.smartgh.R;
 import it.unibo.smartgh.view.recyclerview.Adapter;
 import it.unibo.smartgh.view.recyclerview.OnItemListener;
 
+/**
+ * A class that represents the greenhouse adapter.
+ */
 public class SelectGreenhouseAdapter extends RecyclerView.Adapter<SelectGreenhouseViewHolder> implements Adapter<String> {
     private List<String> greenhouseList;
     private final OnItemListener listener;
 
+    /**
+     * Constructor of {@link SelectGreenhouseAdapter}.
+     * @param listener the listener associated.
+     */
     public SelectGreenhouseAdapter(OnItemListener listener){
         this.greenhouseList = new LinkedList<>();
         this.listener = listener;

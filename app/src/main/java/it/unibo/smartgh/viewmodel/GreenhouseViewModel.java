@@ -16,8 +16,16 @@ import kotlin.Triple;
  */
 public interface GreenhouseViewModel {
 
+    /**
+     * Set the id of the current greenhouse selected.
+     * @param greenhouseId the id of the greenhouse.
+     */
     void setGreenhouseId(String greenhouseId);
 
+    /**
+     * Update the list og greenhouse name.
+     * @param greenhousesName the list of the different greenhouse name.
+     */
     void updateGreenhousesName(List<String> greenhousesName);
 
     MutableLiveData<List<String>> getAllGreenhouses();

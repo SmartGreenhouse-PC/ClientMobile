@@ -24,6 +24,9 @@ import it.unibo.smartgh.view.selectGreenhouse.adapter.SelectGreenhouseAdapter;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModel;
 import it.unibo.smartgh.viewmodel.GreenhouseViewModelImpl;
 
+/**
+ * A class that represents the select greenhouse fragment.
+ */
 public class SelectGreenhouseFragment extends Fragment implements OnItemListener {
 
     private Activity activity;

@@ -17,8 +17,15 @@ public interface GreenhouseRepository {
      */
     void initializeData();
 
+    /**
+     * Sets all the name of the different greenhouses.
+     */
     void setAllGreenhousesName();
 
+    /**
+     * Set the id of the current greenhouse selected.
+     * @param greenhouseId the id of the greenhouse.
+     */
     void setGreenhouseId(String greenhouseId);
 
     void updateGreenhousesName(List<String> greenhousesName);
