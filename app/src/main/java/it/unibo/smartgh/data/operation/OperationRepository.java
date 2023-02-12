@@ -12,6 +12,10 @@ public interface OperationRepository {
      */
     void initialize();
 
+    /**
+     * Set the greenhouse id.
+     * @param greenhouseId the greenhouse id.
+     */
     void setGreenhouseId(String greenhouseId);
 
     /**

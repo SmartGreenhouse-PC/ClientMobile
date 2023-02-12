@@ -36,7 +36,12 @@ public class ManualControlFragment extends Fragment {
     private GreenhouseViewModel greenhouseViewModel;
     private final String greenhouseId;
 
+    /**
+     * Public constructor for the ManualControlFragment.
+     * @param greenhouseId the current greenhouse id.
+     */
     public ManualControlFragment(String greenhouseId) {
+        super();
         this.greenhouseId = greenhouseId;
     }
 

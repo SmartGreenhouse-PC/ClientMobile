@@ -40,6 +40,10 @@ public class HomeFragment extends Fragment {
     private HomepageParameterAdapter homepageParameterAdapter;
     private final String greenhouseId;
 
+    /**
+     * Public constructor fot the HomeFragment.
+     * @param greenhouseId the current greenhouse id.
+     */
     public HomeFragment(String greenhouseId){
         super();
         this.greenhouseId = greenhouseId;
