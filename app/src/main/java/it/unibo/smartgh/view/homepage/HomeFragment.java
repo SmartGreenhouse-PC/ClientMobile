@@ -38,6 +38,12 @@ public class HomeFragment extends Fragment {
 
     private Activity activity;
     private HomepageParameterAdapter homepageParameterAdapter;
+    private final String greenhouseId;
+
+    public HomeFragment(String greenhouseId){
+        super();
+        this.greenhouseId = greenhouseId;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +70,7 @@ public class HomeFragment extends Fragment {
             final TextView greenhouseStatus = view.findViewById(R.id.greenhouse_status);
             final Button manualControlButton = view.findViewById(R.id.manual_control_button);
             final GreenhouseViewModel viewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
-            manualControlButton.setOnClickListener(v -> ActivityUtilities.insertFragment((AppCompatActivity) activity, new ManualControlFragment(), ManualControlFragment.class.getSimpleName()));
+            manualControlButton.setOnClickListener(v -> ActivityUtilities.insertFragment((AppCompatActivity) activity, new ManualControlFragment(greenhouseId), ManualControlFragment.class.getSimpleName()));
             viewModel.getPlantLiveData().observe((LifecycleOwner) activity, plant -> {
                 Picasso.get().load(plant.getImg()).into(plantImage);
                 plantName.setText(plant.getName());

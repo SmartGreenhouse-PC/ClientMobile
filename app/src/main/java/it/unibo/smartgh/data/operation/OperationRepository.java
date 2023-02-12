@@ -12,6 +12,8 @@ public interface OperationRepository {
      */
     void initialize();
 
+    void setGreenhouseId(String greenhouseId);
+
     /**
      * Send a new operation to server.
      * @param parameter on which is performed the new operation.

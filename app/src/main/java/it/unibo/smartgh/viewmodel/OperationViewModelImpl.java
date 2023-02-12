@@ -53,6 +53,11 @@ public class OperationViewModelImpl extends AndroidViewModel implements Operatio
     }
 
     @Override
+    public void setGreenhouseId(String greenhouseId) {
+        this.operationRepository.setGreenhouseId(greenhouseId);
+    }
+
+    @Override
     public void sendNewOperation(String parameter, String action) {
         this.operationRepository.sendNewOperation(parameter,action);
     }

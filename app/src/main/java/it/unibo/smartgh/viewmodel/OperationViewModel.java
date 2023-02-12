@@ -12,6 +12,8 @@ import it.unibo.smartgh.entity.parameter.ParameterType;
  */
 public interface OperationViewModel {
 
+    void setGreenhouseId(String greenhouseId);
+
     /**
      * Send a new operation to server.
      * @param parameter on which is performed the new operation.

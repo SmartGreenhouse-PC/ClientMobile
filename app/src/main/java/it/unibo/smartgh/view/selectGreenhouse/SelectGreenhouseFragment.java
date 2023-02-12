@@ -67,8 +67,9 @@ public class SelectGreenhouseFragment extends Fragment implements OnItemListener
 
     @Override
     public void onItemClick(int position) {
-        this.viewModel.setGreenhouseId(this.selectGreenhouseAdapter.getData().get(position));
-        ActivityUtilities.insertFragment((AppCompatActivity) activity, new HomeFragment(), HomeFragment.class.getSimpleName());
+        String greenhouseId = this.selectGreenhouseAdapter.getData().get(position);
+        this.viewModel.setGreenhouseId(greenhouseId);
+        ActivityUtilities.insertFragment((AppCompatActivity) activity, new HomeFragment(greenhouseId), HomeFragment.class.getSimpleName());
     }
 
     @Override

@@ -12,6 +12,8 @@ public interface OperationRemoteDataSource {
      */
     void initialize();
 
+    void setGreenhouseId(String greenhouseId);
+
     /**
      * Send a new operation to server.
      * @param operation the new operation performed.

@@ -31,18 +31,16 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource 
     private final Vertx vertx;
     private final Gson gson;
     private final OperationRepository operationRepository;
-    private final String id;
+    private String id;
     private final int socketOperationPort;
     private HttpClient clientOperation;
 
     public OperationRemoteDataSourceImpl(OperationRepositoryImpl operationRepository,
-                                         String id,
                                          String host,
                                          int port,
                                          int socketOperationPort) {
         this.host = host;
         this.port = port;
-        this.id = id;
         this.vertx = Vertx.vertx();
         this.gson = GsonUtils.createGson();
         this.operationRepository = operationRepository;
@@ -61,6 +59,11 @@ public class OperationRemoteDataSourceImpl implements OperationRemoteDataSource 
                             getLastParameterOperation(json.getString("parameterName"), id);
                         }});
                 });
+    }
+
+    @Override
+    public void setGreenhouseId(String greenhouseId) {
+        this.id = id;
     }
 
     @Override

@@ -34,6 +34,11 @@ import it.unibo.smartgh.viewmodel.OperationViewModelImpl;
 public class ManualControlFragment extends Fragment {
     private OperationAdapter operationAdapter;
     private GreenhouseViewModel greenhouseViewModel;
+    private final String greenhouseId;
+
+    public ManualControlFragment(String greenhouseId) {
+        this.greenhouseId = greenhouseId;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +61,7 @@ public class ManualControlFragment extends Fragment {
             ActivityUtilities.setVisibleToolbarNavigationIcon((AppCompatActivity) activity, true);
             setRecyclerView();
             final OperationViewModel operationViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(OperationViewModelImpl.class);
+            operationViewModel.setGreenhouseId(this.greenhouseId);
             greenhouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(GreenhouseViewModelImpl.class);
             greenhouseViewModel.initializeModalitySocket();
             this.operationAdapter.setOperationViewModel(operationViewModel);

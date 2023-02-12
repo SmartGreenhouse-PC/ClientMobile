@@ -12,8 +12,8 @@ import it.unibo.smartgh.viewmodel.OperationViewModel;
  * Implementation of {@link OperationRepository} interface.
  */
 public class OperationRepositoryImpl implements OperationRepository{
-    private static final String GREENHOUSE_ID = "63af0ae025d55e9840cbc1fc";
     private final OperationRemoteDataSource operationRemoteDataSource;
+    private String greenhouseId;
     private final OperationViewModel viewModel;
 
     /**
@@ -24,7 +24,7 @@ public class OperationRepositoryImpl implements OperationRepository{
      * @param socketOperationPort the port of the operation socket
      */
     public OperationRepositoryImpl(OperationViewModel viewModel, String host, int port, int socketOperationPort) {
-        this.operationRemoteDataSource = new OperationRemoteDataSourceImpl(this, GREENHOUSE_ID, host, port, socketOperationPort);
+        this.operationRemoteDataSource = new OperationRemoteDataSourceImpl(this, host, port, socketOperationPort);
         this.viewModel = viewModel;
     }
 
@@ -34,9 +34,15 @@ public class OperationRepositoryImpl implements OperationRepository{
     }
 
     @Override
+    public void setGreenhouseId(String greenhouseId) {
+        this.greenhouseId = greenhouseId;
+        this.operationRemoteDataSource.setGreenhouseId(greenhouseId);
+    }
+
+    @Override
     public void sendNewOperation(String parameter, String action) {
         Operation operation = new OperationImpl(
-                GREENHOUSE_ID,
+                this.greenhouseId,
                 Modality.MANUAL,
                 new Date(),
                 parameter,
@@ -47,7 +53,7 @@ public class OperationRepositoryImpl implements OperationRepository{
 
     @Override
     public void getLastParameterOperation(String parameter) {
-        this.operationRemoteDataSource.getLastParameterOperation(parameter, GREENHOUSE_ID);
+        this.operationRemoteDataSource.getLastParameterOperation(parameter, this.greenhouseId);
     }
 
     @Override
