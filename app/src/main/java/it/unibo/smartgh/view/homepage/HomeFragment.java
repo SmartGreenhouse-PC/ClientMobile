@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment {
                 Picasso.get().load(plant.getImg()).into(plantImage);
                 plantName.setText(plant.getName());
             });
+
             viewModel.getParametersLiveData().observe((LifecycleOwner) activity, homepageParameterAdapter::setData);
             viewModel.getStatusLiveData().observe((LifecycleOwner) activity, state -> {
                 greenhouseStatus.setText(state);
