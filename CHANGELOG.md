@@ -1,3 +1,15 @@
+## [1.2.1](https://github.com/SmartGreenhouse-PC/ClientMobile/compare/1.2.0...1.2.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* fix constructor intialization ([94b1d84](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/94b1d8476aade578426e39d90bd686e320bd69d4))
+
+
+### Refactoring
+
+* refactor id for operation repository ([8d9b8bc](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/8d9b8bcc24d2a66686571b840a0b8e5729397bdb))
+
 ## [1.2.0](https://github.com/SmartGreenhouse-PC/ClientMobile/compare/1.1.0...1.2.0) (2023-02-11)
 
 
