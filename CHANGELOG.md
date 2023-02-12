@@ -1,3 +1,41 @@
+## [1.2.0](https://github.com/SmartGreenhouse-PC/ClientMobile/compare/1.1.0...1.2.0) (2023-02-11)
+
+
+### Features
+
+* add back to homepage ([d9f00be](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/d9f00beb943e2ab2f7ba5d058537c326f05c0910))
+* add view for selecting the greenhouse ([00bced0](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/00bced0d948c29c9d6945f769b8e52c5fdcb7bda))
+
+
+### Bug Fixes
+
+* fix id in test ([51f4ce9](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/51f4ce972fc1d7fddd22bd9a8caea04964d3976a))
+* fix label temperature initialization ([687a02e](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/687a02eafce0d6a195012076dc4304c695bce1ce))
+
+
+### Dependency updates
+
+* **deps:** update dependency androidx.test:rules to v1.5.0 ([c5285c4](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/c5285c4c2db0f3e084ee35d1f0298b88217147e1))
+* **deps:** update dependency androidx.test:runner to v1.5.2 ([66ceb54](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/66ceb54d25803327ffb95c868e3bf93b0991d174))
+* **deps:** update dependency org.awaitility:awaitility to v3.1.6 ([f8a3294](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/f8a3294bcbf9e6484386d318211e5cc13f9f29c2))
+* **deps:** update dependency org.jetbrains.kotlin:kotlin-gradle-plugin to v1.8.10 ([1f55e29](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/1f55e29474da8c80a3381ab183169ed7ee2dbeea))
+
+
+### Build and continuous integration
+
+* **deps:** update actions/checkout action to v3 ([914e95d](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/914e95d7d69bcefe62f7451514c79fbc5550b149))
+* **deps:** update dependency macos github actions runner to v12 ([da8a98c](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/da8a98cf209cc325c69473169d0da9a263af05d1))
+
+
+### Tests
+
+* add test for the select greenhouse view ([cb9c7e3](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/cb9c7e370263f3dc56a02a0b598f04d4fcbdd9e4))
+
+
+### Documentation
+
+* add documentation to different classes ([9260458](https://github.com/SmartGreenhouse-PC/ClientMobile/commit/9260458b9d4e9fe1d4ac8de02cf3c9ed5807f5f8))
+
 ## [1.1.0](https://github.com/SmartGreenhouse-22-23/ClientMobile/compare/1.0.2...1.1.0) (2023-02-06)
 
 
